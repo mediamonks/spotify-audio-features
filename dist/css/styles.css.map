@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,KACE,wBAAkB,CAClB,YAAS,CACT,cAAW,CACX,+BAAa,CAGf,SACE,eAAa","file":"styles.css","sourcesContent":["body {\n  background-color: #f2f2f2;\n  padding: 30px;\n  font-size: 30px;\n  font-family: Sawasdee, sans-serif;\n}\n\nh1, h2, h3 {\n  font-weight: bold;\n}"]}

@@ -45,5 +45,8 @@
     "rollup-plugin-uglify": "^6.0.2",
     "rollup-stream": "^1.24.1",
     "vue": "^2.5.22"
+  },
+  "dependencies": {
+    "spotify-web-api-js": "^1.2.0"
   }
 }

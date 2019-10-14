@@ -2,7 +2,7 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8">
-    <title>Fonkel VueJS ES2015(+) template 2019</title>
+    <title>Spotify Audio Features</title>
 
     <link rel="stylesheet" href="/css/styles.css">
 
@@ -11,17 +11,15 @@
     <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"></script>
 
     <!-- nomodule tag polyfill for safari 10 -->
-    <script>(function() {var d = document;var c = d.createElement('script');if (!('noModule' in c) && 'onbeforeload' in c) {var s = false;d.addEventListener('beforeload', function(e) {if (e.target === c) {s = true;} else if (!e.target.hasAttribute('nomodule') || !s) {return;}e.preventDefault();}, true);c.type = 'module';c.src = '.';d.head.appendChild(c);c.remove();}}());</script>
+    <!-- <script>(function() {var d = document;var c = d.createElement('script');if (!('noModule' in c) && 'onbeforeload' in c) {var s = false;d.addEventListener('beforeload', function(e) {if (e.target === c) {s = true;} else if (!e.target.hasAttribute('nomodule') || !s) {return;}e.preventDefault();}, true);c.type = 'module';c.src = '.';d.head.appendChild(c);c.remove();}}());</script> -->
 
-    <!-- Libraries -->
-    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/node_modules/spotify-web-api-js/src/spotify-web-api.js"></script>
 
     <script type="module" src="/js/app.js"></script>
     <script nomodule defer src="/js/app-fallback.js"></script>
   </head>
 
   <body>
-    <h1>Fonkel VueJS ES2015(+) template 2019</h1>
     <div id="app"></div>
   </body>
 </html>

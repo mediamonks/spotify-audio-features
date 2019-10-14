@@ -8,5 +8,6 @@ if (debugPreference !== null) {
 export const config = Object.freeze({
   debug: debugPreference !== null ? debugPreference : debugMode,
   // Updaten bij wijzingen in logica die verder gaan dan bijvoorbeeld bugfixes.
-  appName: 'VueJS ES2015(+) template 2019',
+  appName: 'Spotify Audio Features experiment',
+  spotifyClientId: '51293fca304b49a0b24c779966829ca9',
 });

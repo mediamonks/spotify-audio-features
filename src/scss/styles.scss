@@ -1,10 +1,85 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+html, body, #app {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 body {
   background-color: #f2f2f2;
-  padding: 30px;
-  font-size: 30px;
+  color: #001f17;
+  font-size: 20px;
   font-family: Sawasdee, sans-serif;
+  overflow-y: auto;
+}
+
+#app {
+  padding: 50px 80px 20px;
+}
+
+.search-panel {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-bottom: 20px;
+
+  input, button {
+    appearance: none;
+    border: none;
+    outline: none;
+    font-size: 26px;
+    padding: 18px 24px;
+    font-weight: bold;
+  }
+
+  input {
+    flex: 1 1 auto;
+    width: auto;
+    background-color: #dde8ea;
+  }
+
+  button {
+    flex: 0 0 auto;
+    background-color: #a1d1de;
+    cursor: pointer;
+  }
+}
+
+.results-panel {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-bottom: 20px;
+  background-color: #dde8ea;
+  padding: 18px 24px;
 }
 
 h1, h2, h3 {
   font-weight: bold;
 }
+
+.subscript {
+  margin-top: auto;
+}
+
+@import './components/loading-spinner';
+@import './components/spotify-track';

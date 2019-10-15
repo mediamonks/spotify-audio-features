@@ -1,0 +1,10 @@
+.test-links {
+  display: flex;
+  margin-top: 12px;
+
+  button {
+    + button {
+      margin-left: 10px;
+    }
+  }
+}

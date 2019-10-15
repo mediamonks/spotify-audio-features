@@ -1,0 +1,83 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body, #app {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+body {
+  background-color: $black;
+  color: $white;
+  font-size: 18px;
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+button {
+  --size: 26px;
+  appearance: none;
+  border: none;
+  outline: none;
+  font-size: var(--size);
+  padding: calc(var(--size) - 8px) calc(var(--size) - 2px);
+  font-weight: bold;
+  flex: 0 0 auto;
+  background-color: $green;
+  color: $white;
+  cursor: pointer;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: .3s;
+
+  &.small {
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 16px 48px;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+  }
+
+  &:hover {
+    background-color: #1ed760;
+  }
+
+  &:active,
+  &:active:hover {
+    background-color: #1aa34a;
+  }
+}
+
+a {
+  color: inherit;
+}

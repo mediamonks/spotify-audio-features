@@ -1,0 +1,48 @@
+#app {
+  padding: 50px 80px 0;
+}
+
+.search-panel {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+
+  input {
+    appearance: none;
+    border: none;
+    outline: none;
+    font-size: 26px;
+    padding: 18px 24px;
+    font-weight: bold;
+    flex: 1 1 auto;
+    width: auto;
+    background-color: $white;
+    color: $black;
+  }
+}
+
+.results-panel {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  margin: 20px 0;
+  padding: $gutter 0;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.subscript {
+  margin-top: auto;
+  margin-bottom: 40px;
+}

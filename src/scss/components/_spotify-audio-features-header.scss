@@ -1,0 +1,27 @@
+.spotify-audio-features-header {
+  position: sticky;
+  top: 0;
+  margin-left: $left-width;
+  display: flex;
+  justify-content: stretch;
+  align-items: flex-start;
+  z-index: 100;
+
+  .audio-feature-header {
+    flex: 0 0 auto;
+    display: block;
+    width: $audio-feature-column-width;
+    padding: 30px 15px;
+    text-align: center;
+    background-color: $grey-dark;
+    border-bottom: 1px solid lighten($grey-dark, 10%);
+
+    &:first-child {
+      border-top-left-radius: 30px;
+    }
+    
+    &:last-child {
+      border-top-right-radius: 30px;
+    }
+  }
+}

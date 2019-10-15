@@ -1,76 +1,100 @@
+import { audioFeatures } from '../helpers/audio-features.js';
+import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
+
 export const SpotifyTrack = {
 
   props: [
-    'trackData',
+    'contentData',
   ],
 
-  template:  `<div class="spotify-track">
-                <section class="left">
-                  <h3>{{ trackData.track.name }}</h3>
-                  <h5>{{ trackData.track.artists.map(artist => artist.name).join(', ') }}</h5>
+  mixins: [
+    AudioFeatureValue,
+  ],
+
+  template:  `<div class="spotify-track" :class="{
+                'preview-available': hasAudioPreview,
+                'playing-preview': playingAudioPreview,
+              }">
+                <audio
+                  ref="player"
+                  preload="none"
+                  v-if="hasAudioPreview"
+                  :src="contentData.trackInfo.preview_url"
+                  style="visibilty: hidden;"
+                  @play="playingAudioPreview = true"
+                  @pause="playingAudioPreview = false"
+                  @ended="playingAudioPreview = false"
+                ></audio>
+
+                <section class="left" @click="hasAudioPreview && playPause()">
+                  <img class="cover" :src="coverImage" v-if="coverImage"/>
+                  <div class="song">
+                    <h3 class="title">{{ contentData.trackInfo.name }}</h3>
+                    <h5 class="artists">{{ contentData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
+                  </div>
                 </section>
 
                 <section class="right">
-                  <template v-for="feature in features">
-                    <div :title="feature.description">
-                      <h5>{{ feature.name }}</h5>
-                      <input type="range" min="0" max="1" step="0.00001" :value="trackData.audioFeatures[feature.name]">
+                  <template v-for="audioFeature in audioFeatures">
+                    <div class="audio-feature" @click="showDetails(audioFeature)">
+                      <span :style="getStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
                     </div>
                   </template>
                 </section>
               </div>`,
 
-  mounted () {
-    console.log(this.trackData);
+  computed: {
+    coverImage () {
+      try {
+        const albumArt = this.contentData.trackInfo.album.images[2].url;
+        return albumArt;
+      }
+
+      catch (err) {
+        return null;
+      }
+    },
+
+    hasAudioPreview () {
+      return !!this.contentData.trackInfo.preview_url;
+    },
   },
 
   data () {
     return {
-      features: [
-        {
-          name: 'valence',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'energy',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'danceability',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'acousticness',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'instrumentalness',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'speechiness',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-        {
-          name: 'liveness',
-          minText: '',
-          maxText: '',
-          description: '...',
-        },
-      ],
+      audioFeatures,
+      playingAudioPreview: false,
     };
+  },
+
+  methods: {
+    getAudioFeatureValue (audioFeature) {
+      return this.contentData.audioFeatures[audioFeature.id];
+    },
+    
+    getAudioFeatureRoundedValue (audioFeature) {
+      return Math.round(this.getAudioFeatureValue(audioFeature) * 100);
+    },
+
+    showDetails (audioFeature) {
+      const value = this.getAudioFeatureValue(audioFeature),
+            message = this.getMessage(audioFeature, value);
+
+      alert(`This track scores ${this.getAudioFeatureRoundedValue(audioFeature)}% on ${audioFeature.id}, which means:\n` +
+            `${message}\n\n` +
+            `${audioFeature.name}:\n${audioFeature.description}`);
+    },
+
+    playPause () {
+      if (this.playingAudioPreview === false) {
+        this.$refs.player.play();
+      }
+
+      else {
+        this.$refs.player.pause();
+        this.$refs.player.currentTime = 0;
+      }
+    }
   },
 
 };

@@ -1,6 +1,7 @@
 // ESM imports
-import { config } from './config.js';
 import Vue from '/node_modules/vue/dist/vue.esm.browser.js';
+import { config } from './config.js';
+import { store } from './store.js';
 
 // Components
 import { LoadingSpinner } from './components/loading-spinner.js';
@@ -28,6 +29,8 @@ Vue.component('input-for-search', InputForSearch);
 new Vue({
 
   el: '#app',
+
+  store,
 
   template:  `<div id="app"
                 @dragenter.capture.prevent.stop="draggingOver = true"
@@ -84,7 +87,7 @@ new Vue({
       config,
       spotifyApi,
       
-      spotifyUrl: this.spotifyUrlToPrefill || '',
+      // spotifyUrl: this.spotifyUrlToPrefill || '',
 
       searching: false,
       errored: false,
@@ -104,6 +107,17 @@ new Vue({
     window.addEventListener('popstate', (event) => {
       this.setSpotifyUrlFromSearchParams();
     });
+  },
+
+  computed: {
+    spotifyUrl: {
+      get () {
+        return this.$store.state.spotifyUrl;
+      },
+      set (value) {
+        this.$store.commit('updateSpotifyUrl', value);
+      }
+    }
   },
 
   methods: {
@@ -132,7 +146,7 @@ new Vue({
       if (hash.access_token) {
         postAuthSituation = true;
         // Set token in localStorage
-        localStorage.setItem('spotify_audio_features_access_token', hash.access_token);
+        localStorage.setItem(`${config.appID}_access_token`, hash.access_token);
       }
 
       // 'NORMAL' SITUATION
@@ -141,7 +155,7 @@ new Vue({
       }
 
       if (postAuthSituation) {
-        const postAuthSpotifyUrlToPrefill = localStorage.getItem('spotify_audio_features_post_access_grant_url_prefill');
+        const postAuthSpotifyUrlToPrefill = localStorage.getItem(`${config.appID}_post_access_grant_url_prefill`);
         
         if (postAuthSpotifyUrlToPrefill) {
           history.replaceState(null, null, `/?search=${postAuthSpotifyUrlToPrefill}`);
@@ -149,7 +163,7 @@ new Vue({
       }
 
       // Always clear this to prevent bugs, no matter what situation.
-      localStorage.removeItem('spotify_audio_features_post_access_grant_url_prefill');
+      localStorage.removeItem(`${config.appID}_post_access_grant_url_prefill`);
       
       // Search params will contain param 'search' when:
       // 1) User searched something then refreshed the page
@@ -159,7 +173,7 @@ new Vue({
       const spotifyUrlToPrefill = currentPage.searchParams.get('search');
 
       // Get freshly created or previously set access token from localStorage
-      const spotifyAccessToken = localStorage.getItem('spotify_audio_features_access_token');
+      const spotifyAccessToken = localStorage.getItem(`${config.appID}_access_token`);
 
       // If token is present, continue starting up
       if (spotifyAccessToken) {
@@ -183,7 +197,7 @@ new Vue({
         ];
 
         if (spotifyUrlToPrefill) {
-          localStorage.setItem('spotify_audio_features_post_access_grant_url_prefill', spotifyUrlToPrefill);
+          localStorage.setItem(`${config.appID}_post_access_grant_url_prefill`, spotifyUrlToPrefill);
         }
 
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
@@ -196,7 +210,7 @@ new Vue({
         window.location.search = `?search=${this.spotifyUrl}`;
       }
 
-      localStorage.removeItem('spotify_audio_features_access_token');
+      localStorage.removeItem(`${config.appID}_access_token`);
       window.location.reload();
     },
 

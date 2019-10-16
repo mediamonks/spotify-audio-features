@@ -9,5 +9,6 @@ export const config = Object.freeze({
   debug: debugPreference !== null ? debugPreference : debugMode,
   // Updaten bij wijzingen in logica die verder gaan dan bijvoorbeeld bugfixes.
   appName: 'Spotify Audio Features experiment',
+  appID: 'spotify_audio_features',
   spotifyClientId: '51293fca304b49a0b24c779966829ca9',
 });

@@ -25,9 +25,13 @@ new Vue({
   el: '#app',
 
   template:  `<div id="app"
-                @dragover.capture.prevent.stop="draggingOver = true"
-                @dragleave.capture.stop="draggingOver = false"
+                @dragenter.capture.prevent.stop="draggingOver = true"
+                @dragover.capture.prevent.stop
+                @dragleave.self.capture.prevent.stop="draggingOver = false"
                 @drop.capture.prevent.stop="testDroppedData"
+                :class="{
+                  'drag-over': draggingOver,
+                }"
               >
                 <div class="search-panel">
                   <input
@@ -36,10 +40,10 @@ new Vue({
                     size="100"
                     placeholder="Enter or drag and drop Spotify link here"
                     v-model="spotifyUrl"
-                    v-on:keydown.enter="search"
+                    @keydown.enter="enterUrl(spotifyUrl)"
                   />
 
-                  <button @click="search">Search</button>
+                  <button @click="enterUrl(spotifyUrl)">Search</button>
                 </div>
 
                 <div v-if="config.debug === true" class="test-links">
@@ -50,8 +54,9 @@ new Vue({
                 </div>
 
                 <div class="results-panel">
-                  <loading-spinner v-if="searching"/>
-                  <p v-if="errored">The link you entered could not be processed, it should look something like: <a href="https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK" target="_blank">https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK</a></p>
+                  <loading-spinner v-if="searching === true"/>
+
+                  <p v-if="searching === false && errored === true" v-html="errorMsg"></p>
 
                   <template v-if="searching === false && errored === false">
                     <component
@@ -80,6 +85,8 @@ new Vue({
 
       searching: false,
       errored: false,
+      errorMsg: '',
+
       draggingOver: false,
 
       displayedData: [],
@@ -88,14 +95,11 @@ new Vue({
 
   mounted () {
     // Instantly search prefilled track
-    if (this.spotifyUrl) {
-      this.search();
-    }
+    this.doSearch();
 
     // When going back/forward
     window.addEventListener('popstate', (event) => {
       this.setSpotifyUrlFromSearchParams();
-      this.search();
     });
   },
 
@@ -186,29 +190,35 @@ new Vue({
     clearSpotifyAccessToken () {
       // If url was already filled in, preverse and prefill next time
       if (this.spotifyUrl) {
-        window.location.search = `?prefill=${this.spotifyUrl}`;
+        window.location.search = `?search=${this.spotifyUrl}`;
       }
 
       localStorage.removeItem('spotify_audio_features_access_token');
       window.location.reload();
     },
 
-    async search (event) {
+    async doSearch () {
       if (this.searching === true) return false;
 
       this.searching = true;
       this.errored = false;
+      this.errorMsg = '';
 
       const { spotifyUrl } = this;
 
+      if (spotifyUrl === '') {
+        this.displayedData = [];
+        this.endSearch();
+      }
+
       if (!isValidUrl(spotifyUrl)) {
-        return this.stopSearch(true);
+        return this.crashSearch(`A valid URL should look something like <a href="https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK" target="_blank">https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK</a>`);
       }
 
       const urlParsed = new URL(spotifyUrl);
 
       if (urlParsed.host !== 'open.spotify.com') {
-        return this.stopSearch(true);
+        return this.crashSearch(`The link you entered could not be processed, it should look something like: <a href="https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK" target="_blank">https://open.spotify.com/track/2WjkOw9JVbvAdKKUaGs3OK</a>`);
       }
 
       const spotifyUrlSplit = urlParsed.pathname.slice(1).split('/');
@@ -216,38 +226,57 @@ new Vue({
       let type = spotifyUrlSplit[0],
           id = spotifyUrlSplit[1];
 
-      switch (type) {
-        case 'track':
-          const trackID = id;
-          await this.getTracks([trackID]);
-          break;
-        case 'user':
-          // fall through only if is user/{uid}/playlist/{pid} format
-          if (spotifyUrlSplit[2] === 'playlist') {
-            type = spotifyUrlSplit[2]; // (will not re-execute switch)
-            id = spotifyUrlSplit[3];
-          }
-          else {
-            return this.stopSearch(true);
-          }
-        case 'playlist':
-          const playlistID = id;
-          await this.getPlaylist(playlistID);
-          break;
-        case 'album':
-          const albumID = id;
-          await this.getAlbum(albumID);
-          break;
-        default:
-          return this.stopSearch(true);
+      try {
+        switch (type) {
+          case 'track':
+            const trackID = id;
+            await this.getTracks([trackID]);
+            break;
+          case 'user':
+            // fall through only if is user/{uid}/playlist/{pid} format
+            if (spotifyUrlSplit[2] === 'playlist') {
+              type = spotifyUrlSplit[2]; // (will not re-execute switch)
+              id = spotifyUrlSplit[3];
+            }
+            else {
+              return this.crashSearch(`We can't process the type of Spotify link you entered yet, try entering a track, album or playlist`);
+            }
+          case 'playlist':
+            const playlistID = id;
+            await this.getPlaylist(playlistID);
+            break;
+          case 'album':
+            const albumID = id;
+            await this.getAlbum(albumID);
+            break;
+          default:
+            return this.crashSearch(`We can't process the type of Spotify link you entered yet, try entering a track, album or playlist`);
+        }
       }
 
-      this.stopSearch(false);
+      catch (err) {
+        if (err.reason) {
+          return this.crashSearch(err.reason);
+        }
+
+        else {
+          if (config.debug === true) console.error(err);
+        }
+      }
+
+      this.endSearch();
     },
 
-    stopSearch (errored = false) {
+    endSearch () {
+      this.errorMsg = '';
+      this.errored = false;
       this.searching = false;
-      this.errored = errored;
+    },
+
+    crashSearch (errorMsg) {
+      this.errorMsg = errorMsg;
+      this.errored = true;
+      this.searching = false;
     },
 
     async getTracks (trackIDs, alreadyAvailableData = {}, returnValue = false) {
@@ -256,6 +285,13 @@ new Vue({
       try {
         const { tracks } = ('tracks' in alreadyAvailableData) ? alreadyAvailableData : await this.spotifyApi.getTracks(trackIDs),
               { audio_features } = ('audio_features' in alreadyAvailableData) ? alreadyAvailableData : await this.spotifyApi.getAudioFeaturesForTracks(trackIDs);
+
+        if (tracks.every(track => track === null)) {
+          throw {
+            status: 400,
+            reason: `All entered trackIDs are invalid. We throw this error ourselves, because we always use the "get several tracks" endpoint, which only returns null if objects are not found`,
+          };
+        }
 
         for (const trackID of trackIDs) {
           tracksData.push({
@@ -268,7 +304,7 @@ new Vue({
       }
 
       catch (err) {
-        this.checkError(err);
+        return this.checkError(err);
       }
 
       if (tracksData.length) {
@@ -345,9 +381,25 @@ new Vue({
     },
 
     checkError (err) {
-      if (err.status === 401) {
+      if (err.status === 400) {
+        if (config.debug === true) console.warn(`Wrong Spotify link formatting (too long or too short)`);
+        throw {
+          reason: `The Spotify link you entered doesn't seem to work, did you perhaps copy too little or too much text?`,
+          originalError: err,
+        };
+      }
+
+      else if (err.status === 401) {
         if (config.debug === true) console.warn('Spotify access token missing or outdated');
         this.clearSpotifyAccessToken();
+      }
+
+      else if (err.status === 404) {
+        if (config.debug === true) console.warn(`Spotify link points to non-existent content`);
+        throw {
+          reason: `The Spotify link you entered doesn't seem to work`,
+          originalError: err,
+        };
       }
 
       else {
@@ -357,12 +409,12 @@ new Vue({
 
     setSpotifyUrlFromSearchParams () {
       this.spotifyUrl = new URL(window.location).searchParams.get('search') || '';
+      this.doSearch();
     },
 
     enterUrl (url) {
       history.pushState(null, null, `/?search=${url}`);
       this.setSpotifyUrlFromSearchParams();
-      this.search();
     },
 
     testDroppedData (event) {

@@ -1,5 +1,5 @@
 # Spotify Audio Features
-Besides simple metadata, such as the artist and name of a track, Spotify also offers song analysis data through their API: so called (https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/)[audio features] and (https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/)[audio analysis].
+Besides simple metadata, such as the artist and name of a track, Spotify also offers song analysis data through their API: so called [audio features](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/) and [audio analysis](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/).
 This tool gives you a quick overview of a subset (for now) of this data by letting you paste or drag in a Spotify link to a track, album or playlist. 
 
 # Improvements
@@ -12,7 +12,7 @@ Asking the user what to do when the Spotify API returns limited data (e.g. only 
 
 # Contribute
 - Feel free to fork and submit PRs
-- Use `pnpm`, not `npm` (install at https://github.com/pnpm/pnpm#install)
+- Please use `pnpm`, not `npm` (install at https://github.com/pnpm/pnpm#install)
 - `pnpm i`
 - Run `pnpm run serve` to serve app locally
 - Run `pnpm run compile` to compile app to /dist

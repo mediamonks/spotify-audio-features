@@ -1,0 +1,62 @@
+.plus {
+  --thickness: 2px;
+  --size: #{$fs-normal};
+  --padding: 0px;
+  flex: 0 0 auto;
+  display: inline-block;
+  width: calc(var(--size) + var(--padding));
+  height: calc(var(--size) + var(--padding));
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    background-color: currentColor;
+  }
+
+  // Horizontal
+  &::before {
+    width: calc(100% - var(--padding) * 2);
+    height: var(--thickness);
+    top: calc(50% - var(--thickness) / 2);
+    left: var(--padding);
+    right: var(--padding);
+  }
+
+  // Vertical
+  &::after {
+    width: var(--thickness);
+    height: calc(100% - var(--padding) * 2);
+    left: calc(50% - var(--thickness) / 2);
+    top: var(--padding);
+    bottom: var(--padding);
+  }
+
+  &.hoverable {
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      box-shadow: 0 0 8px transparent;
+      transition: box-shadow 0.3s ease;
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        box-shadow: 0 0 14px rgba(white, 1);
+      }
+    }
+  }
+
+  &.added {
+    transform: rotate(45deg);
+
+    &::before,
+    &::after {
+      background-color: $green;
+    }
+  }
+}

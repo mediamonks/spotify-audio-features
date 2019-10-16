@@ -9,6 +9,8 @@ import { SpotifyPlaylist } from './components/spotify-playlist.js';
 import { SpotifyAlbum } from './components/spotify-album.js';
 import { SpotifyAudioFeaturesHeader } from './components/spotify-audio-features-header.js';
 import { SpotifyAudioFeaturesMetrics } from './components/spotify-audio-features-metrics.js';
+import { SpotifyTestLinks } from './components/spotify-test-links.js';
+import { InputForSearch } from './components/input-for-search.js';
 
 // Helpers
 import { audioFeatures } from './helpers/audio-features.js';
@@ -20,8 +22,11 @@ Vue.component('spotify-playlist', SpotifyPlaylist);
 Vue.component('spotify-album', SpotifyAlbum);
 Vue.component('spotify-audio-features-header', SpotifyAudioFeaturesHeader);
 Vue.component('spotify-audio-features-metrics', SpotifyAudioFeaturesMetrics);
+Vue.component('spotify-test-links', SpotifyTestLinks);
+Vue.component('input-for-search', InputForSearch);
 
 new Vue({
+
   el: '#app',
 
   template:  `<div id="app"
@@ -33,9 +38,9 @@ new Vue({
                   'drag-over': draggingOver,
                 }"
               >
-                <div class="search-panel">
+                <section class="search-panel">
                   <input
-                    type="text"
+                    type="search"
                     rel="input"
                     size="100"
                     placeholder="Enter or drag and drop Spotify link here"
@@ -44,16 +49,14 @@ new Vue({
                   />
 
                   <button @click="enterUrl(spotifyUrl)">Search</button>
-                </div>
+                </section>
 
-                <div v-if="config.debug === true" class="test-links">
-                  <button class="small" @click="enterUrl('https://open.spotify.com/track/2BndJYJQ17UcEeUFJP5JmY?si=8B72iVW6RHK0VgK_MB7iIw')">Test track</button>
-                  <button class="small" @click="enterUrl('https://open.spotify.com/playlist/5SYLNmW407gyhDSUYarXYL?si=MOLFV-nQSoKZoMkFBVT16A')">Test playlist (short)</button>
-                  <button class="small" @click="enterUrl('https://open.spotify.com/playlist/1DTzz7Nh2rJBnyFbjsH1Mh?si=Fq7UiYYSSlu8w3xkahw7TQ')">Test playlist (long)</button>
-                  <button class="small" @click="enterUrl('https://open.spotify.com/album/3gxOtUSRzweDWBKlpj7cG6?si=UGP0jnOFTmyzHZ1BvH7fEA')">Test album</button>
-                </div>
+                <section class="toolbar">
+                  <spotify-test-links/>
+                  <input-for-search/>
+                </section>
 
-                <div class="results-panel">
+                <section class="results-panel">
                   <loading-spinner v-if="searching === true"/>
 
                   <p v-if="searching === false && errored === true" v-html="errorMsg"></p>
@@ -66,7 +69,7 @@ new Vue({
                       :contentData="data"
                     />
                   </template>
-                </div>
+                </section>
 
                 <p class="subscript"><small>Broken? <a @click="clearSpotifyAccessToken" href="#">Refresh Spotify access token</a></small></p>
               </div>`,
@@ -208,7 +211,7 @@ new Vue({
 
       if (spotifyUrl === '') {
         this.displayedData = [];
-        this.endSearch();
+        return this.endSearch();
       }
 
       if (!isValidUrl(spotifyUrl)) {

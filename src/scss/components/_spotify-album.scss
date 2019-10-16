@@ -21,17 +21,18 @@
   .right {
     flex: 1 1 auto;
 
-    h2 {
-      font-size: 54px;
-      margin-bottom: 0;
-  
+    .album-title {
       &::before {
         content: "Album";
         display: block;
         text-transform: uppercase;
-        font-size: 13px;
+        font-size: $fs-mini;
         margin-bottom: 2px;
       }
+    }
+
+    .album-artists {
+      margin-top: 0.5em;
     }
   }
 }

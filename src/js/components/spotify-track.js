@@ -11,10 +11,13 @@ export const SpotifyTrack = {
     AudioFeatureValue,
   ],
 
-  template:  `<div class="spotify-track" :class="{
-                'preview-available': hasAudioPreview,
-                'playing-preview': playingAudioPreview,
-              }">
+  template:  `<div
+                class="spotify-track"
+                :class="{
+                  'preview-available': hasAudioPreview,
+                  'playing-preview': playingAudioPreview,
+                }"
+              >
                 <audio
                   ref="player"
                   preload="none"
@@ -32,6 +35,7 @@ export const SpotifyTrack = {
                     <h3 class="title">{{ contentData.trackInfo.name }}</h3>
                     <h5 class="artists">{{ contentData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
                   </div>
+                  <span class="plus hoverable" @click.stop="addToInputForSearch"></span>
                 </section>
 
                 <section class="right">
@@ -94,7 +98,11 @@ export const SpotifyTrack = {
         this.$refs.player.pause();
         this.$refs.player.currentTime = 0;
       }
-    }
+    },
+
+    addToInputForSearch () {
+      console.log(this);
+    },
   },
 
 };

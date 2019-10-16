@@ -24,7 +24,7 @@ html, body, #app {
 body {
   background-color: $black;
   color: $white;
-  font-size: 18px;
+  font-size: $fs-normal;
   font-family: Circular, Helvetica, Arial, sans-serif;
   overflow-y: auto;
 }
@@ -41,43 +41,73 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+h1 {
+  font-size: $fs-largest;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: $fs-larger;
+  margin-bottom: 0;
+}
+
 button {
-  --size: 26px;
   appearance: none;
   border: none;
   outline: none;
-  font-size: var(--size);
-  padding: calc(var(--size) - 8px) calc(var(--size) - 2px);
-  font-weight: bold;
+  padding: 16px 48px;
   flex: 0 0 auto;
   background-color: $green;
   color: $white;
+  font-size: $fs-normal;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: normal;
   cursor: pointer;
   transition-property: background-color, border-color, color, box-shadow, filter;
   transition-duration: .3s;
 
   &.small {
-    font-size: 14px;
+    font-size: $fs-small;
     line-height: 1;
-    border-radius: 500px;
-    padding: 16px 48px;
-    border-width: 0;
-    letter-spacing: 2px;
+    border-radius: $border-radius;
     min-width: 160px;
-    text-transform: uppercase;
-    white-space: normal;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #1ed760;
   }
 
   &:active,
-  &:active:hover {
+  &:active:hover,
+  &:active:focus {
     background-color: #1aa34a;
   }
 }
 
 a {
   color: inherit;
+}
+
+input[type="search"] {
+  appearance: none;
+  border: none;
+  outline: none;
+  font-size: $fs-medium;
+  padding: 18px 36px;
+  font-weight: 700;
+  flex: 1 1 auto;
+  width: auto;
+  background-color: $white;
+  color: $black;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+
+  + button {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
 }

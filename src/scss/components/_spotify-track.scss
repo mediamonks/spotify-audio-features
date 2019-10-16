@@ -3,6 +3,70 @@
   justify-content: flex-start;
   align-items: stretch;
 
+  .left {
+    flex: 0 0 auto;
+    width: $left-width;
+    padding: $gutter/2 $gutter $gutter/2 0;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: stretch;
+
+    .cover {
+      flex: 0 0 auto;
+      display: block;
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .song {
+      flex: 1 1 auto;
+      padding: 0 20px;
+
+      .title,
+      .artists {
+        margin: 0;
+        font-size: $fs-normal;
+      }
+
+      .artists {
+        margin-top: 8px;
+        font-weight: 300;
+      }
+    }
+
+    .plus {
+      flex: 0 0 auto;
+      --size: #{$fs-normal + 4px};
+      --padding: 4px;
+    }
+  }
+
+  .right {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    background-color: $grey-middle;
+
+    .audio-feature {
+      flex: 0 0 auto;
+      width: $audio-feature-column-width;
+      padding: 0 15px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($white, 0.05);
+      }
+    }
+  }
+
   &.preview-available {
     .left {
       cursor: pointer;
@@ -16,20 +80,22 @@
         top: 0;
         bottom: 0;
         z-index: -1;
-        width: calc(100% + 80px);
+        width: calc(100% + #{$app-padding-x});
         height: 100%;
         background-color: $green;
       }
 
+      // Play button
       &::after {
+        $size: 22px;
         content: "";
         display: block;
         position: absolute;
-        right: calc(100% + 20px);
+        right: calc(100% + 25px);
         top: 50%;
-        width: 24px;
-        height: 24px;
-        border-width: 12px 0 12px 24px;
+        width: $size;
+        height: $size;
+        border-width: $size/2 0 $size/2 $size;
         border-style: solid;
         border-color: transparent transparent transparent $white;
         transform: translateY(-50%);
@@ -54,62 +120,6 @@
       &::before,
       &::after {
         opacity: 1;
-      }
-    }
-  }
-
-  .left {
-    flex: 0 0 auto;
-    width: $left-width;
-    padding: $gutter/2 $gutter $gutter/2 0;
-    display: flex;
-    position: relative;
-
-    .cover {
-      flex: 0 0 auto;
-      display: block;
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-    }
-
-    .song {
-      flex: 1 1 auto;
-      padding: 2px 20px 0;
-
-      .title,
-      .artists {
-        margin: 0;
-        font-size: 17px;
-      }
-
-      .artists {
-        margin-top: 5px;
-        font-weight: 300;
-      }
-    }
-  }
-
-  .right {
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: stretch;
-    align-items: stretch;
-    background-color: $grey-middle;
-
-    .audio-feature {
-      flex: 0 0 auto;
-      width: $audio-feature-column-width;
-      padding: 0 15px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: transparent;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgba($white, 0.05);
       }
     }
   }

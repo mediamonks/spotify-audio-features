@@ -1,6 +1,6 @@
 #app {
   position: relative;
-  padding: 50px 80px 0;
+  padding: $app-padding-y $app-padding-x 0;
   z-index: 999;
 
   &.drag-over {
@@ -19,7 +19,7 @@
       background-color: rgba(0, 0, 0, 0.5);
       color: $white;
       font-weight: 700;
-      font-size: 30px;
+      font-size: $fs-large;
       z-index: 1000;
     }
   }
@@ -31,19 +31,6 @@
   display: flex;
   justify-content: stretch;
   align-items: stretch;
-
-  input {
-    appearance: none;
-    border: none;
-    outline: none;
-    font-size: 26px;
-    padding: 18px 24px;
-    font-weight: bold;
-    flex: 1 1 auto;
-    width: auto;
-    background-color: $white;
-    color: $black;
-  }
 }
 
 .results-panel {

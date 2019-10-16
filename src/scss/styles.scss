@@ -1,10 +1,4 @@
 @import 'variables';
 @import 'base';
 @import 'layout';
-
-@import 'components/loading-spinner';
-@import 'components/spotify-audio-features-header';
-@import 'components/spotify-track';
-@import 'components/spotify-playlist';
-@import 'components/spotify-album';
-@import 'components/test-links';
+@import 'components/**/*';

@@ -12,6 +12,7 @@ import { SpotifyAudioFeaturesMetrics } from './components/spotify-audio-features
 
 // Helpers
 import { audioFeatures } from './helpers/audio-features.js';
+import { isValidUrl } from './helpers/valid-url.js';
 
 Vue.component('loading-spinner', LoadingSpinner);
 Vue.component('spotify-track', SpotifyTrack);
@@ -23,13 +24,17 @@ Vue.component('spotify-audio-features-metrics', SpotifyAudioFeaturesMetrics);
 new Vue({
   el: '#app',
 
-  template:  `<div id="app">
+  template:  `<div id="app"
+                @dragover.capture.prevent.stop="draggingOver = true"
+                @dragleave.capture.stop="draggingOver = false"
+                @drop.capture.prevent.stop="testDroppedData"
+              >
                 <div class="search-panel">
                   <input
                     type="text"
                     rel="input"
                     size="100"
-                    placeholder="Paste Spotify link here"
+                    placeholder="Enter or drag and drop Spotify link here"
                     v-model="spotifyUrl"
                     v-on:keydown.enter="search"
                   />
@@ -38,10 +43,10 @@ new Vue({
                 </div>
 
                 <div v-if="config.debug === true" class="test-links">
-                  <button class="small" @click="testUrl('https://open.spotify.com/track/2BndJYJQ17UcEeUFJP5JmY?si=8B72iVW6RHK0VgK_MB7iIw')">Test track</button>
-                  <button class="small" @click="testUrl('https://open.spotify.com/playlist/5SYLNmW407gyhDSUYarXYL?si=MOLFV-nQSoKZoMkFBVT16A')">Test playlist (short)</button>
-                  <button class="small" @click="testUrl('https://open.spotify.com/playlist/1DTzz7Nh2rJBnyFbjsH1Mh?si=Fq7UiYYSSlu8w3xkahw7TQ')">Test playlist (long)</button>
-                  <button class="small" @click="testUrl('https://open.spotify.com/album/3gxOtUSRzweDWBKlpj7cG6?si=UGP0jnOFTmyzHZ1BvH7fEA')">Test album</button>
+                  <button class="small" @click="enterUrl('https://open.spotify.com/track/2BndJYJQ17UcEeUFJP5JmY?si=8B72iVW6RHK0VgK_MB7iIw')">Test track</button>
+                  <button class="small" @click="enterUrl('https://open.spotify.com/playlist/5SYLNmW407gyhDSUYarXYL?si=MOLFV-nQSoKZoMkFBVT16A')">Test playlist (short)</button>
+                  <button class="small" @click="enterUrl('https://open.spotify.com/playlist/1DTzz7Nh2rJBnyFbjsH1Mh?si=Fq7UiYYSSlu8w3xkahw7TQ')">Test playlist (long)</button>
+                  <button class="small" @click="enterUrl('https://open.spotify.com/album/3gxOtUSRzweDWBKlpj7cG6?si=UGP0jnOFTmyzHZ1BvH7fEA')">Test album</button>
                 </div>
 
                 <div class="results-panel">
@@ -71,25 +76,38 @@ new Vue({
       config,
       spotifyApi,
       
-      spotifyUrl: '',
+      spotifyUrl: this.spotifyUrlToPrefill || '',
 
       searching: false,
       errored: false,
+      draggingOver: false,
 
       displayedData: [],
     };
   },
 
   mounted () {
-    if (this.spotifyUrl !== '') {
+    // Instantly search prefilled track
+    if (this.spotifyUrl) {
       this.search();
     }
+
+    // When going back/forward
+    window.addEventListener('popstate', (event) => {
+      this.setSpotifyUrlFromSearchParams();
+      this.search();
+    });
   },
 
   methods: {
     getSpotifyAccessToken () {
+      // bool that indicates if this page is visited just after granting access on Spotify or if this is a 'normal' visit
+      let postAuthSituation;
+
+      const currentPage = new URL(window.location);
+
       // Get the hash of the url
-      const hash = window.location.hash
+      const hash = currentPage.hash
         .substring(1)
         .split('&')
         .reduce(function (initial, item) {
@@ -103,34 +121,75 @@ new Vue({
       // Clear hash
       window.location.hash = '';
 
-      // Set token in localStorage
+      // POST SPOTIFY AUTHORIZATION SITUATION
       if (hash.access_token) {
-        localStorage.setItem('spotify_access_token', hash.access_token);
+        postAuthSituation = true;
+        // Set token in localStorage
+        localStorage.setItem('spotify_audio_features_access_token', hash.access_token);
       }
 
+      // 'NORMAL' SITUATION
+      else {
+        postAuthSituation = false;
+      }
+
+      if (postAuthSituation) {
+        const postAuthSpotifyUrlToPrefill = localStorage.getItem('spotify_audio_features_post_access_grant_url_prefill');
+        
+        if (postAuthSpotifyUrlToPrefill) {
+          history.replaceState(null, null, `/?search=${postAuthSpotifyUrlToPrefill}`);
+        }
+      }
+
+      // Always clear this to prevent bugs, no matter what situation.
+      localStorage.removeItem('spotify_audio_features_post_access_grant_url_prefill');
+      
+      // Search params will contain param 'search' when:
+      // 1) User searched something then refreshed the page
+      // 2) Opened direct link to a search
+      // 3) User searched something but needed to re-authorize
+      // 4) User just authorized and returned here by redirect link (which cannot contain dynamic parameters, so we save current search into localStorage)
+      const spotifyUrlToPrefill = currentPage.searchParams.get('search');
+
       // Get freshly created or previously set access token from localStorage
-      const spotifyAccessToken = localStorage.getItem('spotify_access_token');
+      const spotifyAccessToken = localStorage.getItem('spotify_audio_features_access_token');
+
+      // If token is present, continue starting up
+      if (spotifyAccessToken) {
+        if (spotifyUrlToPrefill) {
+          this.spotifyUrlToPrefill = spotifyUrlToPrefill;
+        }
+  
+        return spotifyAccessToken;
+      }
 
       // If there is no token, redirect to Spotify authorization
-      if (!spotifyAccessToken) {
+      else {
         const authEndpoint = 'https://accounts.spotify.com/authorize';
 
         // Replace with your app's client ID, redirect URI and desired scopes
         const clientId = config.spotifyClientId;
-        const redirectUri = 'http://localhost:3000';
+        const redirectUri = currentPage.origin;
         const scopes = [
           'user-read-private',
           'user-read-email',
         ];
 
+        if (spotifyUrlToPrefill) {
+          localStorage.setItem('spotify_audio_features_post_access_grant_url_prefill', spotifyUrlToPrefill);
+        }
+
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
       }
-
-      return spotifyAccessToken;
     },
 
     clearSpotifyAccessToken () {
-      localStorage.removeItem('spotify_access_token');
+      // If url was already filled in, preverse and prefill next time
+      if (this.spotifyUrl) {
+        window.location.search = `?prefill=${this.spotifyUrl}`;
+      }
+
+      localStorage.removeItem('spotify_audio_features_access_token');
       window.location.reload();
     },
 
@@ -141,19 +200,36 @@ new Vue({
       this.errored = false;
 
       const { spotifyUrl } = this;
+
+      if (!isValidUrl(spotifyUrl)) {
+        return this.stopSearch(true);
+      }
+
       const urlParsed = new URL(spotifyUrl);
 
       if (urlParsed.host !== 'open.spotify.com') {
         return this.stopSearch(true);
       }
 
-      const [type, id] = urlParsed.pathname.slice(1).split('/');
+      const spotifyUrlSplit = urlParsed.pathname.slice(1).split('/');
+
+      let type = spotifyUrlSplit[0],
+          id = spotifyUrlSplit[1];
 
       switch (type) {
         case 'track':
           const trackID = id;
           await this.getTracks([trackID]);
           break;
+        case 'user':
+          // fall through only if is user/{uid}/playlist/{pid} format
+          if (spotifyUrlSplit[2] === 'playlist') {
+            type = spotifyUrlSplit[2]; // (will not re-execute switch)
+            id = spotifyUrlSplit[3];
+          }
+          else {
+            return this.stopSearch(true);
+          }
         case 'playlist':
           const playlistID = id;
           await this.getPlaylist(playlistID);
@@ -265,12 +341,6 @@ new Vue({
         const values = tracksAudioFeatures.map(entry => entry[audioFeature.id]);
 
         targetObj._audio_features[audioFeature.id] = values;
-        // targetObj._audio_features[audioFeature.id] = {
-        //   values,
-        //   valuesAmount,
-        //   sum,
-        //   average,
-        // };
       }
     },
 
@@ -285,9 +355,28 @@ new Vue({
       }
     },
 
-    testUrl (url) {
-      this.spotifyUrl = url;
+    setSpotifyUrlFromSearchParams () {
+      this.spotifyUrl = new URL(window.location).searchParams.get('search') || '';
+    },
+
+    enterUrl (url) {
+      history.pushState(null, null, `/?search=${url}`);
+      this.setSpotifyUrlFromSearchParams();
       this.search();
+    },
+
+    testDroppedData (event) {
+      try {
+        const possibleSpotifyUrl = event.dataTransfer.getData('text/uri-list');
+
+        if (possibleSpotifyUrl) {
+          this.enterUrl(possibleSpotifyUrl);
+        }
+      }
+
+      finally {
+        this.draggingOver = false;
+      }
     },
   },
 

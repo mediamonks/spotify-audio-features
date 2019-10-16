@@ -10,7 +10,6 @@ The ability to drag & drop links.
 The ability to enter artist links.
 Asking the user what to do when the Spotify API returns limited data (e.g. only 100 results per time).
 
-
 # Contribute
 - Feel free to fork and submit PRs
 - Use `pnpm`, not `npm` (install at https://github.com/pnpm/pnpm#install)

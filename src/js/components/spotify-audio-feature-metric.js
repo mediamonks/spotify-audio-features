@@ -6,6 +6,7 @@ export const SpotifyAudioFeatureMetric = {
   props: [
     'audioFeatureID',
     'audioFeatureData',
+    'statType',
   ],
 
   mixins: [
@@ -32,14 +33,14 @@ export const SpotifyAudioFeatureMetric = {
       return this.audioFeatures.find(audioFeature => audioFeature.id === this.audioFeatureID);
     },
 
-    // average () {
-    //   const values = this.audioFeatureData,
-    //         valuesAmount = values.length,
-    //         sum = values.reduce((total, curr) => total + curr, 0),
-    //         average = sum/valuesAmount;
+    average () {
+      const values = this.audioFeatureData,
+            valuesAmount = values.length,
+            sum = values.reduce((total, curr) => total + curr, 0),
+            average = sum/valuesAmount;
 
-    //   return average;
-    // },
+      return average;
+    },
 
     median () {
       const values = this.audioFeatureData,
@@ -58,7 +59,7 @@ export const SpotifyAudioFeatureMetric = {
     },
 
     percentage () {
-      return this.median;
+      return this[this.statType];
     },
 
     percentageDisplay () {

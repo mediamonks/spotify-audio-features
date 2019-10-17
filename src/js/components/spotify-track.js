@@ -35,12 +35,12 @@ export const SpotifyTrack = {
                     <h3 class="title">{{ contentData.trackInfo.name }}</h3>
                     <h5 class="artists">{{ contentData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
                   </div>
-                  <span class="plus hoverable" @click.stop="addToInputForSearch"></span>
+                  <span class="plus clickable" @click.stop="addToInputForSearch"></span>
                 </section>
 
                 <section class="right">
                   <template v-for="audioFeature in audioFeatures">
-                    <div class="audio-feature" @click="showDetails(audioFeature)">
+                    <div class="audio-feature clickable" @click="showDetails(audioFeature)">
                       <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
                     </div>
                   </template>

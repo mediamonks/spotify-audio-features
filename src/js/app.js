@@ -88,8 +88,6 @@ new Vue({
     return {
       config,
       spotifyApi,
-      
-      // spotifyUrl: this.spotifyUrlToPrefill || '',
 
       searching: false,
       errored: false,
@@ -180,7 +178,7 @@ new Vue({
       // If token is present, continue starting up
       if (spotifyAccessToken) {
         if (spotifyUrlToPrefill) {
-          this.spotifyUrlToPrefill = spotifyUrlToPrefill;
+          this.spotifyUrl = spotifyUrlToPrefill;
         }
   
         return spotifyAccessToken;

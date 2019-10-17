@@ -7,6 +7,7 @@
   width: calc(var(--size) + var(--padding));
   height: calc(var(--size) + var(--padding));
   position: relative;
+  transition: all 0.3s ease;
 
   &::before,
   &::after {
@@ -34,9 +35,7 @@
     bottom: var(--padding);
   }
 
-  &.hoverable {
-    cursor: pointer;
-
+  &.clickable {
     &::before,
     &::after {
       box-shadow: 0 0 8px transparent;

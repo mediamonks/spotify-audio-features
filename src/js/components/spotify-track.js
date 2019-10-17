@@ -41,7 +41,7 @@ export const SpotifyTrack = {
                 <section class="right">
                   <template v-for="audioFeature in audioFeatures">
                     <div class="audio-feature" @click="showDetails(audioFeature)">
-                      <span :style="getStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
+                      <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
                     </div>
                   </template>
                 </section>

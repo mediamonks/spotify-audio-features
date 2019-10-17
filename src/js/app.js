@@ -10,6 +10,7 @@ import { SpotifyPlaylist } from './components/spotify-playlist.js';
 import { SpotifyAlbum } from './components/spotify-album.js';
 import { SpotifyAudioFeaturesHeader } from './components/spotify-audio-features-header.js';
 import { SpotifyAudioFeaturesMetrics } from './components/spotify-audio-features-metrics.js';
+import { SpotifyAudioFeatureMetric } from './components/spotify-audio-feature-metric.js';
 import { SpotifyTestLinks } from './components/spotify-test-links.js';
 import { InputForSearch } from './components/input-for-search.js';
 
@@ -23,6 +24,7 @@ Vue.component('spotify-playlist', SpotifyPlaylist);
 Vue.component('spotify-album', SpotifyAlbum);
 Vue.component('spotify-audio-features-header', SpotifyAudioFeaturesHeader);
 Vue.component('spotify-audio-features-metrics', SpotifyAudioFeaturesMetrics);
+Vue.component('spotify-audio-feature-metric', SpotifyAudioFeatureMetric);
 Vue.component('spotify-test-links', SpotifyTestLinks);
 Vue.component('input-for-search', InputForSearch);
 

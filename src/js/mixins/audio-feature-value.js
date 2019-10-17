@@ -23,7 +23,7 @@ export const AudioFeatureValue = {
       return message;
     },
 
-    getStyles (audioFeatureValue) {
+    getPercentageStyles (audioFeatureValue) {
       const opacity = this.minOpacity + (this.maxOpacity - this.minOpacity) * audioFeatureValue;
 
       let fontWeight;

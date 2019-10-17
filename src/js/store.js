@@ -27,7 +27,8 @@ export const store = new Vuex.Store({
 
     fetchedContent: [],
 
-    searchByAudioFeatureCollection: [],
+    // Search by audio feature collection
+    collection: [],
   },
 
   mutations: {
@@ -66,15 +67,17 @@ export const store = new Vuex.Store({
       state.fetchedContent.push(...newContent);
     },
 
-    addToSearchByAudioFeatureCollection (state, { type, id }) {
+    addToCollection (state, { type, id }) {
       // TODO: Max 5 items
-      state.searchByAudioFeatureCollection.push({ type, id });
+      state.collection.push({ type, id });
     },
 
-    removeFromSearchByAudioFeatureCollection (state, { type, id }) {
-      state.searchByAudioFeatureCollection = state.searchByAudioFeatureCollection.filter((item) => {
+    removeFromCollection (state, { type, id }) {
+      const indexOfItemToDelete = state.collection.findIndex((item) => {
         return item.type === type && item.id === id;
       });
+
+      state.collection.splice(indexOfItemToDelete, 1);
     },
   },
 

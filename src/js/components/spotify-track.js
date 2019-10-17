@@ -37,10 +37,8 @@ export const SpotifyTrack = {
                   </div>
                   <span
                     class="plus clickable"
-                    :class="{
-                      'added': isInSearchByAudioFeatureCollection,
-                    }"
-                    @click.stop="isInSearchByAudioFeatureCollection ? removeFromSearchByAudioFeatureCollection() : addToSearchByAudioFeatureCollection()"
+                    :class="{ 'added': isInCollection }"
+                    @click.stop="switchInCollection"
                   ></span>
                 </section>
 
@@ -75,8 +73,8 @@ export const SpotifyTrack = {
       return !!this.trackData.trackInfo.preview_url;
     },
 
-    isInSearchByAudioFeatureCollection () {
-      return !!this.$store.state.searchByAudioFeatureCollection.find(item => {
+    isInCollection () {
+      return !!this.$store.state.collection.find(item => {
         return item.type === 'track' && item.id === this.trackID;
       });
     },
@@ -118,18 +116,20 @@ export const SpotifyTrack = {
       }
     },
 
-    addToSearchByAudioFeatureCollection () {
-      this.$store.commit('addToSearchByAudioFeatureCollection', {
-        type: 'track',
-        id: this.trackID,
-      });
-    },
+    switchInCollection () {
+      if (this.isInCollection === true) {
+        this.$store.commit('removeFromCollection', {
+          type: 'track',
+          id: this.trackID,
+        });
+      }
 
-    removeFromSearchByAudioFeatureCollection () {
-      this.$store.commit('removeFromSearchByAudioFeatureCollection', {
-        type: 'track',
-        id: this.trackID,
-      });
+      else {
+        this.$store.commit('addToCollection', {
+          type: 'track',
+          id: this.trackID,
+        });
+      }
     },
   },
 

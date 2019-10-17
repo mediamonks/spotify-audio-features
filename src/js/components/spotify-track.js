@@ -4,7 +4,7 @@ import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
 export const SpotifyTrack = {
 
   props: [
-    'contentData',
+    'trackID',
   ],
 
   mixins: [
@@ -22,7 +22,7 @@ export const SpotifyTrack = {
                   ref="player"
                   preload="none"
                   v-if="hasAudioPreview"
-                  :src="contentData.trackInfo.preview_url"
+                  :src="trackData.trackInfo.preview_url"
                   style="visibilty: hidden;"
                   @play="playingAudioPreview = true"
                   @pause="playingAudioPreview = false"
@@ -32,10 +32,16 @@ export const SpotifyTrack = {
                 <section class="left" @click="hasAudioPreview && playPause()">
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
-                    <h3 class="title">{{ contentData.trackInfo.name }}</h3>
-                    <h5 class="artists">{{ contentData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
+                    <h3 class="title">{{ trackData.trackInfo.name }}</h3>
+                    <h5 class="artists">{{ trackData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
                   </div>
-                  <span class="plus clickable" @click.stop="addToInputForSearch"></span>
+                  <span
+                    class="plus clickable"
+                    :class="{
+                      'added': isInSearchByAudioFeatureCollection,
+                    }"
+                    @click.stop="isInSearchByAudioFeatureCollection ? removeFromSearchByAudioFeatureCollection() : addToSearchByAudioFeatureCollection()"
+                  ></span>
                 </section>
 
                 <section class="right">
@@ -48,9 +54,15 @@ export const SpotifyTrack = {
               </div>`,
 
   computed: {
+    trackData () {
+      return this.$store.state.fetchedContent.find((content) => {
+        return content.type === 'track' && content.id === this.trackID;
+      });
+    },
+
     coverImage () {
       try {
-        const albumArt = this.contentData.trackInfo.album.images[2].url;
+        const albumArt = this.trackData.trackInfo.album.images[2].url;
         return albumArt;
       }
 
@@ -60,7 +72,13 @@ export const SpotifyTrack = {
     },
 
     hasAudioPreview () {
-      return !!this.contentData.trackInfo.preview_url;
+      return !!this.trackData.trackInfo.preview_url;
+    },
+
+    isInSearchByAudioFeatureCollection () {
+      return !!this.$store.state.searchByAudioFeatureCollection.find(item => {
+        return item.type === 'track' && item.id === this.trackID;
+      });
     },
   },
 
@@ -73,9 +91,9 @@ export const SpotifyTrack = {
 
   methods: {
     getAudioFeatureValue (audioFeature) {
-      return this.contentData.audioFeatures[audioFeature.id];
+      return this.trackData.audioFeatures[audioFeature.id];
     },
-    
+
     getAudioFeatureRoundedValue (audioFeature) {
       return Math.round(this.getAudioFeatureValue(audioFeature) * 100);
     },
@@ -100,8 +118,18 @@ export const SpotifyTrack = {
       }
     },
 
-    addToInputForSearch () {
-      console.log(this);
+    addToSearchByAudioFeatureCollection () {
+      this.$store.commit('addToSearchByAudioFeatureCollection', {
+        type: 'track',
+        id: this.trackID,
+      });
+    },
+
+    removeFromSearchByAudioFeatureCollection () {
+      this.$store.commit('removeFromSearchByAudioFeatureCollection', {
+        type: 'track',
+        id: this.trackID,
+      });
     },
   },
 

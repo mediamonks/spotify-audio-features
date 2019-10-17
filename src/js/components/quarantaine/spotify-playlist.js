@@ -12,7 +12,7 @@ export const SpotifyPlaylist = {
                 <section class="right">
                   <h1 class="playlist-title">{{ contentData.name }}</h1>
                   <p class="playlist-owner">Created by {{ contentData.owner.display_name }} - {{ contentData.tracks.total }} tracks</p>
-                  <spotify-audio-features-metrics :inputData="contentData._audio_features"/>
+                  <audio-features-metrics :inputData="contentData._audio_features"/>
                 </section>
               </div>`,
 

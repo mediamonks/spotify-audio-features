@@ -12,7 +12,7 @@ export const SpotifyAlbum = {
                 <section class="right">
                   <h1 class="album-title">{{ contentData.name }}</h1>
                   <p class="album-artists">By {{ contentData.artists.map(artist => artist.name).join(', ') }}</p>
-                  <spotify-audio-features-metrics :inputData="contentData._audio_features"/>
+                  <audio-features-metrics :inputData="contentData._audio_features"/>
                 </section>
               </div>`,
 

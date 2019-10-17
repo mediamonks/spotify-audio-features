@@ -1,13 +1,11 @@
-.input-for-search {
-  --button-width: 300px;
+.toolbar-collection {
   --foldout-color: #{$grey-middle};
   flex: 0 0 auto;
   display: flex;
-  width: var(--button-width);
   margin-left: auto;
   position: relative;
 
-  .input {
+  .collection-contents {
     position: absolute;
     top: calc(100% + 20px);
     right: 0;
@@ -34,7 +32,7 @@
       content: "";
       position: absolute;
       bottom: 100%;
-      right: calc(var(--button-width) / 2);
+      right: 20px;
       width: 0;
       height: 0;
       opacity: 1;

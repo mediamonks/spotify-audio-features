@@ -112,6 +112,10 @@ input[type="search"] {
   }
 }
 
+small {
+  font-size: $fs-small;
+}
+
 .clickable {
   cursor: pointer;
   user-select: none;

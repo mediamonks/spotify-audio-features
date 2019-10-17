@@ -1,7 +1,7 @@
 import { audioFeatures } from '../helpers/audio-features.js';
 import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
 
-export const SpotifyAudioFeatureMetric = {
+export const AudioFeatureMetric = {
 
   props: [
     'audioFeatureID',
@@ -13,7 +13,7 @@ export const SpotifyAudioFeatureMetric = {
     AudioFeatureValue,
   ],
 
-  template:  `<p class="spotify-audio-feature-metric">
+  template:  `<p class="audio-feature-metric">
                 <strong class="audio-feature">{{ audioFeature.name }}</strong>
                 –
                 <span
@@ -74,5 +74,5 @@ export const SpotifyAudioFeatureMetric = {
       return this.getMessage(this.audioFeature, this.percentage)
     },
   },
-  
+
 }

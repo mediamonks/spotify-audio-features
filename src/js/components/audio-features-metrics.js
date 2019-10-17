@@ -1,13 +1,13 @@
-export const SpotifyAudioFeaturesMetrics = {
+export const AudioFeaturesMetrics = {
 
   props: [
     'inputData',
   ],
 
-  template:  `<div class="spotify-audio-features-metrics">
+  template:  `<div class="audio-features-metrics">
                 <h2>Stats</h2>
                 <p class="clickable" @click="useMedian = !useMedian">Using {{ statType }}, click to switch to using {{ otherStatType }}</p>
-                <spotify-audio-feature-metric
+                <audio-feature-metric
                   v-for="(audioFeatureData, audioFeatureID) of inputData"
                   :key="audioFeatureID"
                   :audioFeatureID="audioFeatureID"
@@ -31,5 +31,5 @@ export const SpotifyAudioFeaturesMetrics = {
       return this.useMedian ? 'average' : 'median';
     },
   },
-  
+
 };

@@ -24,7 +24,7 @@
     .track-container-type {
       display: block;
       font-size: $fs-mini;
-      margin-bottom: 2px;
+      margin-bottom: -0.5em;
       font-weight: 700;
       @extend %letter-spaced;
     }
@@ -34,7 +34,8 @@
     }
 
     .subtitle {
-      margin-top: 0.5em;
+      margin-top: 0;
+      color: $grey-lightest;
     }
   }
 }

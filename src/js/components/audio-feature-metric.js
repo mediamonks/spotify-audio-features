@@ -15,7 +15,6 @@ export const AudioFeatureMetric = {
 
   template:  `<p class="audio-feature-metric">
                 <strong class="audio-feature-type">{{ audioFeature.name }}</strong>
-                –
                 <span
                   class="average-value"
                   :style="percentageStyles"

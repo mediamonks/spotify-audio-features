@@ -6,7 +6,6 @@ export const AudioFeaturesMetrics = {
 
   template:  `<div class="audio-features-metrics">
                 <h2>Stats</h2>
-                <p class="clickable" @click="useMedian = !useMedian">Using {{ statType }}, click to switch to using {{ otherStatType }}</p>
                 <audio-feature-metric
                   v-for="(audioFeatureData, audioFeatureID) of inputData"
                   :key="audioFeatureID"
@@ -14,6 +13,7 @@ export const AudioFeaturesMetrics = {
                   :audioFeatureData="audioFeatureData"
                   :statType="statType"
                 />
+                <!-- <p class="clickable" @click="useMedian = !useMedian">Using {{ statType }}, click to switch to using {{ otherStatType }}</p> -->
               </div>`,
 
   data () {

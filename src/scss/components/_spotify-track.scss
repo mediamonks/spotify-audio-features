@@ -31,7 +31,7 @@
       }
 
       .artists {
-        margin-top: 8px;
+        margin-top: 0.25em;
         font-weight: 300;
       }
     }
@@ -40,6 +40,58 @@
       flex: 0 0 auto;
       --size: #{$fs-normal + 4px};
       --padding: 4px;
+    }
+
+    &.clickable {
+      transition: opacity 0.3s ease;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        width: calc(100% + #{$app-padding-x});
+        height: 100%;
+        background-color: $green;
+      }
+
+      // Play button
+      &::after {
+        $size: 1.15em;
+        content: "";
+        display: block;
+        position: absolute;
+        right: calc(100% + 25px);
+        top: 50%;
+        width: $size;
+        height: $size;
+        border-width: $size/2 0 $size/2 $size;
+        border-style: solid;
+        border-color: transparent transparent transparent $white;
+        transform: translateY(-50%);
+      }
+
+      &::before,
+      &::after {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &.playing-preview {
+        &::before,
+        &::after {
+          opacity: 1;
+        }
+      }
+
+      &:not(.playing-preview):hover {
+        &::after {
+          opacity: 0.3;
+        }
+      }
     }
   }
 
@@ -62,63 +114,6 @@
 
       &:hover {
         background-color: rgba($white, 0.05);
-      }
-    }
-  }
-
-  &.preview-available {
-    .left {
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
-        width: calc(100% + #{$app-padding-x});
-        height: 100%;
-        background-color: $green;
-      }
-
-      // Play button
-      &::after {
-        $size: 22px;
-        content: "";
-        display: block;
-        position: absolute;
-        right: calc(100% + 25px);
-        top: 50%;
-        width: $size;
-        height: $size;
-        border-width: $size/2 0 $size/2 $size;
-        border-style: solid;
-        border-color: transparent transparent transparent $white;
-        transform: translateY(-50%);
-      }
-
-      &::before,
-      &::after {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-    }
-
-    &:not(.playing-preview) .left:hover {
-      &::after {
-        opacity: 0.3;
-      }
-    }
-  }
-
-  &.playing-preview {
-    .left {
-      &::before,
-      &::after {
-        opacity: 1;
       }
     }
   }

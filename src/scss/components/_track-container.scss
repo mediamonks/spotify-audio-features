@@ -1,17 +1,17 @@
-.spotify-playlist {
+.track-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: $gutter 0;
+  margin: 0 0 $gutter;
 
   .left {
     flex: 0 0 auto;
     width: $left-width;
-    
+
     .cover {
       display: block;
-      width: 300px;
-      height: 300px;
+      width: 200px;
+      height: 200px;
       object-fit: contain;
       margin-left: auto;
       margin-right: $gutter;
@@ -21,17 +21,19 @@
   .right {
     flex: 1 1 auto;
 
-    .playlist-title {
-      &::before {
-        content: "Playlist";
-        display: block;
-        text-transform: uppercase;
-        font-size: $fs-mini;
-        margin-bottom: 2px;
-      }
+    .track-container-type {
+      display: block;
+      font-size: $fs-mini;
+      margin-bottom: 2px;
+      font-weight: 700;
+      @extend %letter-spaced;
     }
 
-    .playlist-owner {
+    .title {
+      margin-top: 0;
+    }
+
+    .subtitle {
       margin-top: 0.5em;
     }
   }

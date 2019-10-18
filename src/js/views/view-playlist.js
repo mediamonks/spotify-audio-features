@@ -7,14 +7,15 @@ export const ViewPlaylist = {
   ],
 
   template:  `<section class="view-playlist">
-                <div class="spotify-playlist">
+                <div class="track-container">
                   <section class="left">
                     <img class="cover" :src="coverImage" v-if="coverImage"/>
                   </section>
 
                   <section class="right">
-                    <h1 class="playlist-title">{{ playlistData.name }}</h1>
-                    <p class="playlist-owner">Created by {{ playlistData.owner.display_name }} - {{ playlistData.tracks.total }} tracks</p>
+                    <span class="track-container-type">Playlist</span>
+                    <h1 class="title">{{ playlistData.name }}</h1>
+                    <p class="subtitle">Created by {{ playlistData.owner.display_name }} - {{ playlistData.tracks.total }} tracks</p>
                     <audio-features-metrics :inputData="audioFeatures"/>
                   </section>
                 </div>

@@ -7,7 +7,7 @@
   align-items: flex-start;
   z-index: 100;
 
-  .audio-feature-header {
+  .audio-feature-type {
     flex: 0 0 auto;
     display: block;
     width: $audio-feature-column-width;
@@ -19,7 +19,7 @@
     &:first-child {
       border-top-left-radius: $border-radius-small;
     }
-    
+
     &:last-child {
       border-top-right-radius: $border-radius-small;
     }

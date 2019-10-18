@@ -77,18 +77,9 @@ new Vue({
                     :is="currentView"
                     v-bind="currentViewData"
                   />
-
-                  <!-- <template v-if="searching === false && errored === false">
-                    <component
-                      :is="'spotify-' + data.type"
-                      v-for="(data) of displayedData"
-                      :key="data.id"
-                      :contentData="data"
-                    />
-                  </template> -->
                 </section>
 
-                <p class="subscript"><small>Broken? <a @click="$store.dispatch('clearSpotifyAccessToken')" href="#">Refresh Spotify access token</a></small></p>
+                <!-- <p class="subscript"><small>Broken? <a @click="$store.dispatch('clearSpotifyAccessToken')" href="#">Refresh Spotify access token</a></small></p> -->
               </div>`,
 
   created () {

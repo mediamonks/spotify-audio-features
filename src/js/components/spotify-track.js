@@ -13,10 +13,6 @@ export const SpotifyTrack = {
 
   template:  `<div
                 class="spotify-track"
-                :class="{
-                  'preview-available': hasAudioPreview,
-                  'playing-preview': playingAudioPreview,
-                }"
               >
                 <audio
                   ref="player"
@@ -24,12 +20,17 @@ export const SpotifyTrack = {
                   v-if="hasAudioPreview"
                   :src="trackData.trackInfo.preview_url"
                   style="visibilty: hidden;"
-                  @play="playingAudioPreview = true"
-                  @pause="playingAudioPreview = false"
                   @ended="playingAudioPreview = false"
                 ></audio>
 
-                <section class="left" @click="hasAudioPreview && playPause()">
+                <section
+                  class="left"
+                  :class="{
+                    'clickable': hasAudioPreview,
+                    'playing-preview': playingAudioPreview,
+                  }"
+                  @click="togglePlayIfHasAudioPreview"
+                >
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
                     <h3 class="title">{{ trackData.trackInfo.name }}</h3>
@@ -38,7 +39,7 @@ export const SpotifyTrack = {
                   <span
                     class="plus clickable"
                     :class="{ 'added': isInCollection }"
-                    @click.stop="switchInCollection"
+                    @click.stop="toggleInCollection"
                   ></span>
                 </section>
 
@@ -78,12 +79,33 @@ export const SpotifyTrack = {
         return item.type === 'track' && item.id === this.trackID;
       });
     },
+
+    playingAudioPreview: {
+      get () {
+        return this.$store.state.nowPlaying === this.trackID;
+      },
+      set (value) {
+        this.$store.commit('setNowPlaying', (value === true) ? this.trackID : null);
+      },
+    },
+  },
+
+  watch: {
+    playingAudioPreview (newVal) {
+      if (newVal === true) {
+        this.$refs.player.play();
+      }
+
+      else {
+        this.$refs.player.pause();
+        this.$refs.player.currentTime = 0;
+      }
+    },
   },
 
   data () {
     return {
       audioFeatures,
-      playingAudioPreview: false,
     };
   },
 
@@ -105,18 +127,13 @@ export const SpotifyTrack = {
             `${audioFeature.name}:\n${audioFeature.description}`);
     },
 
-    playPause () {
-      if (this.playingAudioPreview === false) {
-        this.$refs.player.play();
-      }
-
-      else {
-        this.$refs.player.pause();
-        this.$refs.player.currentTime = 0;
+    togglePlayIfHasAudioPreview () {
+      if (this.hasAudioPreview === true) {
+        this.playingAudioPreview = !this.playingAudioPreview;
       }
     },
 
-    switchInCollection () {
+    toggleInCollection () {
       if (this.isInCollection === true) {
         this.$store.commit('removeFromCollection', {
           type: 'track',

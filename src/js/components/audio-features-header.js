@@ -8,7 +8,7 @@ export const AudioFeaturesHeader = {
 
   template:  `<div class="audio-features-header">
                 <template v-for="audioFeature of audioFeatures">
-                  <strong class="audio-feature-header" :title="audioFeature.description">{{ audioFeature.name }}</strong>
+                  <strong class="audio-feature-type" :title="audioFeature.description">{{ audioFeature.name }}</strong>
                 </template>
               </div>`,
 
@@ -17,5 +17,5 @@ export const AudioFeaturesHeader = {
       audioFeatures,
     };
   },
-  
-}
+
+};

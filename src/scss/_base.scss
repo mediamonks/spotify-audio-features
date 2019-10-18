@@ -26,6 +26,7 @@ body {
   color: $white;
   font-size: $fs-normal;
   font-family: Circular, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
   overflow-y: auto;
 }
 
@@ -51,19 +52,23 @@ h2 {
   margin-bottom: 0;
 }
 
+%letter-spaced {
+  letter-spacing: 0.21ch;
+  text-transform: uppercase;
+}
+
 button {
   appearance: none;
   border: none;
   outline: none;
-  padding: 16px 48px;
+  padding: 14px 44px;
   flex: 0 0 auto;
   background-color: $green;
   color: $white;
   font-size: $fs-normal;
   font-weight: bold;
-  letter-spacing: 2px;
+  @extend %letter-spaced;
   line-height: 1;
-  text-transform: uppercase;
   white-space: normal;
   cursor: pointer;
   transition-property: background-color, border-color, color, box-shadow, filter;
@@ -97,12 +102,12 @@ input[type="search"] {
   border: none;
   outline: none;
   font-size: $fs-medium;
-  padding: 18px 36px;
-  font-weight: 700;
+  padding: 16px 32px;
+  font-weight: 600;
   flex: 1 1 auto;
   width: auto;
   background-color: $white;
-  color: $black;
+  color: $grey-middle;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
 

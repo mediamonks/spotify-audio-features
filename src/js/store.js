@@ -29,6 +29,8 @@ export const store = new Vuex.Store({
 
     // Search by audio feature collection
     collection: [],
+
+    nowPlaying: null,
   },
 
   mutations: {
@@ -78,6 +80,10 @@ export const store = new Vuex.Store({
       });
 
       state.collection.splice(indexOfItemToDelete, 1);
+    },
+
+    setNowPlaying (state, trackID) {
+      state.nowPlaying = trackID;
     },
   },
 

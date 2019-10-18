@@ -6,11 +6,12 @@ export const AudioFeaturesHeader = {
     'contentData',
   ],
 
-  template:  `<div class="audio-features-header">
-                <template v-for="audioFeature of audioFeatures">
-                  <strong class="audio-feature-type" :title="audioFeature.description">{{ audioFeature.name }}</strong>
-                </template>
-              </div>`,
+  template:  `<tr class="audio-features-header">
+                <th scope="row"></th>
+                <th scope="row" class="audio-feature-type" v-for="audioFeature of audioFeatures">
+                  <strong :title="audioFeature.description">{{ audioFeature.name }}</strong>
+                </th>
+              </tr>`,
 
   data () {
     return {

@@ -1,5 +1,8 @@
 .audio-feature-type {
-  font-weight: 500;
-  color: $grey-lightest;
   @extend %letter-spaced;
+  color: $grey-lightest;
+
+  &, * {
+    font-weight: 500;
+  }
 }

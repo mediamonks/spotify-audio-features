@@ -11,19 +11,11 @@ export const SpotifyTrack = {
     AudioFeatureValue,
   ],
 
-  template:  `<div
+  template:  `<tr
                 class="spotify-track"
               >
-                <audio
-                  ref="player"
-                  preload="none"
-                  v-if="hasAudioPreview"
-                  :src="trackData.trackInfo.preview_url"
-                  style="visibilty: hidden;"
-                  @ended="playingAudioPreview = false"
-                ></audio>
-
-                <section
+                <th
+                  scope="col"
                   class="left"
                   :class="{
                     'clickable': hasAudioPreview,
@@ -31,6 +23,15 @@ export const SpotifyTrack = {
                   }"
                   @click="togglePlayIfHasAudioPreview"
                 >
+                  <audio
+                    ref="player"
+                    preload="none"
+                    v-if="hasAudioPreview"
+                    :src="trackData.trackInfo.preview_url"
+                    style="visibilty: hidden;"
+                    @ended="playingAudioPreview = false"
+                  ></audio>
+
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
                     <h3 class="title">{{ trackData.trackInfo.name }}</h3>
@@ -41,16 +42,18 @@ export const SpotifyTrack = {
                     :class="{ 'added': isInCollection }"
                     @click.stop="toggleInCollection"
                   ></span>
-                </section>
+                </th>
 
-                <section class="right">
-                  <template v-for="audioFeature in audioFeatures">
-                    <div class="audio-feature clickable" @click="showDetails(audioFeature)">
-                      <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
-                    </div>
-                  </template>
-                </section>
-              </div>`,
+                <!-- <section class="right"> -->
+                  <td
+                    v-for="audioFeature in audioFeatures"
+                    class="audio-feature-value clickable"
+                    @click="showDetails(audioFeature)"
+                  >
+                    <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
+                  </td>
+                <!-- </section> -->
+              </tr>`,
 
   computed: {
     trackData () {

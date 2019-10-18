@@ -118,6 +118,15 @@ input[type="search"] {
   }
 }
 
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+tr, th, td {
+  border: none;
+}
+
 small {
   font-size: $fs-small;
 }

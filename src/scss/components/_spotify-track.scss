@@ -1,16 +1,12 @@
 .spotify-track {
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-
   .left {
-    flex: 0 0 auto;
     width: $left-width;
     padding: $gutter/2 $gutter $gutter/2 0;
     display: flex;
     position: relative;
     align-items: center;
     justify-content: stretch;
+    text-align: left;
 
     .cover {
       flex: 0 0 auto;
@@ -95,26 +91,13 @@
     }
   }
 
-  .right {
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: stretch;
-    align-items: stretch;
+  td {
     background-color: $grey-middle;
+    padding: 0 15px;
+    text-align: center;
 
-    .audio-feature {
-      flex: 0 0 auto;
-      width: $audio-feature-column-width;
-      padding: 0 15px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: transparent;
-
-      &:hover {
-        background-color: rgba($white, 0.05);
-      }
+    &:hover {
+      background-color: lighten($grey-middle, 1);
     }
   }
 }

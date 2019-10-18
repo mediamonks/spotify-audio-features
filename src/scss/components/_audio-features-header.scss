@@ -1,27 +1,23 @@
 .audio-features-header {
   position: sticky;
   top: 0;
-  margin-left: $left-width;
-  display: flex;
-  justify-content: stretch;
-  align-items: flex-start;
   z-index: 100;
 
   .audio-feature-type {
-    flex: 0 0 auto;
-    display: block;
-    width: $audio-feature-column-width;
-    padding: 30px 15px;
+    $padding-x: 20px;
+    padding: 30px $padding-x;
     text-align: center;
     background-color: $grey-dark;
     border-bottom: 1px solid lighten($grey-dark, 10%);
 
-    &:first-child {
+    &:nth-of-type(2) {
       border-top-left-radius: $border-radius-small;
+      padding-left: $padding-x * 2;
     }
 
-    &:last-child {
+    &:last-of-type {
       border-top-right-radius: $border-radius-small;
+      padding-right: $padding-x * 2;
     }
   }
 }

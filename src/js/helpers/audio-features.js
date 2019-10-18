@@ -30,16 +30,6 @@ export const audioFeatures = [
     description: 'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.',
   },
   {
-    id: 'acousticness',
-    name: 'Acousticness',
-    minText: 'Not acoustic',
-    midText: 'Maybe acoustic',
-    maxText: 'Acoustic',
-    minLimit: 0.2,
-    maxLimit: 0.66,
-    description: 'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.',
-  },
-  {
     id: 'instrumentalness',
     name: 'Instrumentalness',
     minText: 'Contains vocal content',
@@ -48,6 +38,16 @@ export const audioFeatures = [
     minLimit: 0.2,
     maxLimit: 0.8,
     description: 'Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.',
+  },
+  {
+    id: 'acousticness',
+    name: 'Acousticness',
+    minText: 'Not acoustic',
+    midText: 'Maybe acoustic',
+    maxText: 'Acoustic',
+    minLimit: 0.2,
+    maxLimit: 0.66,
+    description: 'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.',
   },
   {
     id: 'speechiness',

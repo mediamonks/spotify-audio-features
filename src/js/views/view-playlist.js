@@ -20,12 +20,18 @@ export const ViewPlaylist = {
                   </section>
                 </div>
 
-                <audio-features-header/>
-                <spotify-track
-                  v-for="trackID of playlistTrackIDs"
-                  :key="trackID"
-                  :trackID="trackID"
-                />
+                <table>
+                  <thead>
+                    <audio-features-header/>
+                  </thead>
+                  <tbody>
+                    <spotify-track
+                      v-for="trackID of playlistTrackIDs"
+                      :key="trackID"
+                      :trackID="trackID"
+                    />
+                  </tbody>
+                </table>
               </section>`,
 
   computed: {

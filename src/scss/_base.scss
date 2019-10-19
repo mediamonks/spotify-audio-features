@@ -1,3 +1,64 @@
+@font-face {
+  font-family: Circular;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular-hbr;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light-hbr.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular-hbr;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book-hbr.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular-hbr;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium-hbr.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular-hbr;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold-hbr.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: Circular-hbr;
+  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black-hbr.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
 *,
 *::before,
 *::after {
@@ -26,12 +87,13 @@ body {
   color: $white;
   font-size: $fs-normal;
   font-family: Circular, Helvetica, Arial, sans-serif;
-  line-height: 1.4;
+  line-height: 1.5;
+  font-weight: 400;
   overflow-y: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
+  font-weight: 900;
 
   &:first-child {
     margin-top: 0;
@@ -120,7 +182,6 @@ input[type="search"] {
 
 table {
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 tr, th, td {
@@ -134,4 +195,12 @@ small {
 .clickable {
   cursor: pointer;
   user-select: none;
+}
+
+.dot {
+  &::before,
+  &::after {
+    content: " ";
+    white-space: pre;
+  }
 }

@@ -32,6 +32,18 @@ export const SpotifyTrack = {
                     @ended="playingAudioPreview = false"
                   ></audio>
 
+                  <svg class="icon-play" viewBox="0 0 85 100" v-if="hasAudioPreview && playingAudioPreview === false">
+                    <path fill="currentColor" d="M81 44.6c5 3 5 7.8 0 10.8L9 98.7c-5 3-9 .7-9-5V6.3c0-5.7 4-8 9-5l72 43.3z">
+                      <title>Play</title>
+                    </path>
+                  </svg>
+
+                  <svg class="icon-pause" viewBox="0 0 60 100" v-if="hasAudioPreview && playingAudioPreview === true">
+                    <path fill="currentColor" d="M0 8c0-5 3-8 8-8s9 3 9 8v84c0 5-4 8-9 8s-8-3-8-8V8zm43 0c0-5 3-8 8-8s8 3 8 8v84c0 5-3 8-8 8s-8-3-8-8V8z">
+                      <title>Pause</title>
+                    </path>
+                  </svg>
+
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
                     <h3 class="title">{{ trackData.trackInfo.name }}</h3>
@@ -44,15 +56,13 @@ export const SpotifyTrack = {
                   ></span>
                 </th>
 
-                <!-- <section class="right"> -->
-                  <td
-                    v-for="audioFeature in audioFeatures"
-                    class="audio-feature-value clickable"
-                    @click="showDetails(audioFeature)"
-                  >
-                    <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
-                  </td>
-                <!-- </section> -->
+                <td
+                  v-for="audioFeature in audioFeatures"
+                  class="audio-feature-value clickable"
+                  @click="showDetails(audioFeature)"
+                >
+                  <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
+                </td>
               </tr>`,
 
   computed: {

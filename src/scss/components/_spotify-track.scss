@@ -1,9 +1,20 @@
 .spotify-track {
+  &:last-child {
+    td:first-of-type {
+      border-bottom-left-radius: $border-radius-small;
+    }
+
+    td:last-of-type {
+      border-bottom-right-radius: $border-radius-small;
+    }
+  }
+
   .left {
     width: $left-width;
     padding: $gutter/2 $gutter $gutter/2 0;
     display: flex;
-    position: relative;
+    position: sticky;
+    left: 0;
     align-items: center;
     justify-content: stretch;
     text-align: left;
@@ -55,36 +66,43 @@
       }
 
       // Play button
-      &::after {
+      .icon-play,
+      .icon-pause {
         $size: 1.15em;
-        content: "";
         display: block;
         position: absolute;
         right: calc(100% + 25px);
         top: 50%;
         width: $size;
         height: $size;
-        border-width: $size/2 0 $size/2 $size;
-        border-style: solid;
-        border-color: transparent transparent transparent $white;
         transform: translateY(-50%);
       }
 
       &::before,
-      &::after {
+      .icon-play,
+      .icon-pause {
         opacity: 0;
         transition: opacity 0.3s ease;
       }
 
       &.playing-preview {
         &::before,
-        &::after {
+        .icon-play,
+        .icon-pause {
           opacity: 1;
+        }
+
+        .plus.added {
+          &::before,
+          &::after {
+            background-color: $white;
+          }
         }
       }
 
       &:not(.playing-preview):hover {
-        &::after {
+        .icon-play,
+        .icon-pause {
           opacity: 0.3;
         }
       }

@@ -15,23 +15,12 @@ export const ViewPlaylist = {
                   <section class="right">
                     <span class="track-container-type">Playlist</span>
                     <h1 class="title">{{ playlistData.name }}</h1>
-                    <p class="subtitle">Created by {{ playlistData.owner.display_name }} ・ {{ playlistData.tracks.total }} tracks</p>
+                    <p class="subtitle">Created by {{ playlistData.owner.display_name }} <span class="dot">•</span> {{ playlistData.tracks.total }} tracks</p>
                     <audio-features-metrics :inputData="audioFeatures"/>
                   </section>
                 </div>
 
-                <table>
-                  <thead>
-                    <audio-features-header/>
-                  </thead>
-                  <tbody>
-                    <spotify-track
-                      v-for="trackID of playlistTrackIDs"
-                      :key="trackID"
-                      :trackID="trackID"
-                    />
-                  </tbody>
-                </table>
+                <audio-features-overview :trackIDs="playlistTrackIDs"/>
               </section>`,
 
   computed: {

@@ -7,7 +7,7 @@
   width: calc(var(--size) + var(--padding));
   height: calc(var(--size) + var(--padding));
   position: relative;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 
   &::before,
   &::after {
@@ -39,7 +39,8 @@
     &::before,
     &::after {
       box-shadow: 0 0 8px transparent;
-      transition: box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease,
+                  background-color 0.3s ease;
     }
 
     &:hover {

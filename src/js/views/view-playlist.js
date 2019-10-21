@@ -1,9 +1,13 @@
-import { audioFeatures } from '../helpers/audio-features.js';
+import { TrackContainer } from '../mixins/track-container.js';
 
 export const ViewPlaylist = {
 
   props: [
     'id',
+  ],
+
+  mixins: [
+    TrackContainer,
   ],
 
   template:  `<section class="view-playlist">
@@ -16,49 +20,27 @@ export const ViewPlaylist = {
                     <span class="track-container-type">Playlist</span>
                     <h1 class="title">{{ playlistData.name }}</h1>
                     <p class="subtitle">Created by {{ playlistData.owner.display_name }} <span class="dot">•</span> {{ playlistData.tracks.total }} tracks</p>
-                    <audio-features-metrics :inputData="audioFeatures"/>
+                    <audio-features-metrics :inputData="tracksAudioFeatures"/>
                   </section>
                 </div>
 
-                <audio-features-overview :trackIDs="playlistTrackIDs"/>
+                <audio-features-overview :trackIDs="trackIDs"/>
               </section>`,
+
+  data () {
+    return {
+      trackContainerType: 'playlist',
+    };
+  },
 
   computed: {
     playlistData () {
-      return this.$store.state.fetchedContent.find((content) => {
-        return content.type === 'playlist' && content.id === this.id;
-      });
+      return this.trackContainerData;
     },
 
-    playlistTrackIDs () {
+    trackIDs () {
       return this.playlistData.tracks.items.map(item => item.track.id);
     },
-
-    playlistTracksData () {
-      return this.$store.state.fetchedContent.filter((content) => {
-        return content.type === 'track' && this.playlistTrackIDs.includes(content.id);
-      });
-    },
-
-    audioFeatures () {
-      const contentAudioFeatures = {};
-      const tracksAudioFeatures = this.playlistTracksData.map(track => track.audioFeatures);
-
-      for (const audioFeature of audioFeatures) {
-        contentAudioFeatures[audioFeature.id] = tracksAudioFeatures.map(entry => entry[audioFeature.id]);;
-      }
-
-      return contentAudioFeatures;
-    },
-
-    coverImage () {
-      if (this.playlistData.images.length === 1) {
-        return this.playlistData.images[0].url;
-      }
-      else {
-        return this.playlistData.images.find(image => image.width > 100 && image.width < 600).url;
-      }
-    }
   },
 
 };

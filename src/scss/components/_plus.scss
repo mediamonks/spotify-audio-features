@@ -46,7 +46,7 @@
     &:hover {
       &::before,
       &::after {
-        box-shadow: 0 0 14px rgba(white, 1);
+        box-shadow: 0 0 14px $white;
       }
     }
   }

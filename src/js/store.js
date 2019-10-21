@@ -8,6 +8,8 @@ import { isValidUrl } from './helpers/valid-url.js';
 
 Vue.use(Vuex);
 
+const savedCollection = localStorage.getItem(`${config.appID}_collection`);
+
 export const store = new Vuex.Store({
 
   strict: true, // TODO: turn this off during the bundling process, this can have a big performance cost!
@@ -28,7 +30,7 @@ export const store = new Vuex.Store({
     fetchedContent: [],
 
     // Search by audio feature collection
-    collection: [],
+    collection: savedCollection ? JSON.parse(savedCollection) : [],
 
     nowPlaying: null,
   },
@@ -72,6 +74,7 @@ export const store = new Vuex.Store({
     addToCollection (state, { type, id }) {
       // TODO: Max 5 items
       state.collection.push({ type, id });
+      localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
     },
 
     removeFromCollection (state, { type, id }) {
@@ -80,6 +83,7 @@ export const store = new Vuex.Store({
       });
 
       state.collection.splice(indexOfItemToDelete, 1);
+      localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
     },
 
     setNowPlaying (state, trackID) {

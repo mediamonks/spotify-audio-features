@@ -1,4 +1,20 @@
 .spotify-track {
+  &:first-child {
+    th {
+      &::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $black;
+      }
+    }
+  }
+
   &:last-child {
     td:first-of-type {
       border-bottom-left-radius: $border-radius-small;
@@ -10,14 +26,16 @@
   }
 
   .left {
-    width: $left-width;
-    padding: $gutter/2 $gutter $gutter/2 0;
+    width: $left-width + $app-padding-x;
+    padding: $gutter/2 $gutter $gutter/2 $app-padding-x;
     display: flex;
     position: sticky;
     left: 0;
     align-items: center;
     justify-content: stretch;
     text-align: left;
+    background-color: $black;
+    z-index: 150;
 
     .cover {
       flex: 0 0 auto;
@@ -50,20 +68,8 @@
     }
 
     &.clickable {
-      transition: opacity 0.3s ease;
-
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
-        width: calc(100% + #{$app-padding-x});
-        height: 100%;
-        background-color: $green;
-      }
+      transition: opacity 0.3s ease,
+                  background-color 0.3s ease;
 
       // Play button
       .icon-play,
@@ -71,14 +77,12 @@
         $size: 1.15em;
         display: block;
         position: absolute;
-        right: calc(100% + 25px);
-        top: 50%;
+        left: calc(#{$app-padding-x} / 2 - #{$size} / 2);
+        top: calc(50% - #{$size} / 2);
         width: $size;
         height: $size;
-        transform: translateY(-50%);
       }
 
-      &::before,
       .icon-play,
       .icon-pause {
         opacity: 0;
@@ -86,7 +90,8 @@
       }
 
       &.playing-preview {
-        &::before,
+        background-color: $green;
+
         .icon-play,
         .icon-pause {
           opacity: 1;

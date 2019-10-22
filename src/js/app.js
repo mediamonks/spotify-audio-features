@@ -19,15 +19,10 @@ import { ToolbarTestLinks } from './components/toolbar/toolbar-test-links.js';
 import { ToolbarCollection } from './components/toolbar/toolbar-collection.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
 import { SpotifyTrack } from './components/spotify-track.js';
-// import { SpotifyPlaylist } from './components/spotify-playlist.js';
-// import { SpotifyAlbum } from './components/spotify-album.js';
+
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
-import { AudioFeaturesHeader } from './components/audio-features-header.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
-
-// Helpers
-// import { audioFeatures } from './helpers/audio-features.js';
 
 Vue.component('view-start', ViewStart);
 Vue.component('view-track', ViewTrack);
@@ -39,13 +34,10 @@ Vue.component('search-bar', SearchBar);
 Vue.component('toolbar-test-links', ToolbarTestLinks);
 Vue.component('toolbar-collection', ToolbarCollection);
 Vue.component('loading-spinner', LoadingSpinner);
-Vue.component('spotify-track', SpotifyTrack);
-// Vue.component('spotify-playlist', SpotifyPlaylist);
-// Vue.component('spotify-album', SpotifyAlbum);
-Vue.component('audio-features-overview', AudioFeaturesOverview);
-Vue.component('audio-features-header', AudioFeaturesHeader);
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);
+Vue.component('audio-features-overview', AudioFeaturesOverview);
+Vue.component('spotify-track', SpotifyTrack);
 
 new Vue({
 

@@ -1,5 +1,25 @@
 .audio-features-overview {
-  margin-left: -#{$app-padding-x};
-  // margin-right: -#{$app-padding-x};
-  // padding: 0 $app-padding-x;
+  margin-left: #{-1 * $app-padding-x};
+
+  .audio-features-overview-header {
+    .audio-feature-type {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      $padding-x: 20px;
+      padding: 30px $padding-x;
+      text-align: center;
+      background-color: $grey-dark;
+      border-bottom: 1px solid lighten($grey-dark, 10%);
+      min-width: 19ch;
+
+      &:nth-of-type(2) {
+        border-top-left-radius: $border-radius-small;
+      }
+
+      &:last-of-type {
+        border-top-right-radius: $border-radius-small;
+      }
+    }
+  }
 }

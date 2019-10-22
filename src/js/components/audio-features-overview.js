@@ -1,3 +1,5 @@
+import { audioFeatures } from '../helpers/audio-features.js';
+
 export const AudioFeaturesOverview = {
 
   props: [
@@ -6,7 +8,16 @@ export const AudioFeaturesOverview = {
 
   template:  `<table class="audio-features-overview">
                 <thead>
-                  <audio-features-header/>
+                  <tr class="audio-features-overview-header">
+                    <th scope="row" class="left"></th>
+                    <th
+                      scope="row"
+                      class="audio-feature-type"
+                      v-for="audioFeature of audioFeatures"
+                    >
+                      <strong :title="audioFeature.description">{{ audioFeature.name }}</strong>
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
                   <spotify-track
@@ -16,5 +27,11 @@ export const AudioFeaturesOverview = {
                   />
                 </tbody>
               </table>`,
+
+  data () {
+    return {
+      audioFeatures,
+    };
+  },
 
 };

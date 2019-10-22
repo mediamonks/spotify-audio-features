@@ -49,10 +49,10 @@ export const AudioFeatureMetric = {
 
       switch (oddOrEven) {
         case 'odd':
-          return valuesSorted[(valuesAmount + 1) / 2];
+          return valuesSorted[((valuesAmount + 1) / 2) - 1];
         case 'even':
-          const value1 = valuesSorted[valuesAmount / 2],
-                value2 = valuesSorted[valuesAmount / 2 + 1];
+          const value1 = valuesSorted[valuesAmount / 2 - 1],
+                value2 = valuesSorted[valuesAmount / 2];
           return (value1 + value2) / 2;
       }
     },
@@ -62,7 +62,8 @@ export const AudioFeatureMetric = {
     },
 
     percentageDisplay () {
-      return (Math.round(this.percentage * 1000) / 10) + '%';
+      // return (Math.round(this.percentage * 1000) / 10) + '%';
+      return Math.round(this.percentage * 100) + '%';
     },
 
     percentageStyles () {

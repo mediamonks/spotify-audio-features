@@ -1,19 +1,14 @@
-$app-padding-x: 75px;
-$app-padding-y: 50px;
-
-$left-width: 300px;
-$gutter: 50px;
-
-$audio-feature-column-width: 160px;
-
+// COLORS
 $green: #1DB954;
 $white: #FFFFFF;
 $black: #141414;
 $grey-dark: #1f1f1f;
 $grey-middle: #222326;
 $grey-light: #494949;
-$grey-lightest: #c4c4c4;
+$grey-lighter: #aeb1b6;
+$grey-lightest: #c4c7ca;
 
+// FONT-SIZES
 $fs-mini: 11px;
 $fs-small: 12px;
 $fs-normal: 14px;
@@ -22,6 +17,20 @@ $fs-large: 24px;
 $fs-larger: 36px;
 $fs-largest: 54px;
 
+// BORDER-RADII
 $border-radius: 500px;
 $border-radius-small: 23px;
 $border-radius-mini: 6px;
+
+// DISTANCES
+$app-padding-x: 75px;
+$app-padding-y: 50px;
+
+$left-width: 300px;
+$gutter: 50px;
+
+$button-padding-y: 14px;
+$button-padding-x: 44px;
+
+$toolbar-padding-y: 15px;
+$toolbar-height: $toolbar-padding-y + $button-padding-y + $fs-small + $button-padding-y + $toolbar-padding-y;

@@ -24,6 +24,8 @@ import { AudioFeaturesOverview } from './components/audio-features-overview.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
 
+Vue.component('vue-multiselect', window.VueMultiselect.default);
+
 Vue.component('view-start', ViewStart);
 Vue.component('view-track', ViewTrack);
 Vue.component('view-album', ViewAlbum);
@@ -57,7 +59,7 @@ new Vue({
                 <search-bar/>
 
                 <section class="toolbar">
-                  <toolbar-test-links/>
+                  <!-- <toolbar-test-links/> -->
                   <toolbar-collection/>
                 </section>
 
@@ -72,12 +74,11 @@ new Vue({
                     v-bind="currentViewData"
                   />
                 </section>
-
-                <!-- <p class="subscript"><small>Broken? <a @click="$store.dispatch('clearSpotifyAccessToken')" href="#">Refresh Spotify access token</a></small></p> -->
               </div>`,
 
   created () {
     this.$store.dispatch('setup');
+    // REVIEW: should we put a 'loaded' variable in $store.state and wrap the app content in <template v-if="$store.state.loaded === true"> ?
   },
 
   data () {
@@ -85,8 +86,6 @@ new Vue({
       config,
 
       draggingOver: false,
-
-      // displayedData: [],
     };
   },
 
@@ -109,15 +108,6 @@ new Vue({
       'currentView',
       'currentViewData',
     ]),
-
-    spotifyUrl: {
-      get () {
-        return this.$store.state.spotifyUrl;
-      },
-      set (value) {
-        this.$store.commit('updateSpotifyUrl', value);
-      },
-    },
   },
 
   methods: {

@@ -1,0 +1,10 @@
+.warning {
+  margin: 4em 0;
+  padding-left: $left-width;
+
+  &::before {
+    content: "⚠️ ";
+    display: inline;
+    white-space: pre;
+  }
+}

@@ -128,6 +128,7 @@ export const SpotifyTrack = {
     },
 
     getAudioFeatureRoundedValue (audioFeature) {
+      // return (Math.round(this.getAudioFeatureValue(audioFeature) * 1000) / 10);
       return Math.round(this.getAudioFeatureValue(audioFeature) * 100);
     },
 

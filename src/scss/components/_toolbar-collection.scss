@@ -5,12 +5,20 @@
   margin-left: auto;
   position: relative;
 
+  // REVIEW: Review sizing of popout and overflowing. When setting overflow-y to auto, the triangle disappears
   .collection-contents {
     position: absolute;
-    top: calc(100% + 20px);
+    top: calc(100% + #{$toolbar-padding-y});
     right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 60px;
     padding: 30px 60px;
-    width: 500px;
+    width: 1200px;
+    max-width: calc(100vw - 2 * #{$app-padding-x});
+    max-height: calc(100vh - #{$toolbar-height});
+    // overflow-y: auto;
     z-index: 200;
     background-color: var(--foldout-color);
     border-radius: $border-radius-mini;
@@ -28,6 +36,7 @@
       opacity: 1;
     }
 
+    // Triangle
     &::before {
       content: "";
       position: absolute;
@@ -42,11 +51,33 @@
       z-index: 10;
     }
 
+    .left,
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .plus {
       --size: 1em;
       vertical-align: middle;
       margin: 0 0.5ch;
       transform: translateY(-1px)
+    }
+
+    .search-button-wrapper {
+      margin-top: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      > * {
+        flex: 0 0 auto;
+      }
+    }
+
+    .error {
+      margin: 0 14px;
     }
   }
 }

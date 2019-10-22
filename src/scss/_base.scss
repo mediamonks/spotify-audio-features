@@ -65,12 +65,6 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-}
-
 html, body, #app {
   width: 100%;
   min-height: 100%;
@@ -89,7 +83,8 @@ body {
   font-family: Circular, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  overflow-y: auto;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -115,7 +110,6 @@ h2 {
 }
 
 %letter-spaced {
-  // letter-spacing: 0.25ch;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -124,7 +118,7 @@ button {
   appearance: none;
   border: none;
   outline: none;
-  padding: 14px 44px;
+  padding: $button-padding-y $button-padding-x;
   flex: 0 0 auto;
   background-color: $green;
   color: $white;
@@ -153,6 +147,10 @@ button {
   &:active:hover,
   &:active:focus {
     background-color: #1aa34a;
+  }
+
+  &[disabled] {
+    background-color: $grey-lighter;
   }
 }
 
@@ -203,4 +201,10 @@ small {
     content: " ";
     white-space: pre;
   }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

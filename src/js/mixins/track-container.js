@@ -1,8 +1,13 @@
+import { mapState } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 import { audioFeatures } from '../helpers/audio-features.js';
 
 export const TrackContainer = {
 
   computed: {
+    ...mapState([
+      'spotifyGetTracksLimit',
+    ]),
+
     trackContainerData () {
       return this.$store.state.fetchedContent.find((content) => {
         return content.type === this.trackContainerType && content.id === this.id;
@@ -24,6 +29,10 @@ export const TrackContainer = {
       }
 
       return contentAudioFeatures;
+    },
+
+    tracksAmountExceedSpotifyGetTracksLimit () {
+      return this.trackIDs.length > this.spotifyGetTracksLimit;
     },
 
     coverImage () {

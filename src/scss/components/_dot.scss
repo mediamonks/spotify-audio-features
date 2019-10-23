@@ -1,0 +1,7 @@
+.dot {
+  &::before,
+  &::after {
+    content: " ";
+    white-space: pre;
+  }
+}

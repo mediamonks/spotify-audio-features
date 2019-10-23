@@ -2,13 +2,21 @@ import Vue from '/node_modules/vue/dist/vue.esm.browser.js';
 import Vuex from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
 import { config } from './config.js';
+import { audioFeatures } from './helpers/audio-features.js';
 
 // Helpers
 import { isValidUrl } from './helpers/valid-url.js';
 
 Vue.use(Vuex);
 
-const savedCollection = localStorage.getItem(`${config.appID}_collection`);
+const savedCollection = localStorage.getItem(`${config.appID}_collection`),
+      savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`),
+      collectionAudioFeaturesDefaults = audioFeatures.reduce((all, curr) => {
+        return {
+          ...all,
+          [curr.id]: [0, 100],
+        };
+      }, {});
 
 export const store = new Vuex.Store({
 
@@ -24,6 +32,7 @@ export const store = new Vuex.Store({
     spotifyAccessToken: '',
     spotifyGetTracksLimit: 50,
     spotifyAvailableGenreSeeds: [],
+    audioFeatures,
 
     // Search bar value
     spotifyUrl: '',
@@ -38,6 +47,7 @@ export const store = new Vuex.Store({
 
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
+    collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
 
     // Playback state
     nowPlaying: null,
@@ -150,7 +160,6 @@ export const store = new Vuex.Store({
             commit('setView', {
               view: 'view-track',
               data: {
-                type: 'track',
                 id: contentID,
               },
             });
@@ -172,7 +181,6 @@ export const store = new Vuex.Store({
             commit('setView', {
               view: 'view-playlist',
               data: {
-                type: 'playlist',
                 id: contentID,
               },
             });
@@ -183,7 +191,6 @@ export const store = new Vuex.Store({
             commit('setView', {
               view: 'view-album',
               data: {
-                type: 'album',
                 id: contentID,
               },
             });

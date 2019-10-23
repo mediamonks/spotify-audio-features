@@ -1,0 +1,55 @@
+@import '/node_modules/vue-range-component/dist/vue-range-slider.css';
+
+.vue-range-slider.slider-component {
+  cursor: pointer;
+
+  .slider {
+    background-color: transparent;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(-1 * 0.5 * var(--vrs-dot-size));
+      right: calc(-1 * 0.5 * var(--vrs-dot-size));
+      background-color: $grey-light;
+      border-radius: 15px;
+    }
+
+    .slider-dot.slider-always {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.slider-dot-dragging {
+        z-index: 10;
+      }
+
+      .slider-tooltip-wrap {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+
+        .slider-tooltip {
+          color: $green-dark;
+          font-size: $fs-mini;
+          font-weight: 900;
+          background-color: transparent;
+          padding: 0;
+          border-radius: 0;
+          border: none;
+
+          &::before {
+            content: none;
+          }
+        }
+      }
+    }
+
+    .slider-process {
+      background-color: $green;
+    }
+  }
+}

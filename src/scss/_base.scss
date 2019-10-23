@@ -195,14 +195,6 @@ small {
   user-select: none;
 }
 
-.dot {
-  &::before,
-  &::after {
-    content: " ";
-    white-space: pre;
-  }
-}
-
 ul {
   list-style: none;
   margin: 0;

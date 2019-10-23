@@ -50,6 +50,11 @@
   > *:last-child {
     margin-bottom: 0;
   }
+
+  .warning {
+    margin: 4em 0;
+    padding-left: $left-width;
+  }
 }
 
 .subscript {

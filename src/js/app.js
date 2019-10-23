@@ -1,6 +1,7 @@
 // ESM imports
 import Vue from '/node_modules/vue/dist/vue.esm.browser.js';
 import { mapState } from '/node_modules/vuex/dist/vuex.esm.browser.js';
+import VueRangeSlider from '/node_modules/vue-range-component/dist/vue-range-slider.esm.js';
 
 // Core
 import { config } from './config.js';
@@ -24,7 +25,9 @@ import { AudioFeaturesOverview } from './components/audio-features-overview.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
 
-Vue.component('vue-multiselect', window.VueMultiselect.default);
+Vue.use(VueRangeSlider);
+
+Vue.component('vue-multiselect', window.VueMultiselect.default); // no ESM option available
 
 Vue.component('view-start', ViewStart);
 Vue.component('view-track', ViewTrack);
@@ -59,7 +62,7 @@ new Vue({
                 <search-bar/>
 
                 <section class="toolbar">
-                  <!-- <toolbar-test-links/> -->
+                  <toolbar-test-links/>
                   <toolbar-collection/>
                 </section>
 

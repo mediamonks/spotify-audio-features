@@ -1,5 +1,3 @@
-import { audioFeatures } from '../helpers/audio-features.js';
-
 export const AudioFeaturesOverview = {
 
   props: [
@@ -13,7 +11,7 @@ export const AudioFeaturesOverview = {
                     <th
                       scope="row"
                       class="audio-feature-type"
-                      v-for="audioFeature of audioFeatures"
+                      v-for="audioFeature of $store.state.audioFeatures"
                     >
                       <strong :title="audioFeature.description">{{ audioFeature.name }}</strong>
                     </th>
@@ -27,11 +25,5 @@ export const AudioFeaturesOverview = {
                   />
                 </tbody>
               </table>`,
-
-  data () {
-    return {
-      audioFeatures,
-    };
-  },
 
 };

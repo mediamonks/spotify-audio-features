@@ -1,4 +1,3 @@
-import { audioFeatures } from '../helpers/audio-features.js';
 import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
 
 export const SpotifyTrack = {
@@ -57,7 +56,7 @@ export const SpotifyTrack = {
                 </th>
 
                 <td
-                  v-for="audioFeature in audioFeatures"
+                  v-for="audioFeature in $store.state.audioFeatures"
                   class="audio-feature-value clickable"
                   @click="showDetails(audioFeature)"
                 >
@@ -114,12 +113,6 @@ export const SpotifyTrack = {
         this.$refs.player.currentTime = 0;
       }
     },
-  },
-
-  data () {
-    return {
-      audioFeatures,
-    };
   },
 
   methods: {

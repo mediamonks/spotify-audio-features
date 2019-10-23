@@ -1,4 +1,3 @@
-import { audioFeatures } from '../helpers/audio-features.js';
 import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
 
 export const AudioFeatureMetric = {
@@ -21,15 +20,9 @@ export const AudioFeatureMetric = {
                 >{{ percentageDisplay }} ({{ percentageDescription }})</span>
               </p>`,
 
-  data () {
-    return {
-      audioFeatures,
-    };
-  },
-
   computed: {
     audioFeature () {
-      return this.audioFeatures.find(audioFeature => audioFeature.id === this.audioFeatureID);
+      return this.$store.state.audioFeatures.find(audioFeature => audioFeature.id === this.audioFeatureID);
     },
 
     average () {

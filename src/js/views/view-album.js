@@ -19,7 +19,7 @@ export const ViewAlbum = {
                   <section class="right">
                     <span class="track-container-type">Album</span>
                     <h1 class="title">{{ trackContainerData.name }}</h1>
-                    <p class="subtitle">By {{ trackContainerData.artists.map(artist => artist.name).join(', ') }} <span class="dot">•</span> {{ trackContainerData.tracks.total }} tracks</p>
+                    <p class="subtitle">By {{ $listFormatter.format(trackContainerData.artists.map(artist => artist.name)) }} <span class="dot">•</span> {{ trackContainerData.tracks.total }} tracks</p>
                     <audio-features-metrics :inputData="tracksAudioFeatures"/>
                   </section>
                 </div>

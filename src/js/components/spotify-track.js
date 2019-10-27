@@ -46,7 +46,7 @@ export const SpotifyTrack = {
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
                     <h3 class="title">{{ trackData.trackInfo.name }}</h3>
-                    <h5 class="artists">{{ trackData.trackInfo.artists.map(artist => artist.name).join(', ') }}</h5>
+                    <h5 class="artists">{{ $listFormatter.format(trackData.trackInfo.artists.map(artist => artist.name)) }}</h5>
                   </div>
                   <span
                     class="plus clickable"

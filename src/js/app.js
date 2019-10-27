@@ -25,6 +25,8 @@ import { AudioFeaturesOverview } from './components/audio-features-overview.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
 
+Vue.prototype.$listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
+
 Vue.use(VueRangeSlider);
 
 Vue.component('vue-multiselect', window.VueMultiselect.default); // no ESM option available

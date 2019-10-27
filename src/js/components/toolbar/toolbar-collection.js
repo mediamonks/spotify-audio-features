@@ -1,3 +1,5 @@
+import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
+
 export const ToolbarCollection = {
 
   template:  `<div class="toolbar-collection">
@@ -30,8 +32,6 @@ export const ToolbarCollection = {
                         <vue-multiselect
                           :options="spotifyAvailableGenreSeeds"
                           :multiple="true"
-                          label="id"
-                          track-by="id"
                           placeholder="Search or select genres"
                           :value="collectionGenres.map(genre => genre.id)"
                           @input="updateCollectionGenres"
@@ -52,6 +52,7 @@ export const ToolbarCollection = {
                             :speed="0.3"
                             :tooltip-merge="false"
                             :dot-size="vrsDotSize"
+                            @input="updateRange(audioFeature.id, $event)"
                           >
                             <template v-slot:label>
                               {{ audioFeature.name }}
@@ -61,8 +62,8 @@ export const ToolbarCollection = {
                       </div>
 
                       <div class="search-button-wrapper">
-                        <button class="search small" @click="startSearch" :disabled="maxExceeded">Search</button>
-                        <p class="error" v-if="maxExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
+                        <button class="search small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>
+                        <p class="error" v-if="collectionMaxItemsExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
                       </div>
                     </section>
                   </div>
@@ -78,31 +79,22 @@ export const ToolbarCollection = {
   },
 
   computed: {
-    collectionTotalCount () {
-      return this.$store.state.collection.length;
-    },
+    ...mapState([
+      'spotifyAvailableGenreSeeds',
+    ]),
 
-    collectionArtists () {
-      return this.$store.state.collection.filter(item => item.type === 'artist');
-    },
-
-    collectionTracks () {
-      return this.$store.state.collection.filter(item => item.type === 'track');
-    },
-
-    collectionGenres () {
-      return this.$store.state.collection.filter(item => item.type === 'genre');
-    },
-
-    spotifyAvailableGenreSeeds () {
-      return this.$store.state.spotifyAvailableGenreSeeds.map(genreID => ({ id: genreID }));
-    },
+    ...mapGetters([
+      'collectionTotalCount',
+      'collectionArtists',
+      'collectionTracks',
+      'collectionGenres',
+    ]),
 
     collectionTotalCountText () {
       return `(${this.collectionTotalCount})`;
     },
 
-    maxExceeded () {
+    collectionMaxItemsExceeded () {
       return this.collectionTotalCount > this.maxItems;
     },
   },
@@ -129,8 +121,16 @@ export const ToolbarCollection = {
       }
     },
 
-    startSearch () {
-      alert('SEAAAARCH');
+    updateRange (audioFeatureID, [newRangeMin, newRangeMax]) {
+      this.$store.commit('updateCollectionAudioFeatureRange', {
+        id: audioFeatureID,
+        newRangeMin,
+        newRangeMax,
+      });
+    },
+
+    async startSearch () {
+      this.$store.dispatch('getRecommendations');
     },
   },
 

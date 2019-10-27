@@ -49,8 +49,18 @@ export const store = new Vuex.Store({
     collection: savedCollection ? JSON.parse(savedCollection) : [],
     collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
 
+    // Search results
+    searchResults: {},
+
     // Playback state
     nowPlaying: null,
+  },
+
+  getters: {
+    collectionTotalCount: state => state.collection.length,
+    collectionArtists: state => state.collection.filter(item => item.type === 'artist'),
+    collectionTracks: state => state.collection.filter(item => item.type === 'track'),
+    collectionGenres: state => state.collection.filter(item => item.type === 'genre'),
   },
 
   mutations: {
@@ -107,8 +117,17 @@ export const store = new Vuex.Store({
       localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
     },
 
+    updateCollectionAudioFeatureRange (state, { id, newRangeMin, newRangeMax }) {
+      state.collectionAudioFeatures[id] = [newRangeMin, newRangeMax];
+      localStorage.setItem(`${config.appID}_collection_audio_features`, JSON.stringify(state.collectionAudioFeatures));
+    },
+
     setNowPlaying (state, trackID) {
       state.nowPlaying = trackID;
+    },
+
+    setSearchResults (state, results) {
+      state.searchResults = results;
     },
   },
 
@@ -315,6 +334,38 @@ export const store = new Vuex.Store({
       try {
         const { genres } = await state.spotifyApi.getAvailableGenreSeeds();
         commit('setAvailableGenreSeeds', genres);
+      }
+
+      catch (err) {
+        dispatch('handleError', err);
+      }
+    },
+
+    async getRecommendations ({ state, getters, commit, dispatch }) {
+      const seedArtists = getters.collectionArtists.map(artist => artist.id),
+            seedTracks = getters.collectionTracks.map(track => track.id),
+            seedGenres = getters.collectionGenres.map(genre => genre.id),
+            recommendationsOptions = {
+              ...seedArtists.length && { seed_artists: seedArtists },
+              ...seedTracks.length && { seed_tracks: seedTracks },
+              ...seedGenres.length && { seed_genres: seedGenres },
+            };
+
+      for (const audioFeature of state.audioFeatures) {
+        const audioFeatureRange = state.collectionAudioFeatures[audioFeature.id],
+              [rangeMin, rangeMax] = audioFeatureRange;
+
+        recommendationsOptions[`min_${audioFeature.id}`] = rangeMin/100;
+        recommendationsOptions[`max_${audioFeature.id}`] = rangeMax/100;
+      }
+
+      try {
+        const { tracks: recommendations } = await state.spotifyApi.getRecommendations(recommendationsOptions);
+        commit('setSearchResults', recommendations);
+        commit('setView', {
+          view: 'view-search',
+          data: {},
+        });
       }
 
       catch (err) {

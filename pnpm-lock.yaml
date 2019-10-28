@@ -1,7 +1,7 @@
 dependencies:
   spotify-web-api-js: 1.2.0
   vue-multiselect: 2.1.6
-  vue-range-component: 1.0.3
+  vue-range-component: github.com/Anoesj/vue-range-slider/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9
   vuex: 3.1.1
 devDependencies:
   '@babel/cli': 7.6.4_@babel+core@7.6.4
@@ -19,10 +19,10 @@ devDependencies:
   gulp-sourcemaps: 2.6.5
   path: 0.12.7
   require-dir: 1.2.0
-  rollup: 1.25.2
-  rollup-plugin-babel: 4.3.3_@babel+core@7.6.4+rollup@1.25.2
-  rollup-plugin-terser: 5.1.2_rollup@1.25.2
-  rollup-plugin-uglify: 6.0.3_rollup@1.25.2
+  rollup: 1.26.0
+  rollup-plugin-babel: 4.3.3_@babel+core@7.6.4+rollup@1.26.0
+  rollup-plugin-terser: 5.1.2_rollup@1.26.0
+  rollup-plugin-uglify: 6.0.3_rollup@1.26.0
   rollup-stream: 1.24.1
   vue: 2.6.10
 lockfileVersion: 5.1
@@ -709,8 +709,8 @@ packages:
       '@babel/plugin-transform-typeof-symbol': 7.2.0_@babel+core@7.6.4
       '@babel/plugin-transform-unicode-regex': 7.6.2_@babel+core@7.6.4
       '@babel/types': 7.6.3
-      browserslist: 4.7.1
-      core-js-compat: 3.3.3
+      browserslist: 4.7.2
+      core-js-compat: 3.3.4
       invariant: 2.2.4
       js-levenshtein: 1.1.6
       semver: 5.7.1
@@ -782,7 +782,7 @@ packages:
     dependencies:
       '@types/events': 3.0.0
       '@types/minimatch': 3.0.3
-      '@types/node': 12.11.5
+      '@types/node': 12.11.7
     dev: true
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
@@ -790,10 +790,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
-  /@types/node/12.11.5:
+  /@types/node/12.11.7:
     dev: true
     resolution:
-      integrity: sha512-LC8ALj/24PhByn39nr5jnTvpE7MujK8y7LQmV74kHYF5iQ0odCPkMH4IZNZw+cobKfSXqaC8GgegcbIsQpffdA==
+      integrity: sha512-JNbGaHFCLwgHn/iCckiGSOZ1XYHsKFwREtzPwSGCVld1SGhOlmZw2D4ZI94HQCrBHbADzW9m4LER/8olJTRGHA==
   /abbrev/1.1.1:
     dev: true
     resolution:
@@ -1091,21 +1091,21 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /autoprefixer/9.6.5:
+  /autoprefixer/9.7.0:
     dependencies:
-      browserslist: 4.7.1
-      caniuse-lite: 1.0.30001002
+      browserslist: 4.7.2
+      caniuse-lite: 1.0.30001005
       chalk: 2.4.2
       normalize-range: 0.1.2
       num2fraction: 1.2.2
-      postcss: 7.0.18
+      postcss: 7.0.21
       postcss-value-parser: 4.0.2
     dev: true
     engines:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-rGd50YV8LgwFQ2WQp4XzOTG69u1qQsXn0amww7tjqV5jJuNazgFKYEVItEBngyyvVITKOg20zr2V+9VsrXJQ2g==
+      integrity: sha512-j2IRvaCfrUxIiZun9ba4mhJ2omhw4OY88/yVzLO+lHhGBumAAK72PgM6gkbSN8iregPOn1ZlxGkmZh2CQ7X4AQ==
   /aws-sign2/0.7.0:
     dev: true
     resolution:
@@ -1301,15 +1301,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-lY3emme0OyvA2ujEMpRmyRy9LY6gHLuTr2/ABxhIm3lADOiRXzP4dgekvnDrQqZ/Ec2Fz19lEjm6kglSG5766w==
-  /browserslist/4.7.1:
+  /browserslist/4.7.2:
     dependencies:
-      caniuse-lite: 1.0.30001002
-      electron-to-chromium: 1.3.293
-      node-releases: 1.1.38
+      caniuse-lite: 1.0.30001005
+      electron-to-chromium: 1.3.296
+      node-releases: 1.1.39
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-QtULFqKIAtiyNx7NhZ/p4rB8m3xDozVo/pi5VgTlADLF2tNigz/QH+v0m5qhn7XfHT7u+607NcCNOnC0HZAlMg==
+      integrity: sha512-uZavT/gZXJd2UTi9Ov7/Z340WOSQ3+m1iBVRUknf+okKxonL9P83S3ctiBDtuRmRu8PiCHjqyueqQ9HYlJhxiw==
   /bs-recipes/1.3.4:
     dev: true
     resolution:
@@ -1375,10 +1375,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-MvxLn82vhF/N9+c7uXysImHwqwo=
-  /caniuse-lite/1.0.30001002:
+  /caniuse-lite/1.0.30001005:
     dev: true
     resolution:
-      integrity: sha512-pRuxPE8wdrWmVPKcDmJJiGBxr6lFJq4ivdSeo9FTmGj5Rb8NX3Mby2pARG57MXF15hYAhZ0nHV5XxT2ig4bz3g==
+      integrity: sha512-g78miZm1Z5njjYR216a5812oPiLgV1ssndgGxITHWUopmjUrCswMisA0a2kSB7a0vZRox6JOKhM51+efmYN8Mg==
   /caseless/0.12.0:
     dev: true
     resolution:
@@ -1603,13 +1603,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7cjuUME+p+S3HZlbllgsn2CDwS+5eCCX16qBgNC4jgSTf49qR1VKy/Zhl400m0IQXl/bPGEVqncgUUMjrr4s8A==
-  /core-js-compat/3.3.3:
+  /core-js-compat/3.3.4:
     dependencies:
-      browserslist: 4.7.1
+      browserslist: 4.7.2
       semver: 6.3.0
     dev: true
     resolution:
-      integrity: sha512-GNZkENsx5pMnS7Inwv7ZO/s3B68a9WU5kIjxqrD/tkNR8mtfXJRk8fAKRlbvWZSGPc59/TkiOBDYl5Cb65pTVA==
+      integrity: sha512-7OK3/LPP8R3Ovasf3GilEOp+o1w0ZKJ75FMou2RDfTwIV69G5RkKCGFnqgBv/ZhR6xo9GCzlfVALyHmydbE7DA==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -1846,10 +1846,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.293:
+  /electron-to-chromium/1.3.296:
     dev: true
     resolution:
-      integrity: sha512-DQSBRuU2Z1vG+CEWUIfCEVMHtuaGlhVojzg39mX5dx7PLSFDJ7DSrGUWzaPFFgWR1jo26hj1nXXRQZvFwk7F8w==
+      integrity: sha512-s5hv+TSJSVRsxH190De66YHb50pBGTweT9XGWYu/LMR20KX6TsjFzObo36CjVAzM+PUeeKSBRtm/mISlCzeojQ==
   /encodeurl/1.0.2:
     dev: true
     engines:
@@ -2216,7 +2216,7 @@ packages:
       integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
   /fs-extra/3.0.1:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       jsonfile: 3.0.1
       universalify: 0.1.2
     dev: true
@@ -2224,7 +2224,7 @@ packages:
       integrity: sha1-N5TzeMWLNC6n27sjCVEJxLO2IpE=
   /fs-mkdirp-stream/1.0.0:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       through2: 2.0.5
     dev: true
     engines:
@@ -2253,7 +2253,7 @@ packages:
       integrity: sha512-oeyj2H3EjjonWcFjD5NvZNE9Rqe4UW+nQBU2HNeKw0koVLEFIhtyETyAakeAM3de7Z/SW5kcA+fZUait9EApnw==
   /fstream/1.0.12:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       inherits: 2.0.4
       mkdirp: 0.5.1
       rimraf: 2.7.1
@@ -2415,17 +2415,17 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-5mwUoSuBk44Y4EshyiqcH95ZntbDdTQqA3QYSrxmzj28Ai0vXBGMH1ApSANH14j2sIRtqCEyg6PfsuP7ElOEDA==
-  /graceful-fs/4.2.2:
+  /graceful-fs/4.2.3:
     dev: true
     resolution:
-      integrity: sha512-IItsdsea19BoLC7ELy13q1iJFNmd7ofZH5+X/pJr90/nRoPEX0DJo1dHDbgtYWOhJhcCgMDTOw84RZ72q6lB+Q==
+      integrity: sha512-a30VEBm4PEdx1dRB7MFK7BejejvCvBronbLjht+sHuGYj8PHs7M/5Z+rt5lw551vZ7yfTCj4Vuyy3mSJytDWRQ==
   /gulp-autoprefixer/7.0.1_gulp@4.0.2:
     dependencies:
-      autoprefixer: 9.6.5
+      autoprefixer: 9.7.0
       fancy-log: 1.3.3
       gulp: 4.0.2
       plugin-error: 1.0.1
-      postcss: 7.0.18
+      postcss: 7.0.21
       through2: 3.0.1
       vinyl-sourcemaps-apply: 0.2.1
     dev: true
@@ -2493,7 +2493,7 @@ packages:
     dependencies:
       chalk: 2.4.2
       lodash.clonedeep: 4.5.0
-      node-sass: 4.12.0
+      node-sass: 4.13.0
       plugin-error: 1.0.1
       replace-ext: 1.0.0
       strip-ansi: 4.0.0
@@ -2513,7 +2513,7 @@ packages:
       css: 2.2.4
       debug-fabulous: 1.1.0
       detect-newline: 2.1.0
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       source-map: 0.6.1
       strip-bom-string: 1.0.0
       through2: 2.0.5
@@ -2643,7 +2643,7 @@ packages:
       depd: 1.1.2
       inherits: 2.0.3
       setprototypeof: 1.1.0
-      statuses: 1.5.0
+      statuses: 1.4.0
     dev: true
     engines:
       node: '>= 0.6'
@@ -3099,7 +3099,7 @@ packages:
   /jsonfile/3.0.1:
     dev: true
     optionalDependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
     resolution:
       integrity: sha1-pezG9l9T9mLEQVx2daAzHQmS7GY=
   /jsprim/1.4.1:
@@ -3199,7 +3199,7 @@ packages:
       integrity: sha512-XCpr5bElgDI65vVgstP8TWjv6/QKWm9GU5UG0Pr5sLQ3QLo8NVKsioe+Jed5/3vFOe3IQuqE7DKwTvKQkjTHvg==
   /load-json-file/1.1.0:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       parse-json: 2.2.0
       pify: 2.3.0
       pinkie-promise: 2.0.1
@@ -3456,7 +3456,7 @@ packages:
     dependencies:
       fstream: 1.0.12
       glob: 7.1.5
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       mkdirp: 0.5.1
       nopt: 3.0.6
       npmlog: 4.1.2
@@ -3472,13 +3472,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-3g8lYefrRRzvGeSowdJKAKyks8oUpLEd/DyPV4eMhVlhJ0aNaZqIrNUIPuEWWTAoPqyFkfGrM67MC69baqn6vA==
-  /node-releases/1.1.38:
+  /node-releases/1.1.39:
     dependencies:
       semver: 6.3.0
     dev: true
     resolution:
-      integrity: sha512-/5NZAaOyTj134Oy5Cp/J8mso8OD/D9CSuL+6TOXXsTKO8yjc5e4up75SRPCganCjwFKMj2jbp5tR0dViVdox7g==
-  /node-sass/4.12.0:
+      integrity: sha512-8MRC/ErwNCHOlAFycy9OPca46fQYUjbJRDcZTHVWIGXIjYLM73k70vv3WkYutVnM4cCo4hE0MqBVVZjP6vjISA==
+  /node-sass/4.13.0:
     dependencies:
       async-foreach: 0.1.3
       chalk: 1.1.3
@@ -3503,7 +3503,7 @@ packages:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-A1Iv4oN+Iel6EPv77/HddXErL2a+gZ4uBeZUy+a8O35CFYTXhgA8MgLCWBtwpGZdCvTvQ9d+bQxX/QC36GDPpQ==
+      integrity: sha512-W1XBrvoJ1dy7VsvTAS5q1V45lREbTlZQqFbiHb3R3OTTCma0XBtuG6xZ6Z4506nR4lmHPTqVRwxT6KgtWC97CA==
   /nopt/3.0.6:
     dependencies:
       abbrev: 1.1.1
@@ -3720,7 +3720,7 @@ packages:
       integrity: sha512-0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==
   /output-file-sync/2.0.1:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       is-plain-obj: 1.1.0
       mkdirp: 0.5.1
     dev: true
@@ -3828,7 +3828,7 @@ packages:
       integrity: sha1-mkpoFMrBwM1zNgqV8yCDyOpHRbc=
   /path-type/1.1.0:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       pify: 2.3.0
       pinkie-promise: 2.0.1
     dev: true
@@ -3904,7 +3904,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-LmeoohTpp/K4UiyQCwuGWlONxXamGzCMtFxLq4W1nZVGIQLYvMCJx3yAF9qyyuFpflABI9yVdtJAqbihOsCsJQ==
-  /postcss/7.0.18:
+  /postcss/7.0.21:
     dependencies:
       chalk: 2.4.2
       source-map: 0.6.1
@@ -3913,7 +3913,7 @@ packages:
     engines:
       node: '>=6.0.0'
     resolution:
-      integrity: sha512-/7g1QXXgegpF+9GJj4iN7ChGF40sYuGYJ8WZu8DZWnmhQ/G36hfdk3q9LBJmoK+lZ+yzZ5KYpOoxq7LF1BxE8g==
+      integrity: sha512-uIFtJElxJo29QC753JzhidoAhvp/e/Exezkdhfmt8AymWT6/5B7W1WmponYWkHk2eg6sONyTch0A3nkMPun3SQ==
   /pretty-hrtime/1.0.3:
     dev: true
     engines:
@@ -4041,7 +4041,7 @@ packages:
       integrity: sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==
   /readdirp/2.2.1:
     dependencies:
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       micromatch: 3.1.10
       readable-stream: 2.3.6
     dev: true
@@ -4278,11 +4278,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
-  /rollup-plugin-babel/4.3.3_@babel+core@7.6.4+rollup@1.25.2:
+  /rollup-plugin-babel/4.3.3_@babel+core@7.6.4+rollup@1.26.0:
     dependencies:
       '@babel/core': 7.6.4
       '@babel/helper-module-imports': 7.0.0
-      rollup: 1.25.2
+      rollup: 1.26.0
       rollup-pluginutils: 2.8.2
     dev: true
     peerDependencies:
@@ -4290,11 +4290,11 @@ packages:
       rollup: '>=0.60.0 <2'
     resolution:
       integrity: sha512-tKzWOCmIJD/6aKNz0H1GMM+lW1q9KyFubbWzGiOG540zxPPifnEAHTZwjo0g991Y+DyOZcLqBgqOdqazYE5fkw==
-  /rollup-plugin-terser/5.1.2_rollup@1.25.2:
+  /rollup-plugin-terser/5.1.2_rollup@1.26.0:
     dependencies:
       '@babel/code-frame': 7.5.5
       jest-worker: 24.9.0
-      rollup: 1.25.2
+      rollup: 1.26.0
       rollup-pluginutils: 2.8.2
       serialize-javascript: 1.9.1
       terser: 4.3.9
@@ -4303,13 +4303,13 @@ packages:
       rollup: '>=0.66.0 <2'
     resolution:
       integrity: sha512-sWKBCOS+vUkRtHtEiJPAf+WnBqk/C402fBD9AVHxSIXMqjsY7MnYWKYEUqGixtr0c8+1DjzUEPlNgOYQPVrS1g==
-  /rollup-plugin-uglify/6.0.3_rollup@1.25.2:
+  /rollup-plugin-uglify/6.0.3_rollup@1.26.0:
     dependencies:
       '@babel/code-frame': 7.5.5
       jest-worker: 24.9.0
-      rollup: 1.25.2
+      rollup: 1.26.0
       serialize-javascript: 1.9.1
-      uglify-js: 3.6.3
+      uglify-js: 3.6.4
     dev: true
     peerDependencies:
       rollup: '>=0.66.0 <2'
@@ -4332,15 +4332,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-n/vHRX4GhMIyGZEQRANcSFVtvz99bSRbNMuoC33ar9f4CViqffyF9WklLb2mxIQ6I/uFf7wDEpc66bXBFE7FvA==
-  /rollup/1.25.2:
+  /rollup/1.26.0:
     dependencies:
       '@types/estree': 0.0.39
-      '@types/node': 12.11.5
+      '@types/node': 12.11.7
       acorn: 7.1.0
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-+7z6Wab/L45QCPcfpuTZKwKiB0tynj05s/+s2U3F2Bi7rOLPr9UcjUwO7/xpjlPNXA/hwnth6jBExFRGyf3tMg==
+      integrity: sha512-5HljNYn9icFvXX+Oe97qY5TWvnWhKqgGT0HGeWWqFPx7w7+Anzg7dfHMtUif7YYy6QxAgynDSwK6uxbgcrVUxw==
   /rx/4.1.0:
     dev: true
     resolution:
@@ -5023,7 +5023,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-uRdSdu1oA1rncCQL7sCj8vSyZkgtL7faaw9Tc9rZ3mGgraQ7+Pdx7w5mnOSF3gw9ZNG6oc+KXfkon3bKuROm0g==
-  /uglify-js/3.6.3:
+  /uglify-js/3.6.4:
     dependencies:
       commander: 2.20.3
       source-map: 0.6.1
@@ -5032,7 +5032,7 @@ packages:
       node: '>=0.8.0'
     hasBin: true
     resolution:
-      integrity: sha512-KfQUgOqTkLp2aZxrMbCuKCDGW9slFYu2A23A36Gs7sGzTLcRBDORdOi5E21KWHFIfkY8kzgi/Pr1cXCh0yIp5g==
+      integrity: sha512-9Yc2i881pF4BPGhjteCXQNaXx1DCwm3dtOyBaG2hitHjLWOczw/ki8vD1bqyT3u6K0Ms/FpCShkmfg+FtlOfYA==
   /ultron/1.1.1:
     dev: true
     resolution:
@@ -5209,7 +5209,7 @@ packages:
     dependencies:
       fs-mkdirp-stream: 1.0.0
       glob-stream: 6.1.0
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       is-valid-glob: 1.0.0
       lazystream: 1.0.0
       lead: 1.0.0
@@ -5233,7 +5233,7 @@ packages:
     dependencies:
       append-buffer: 1.0.2
       convert-source-map: 1.6.0
-      graceful-fs: 4.2.2
+      graceful-fs: 4.2.3
       normalize-path: 2.1.1
       now-and-later: 2.0.1
       remove-bom-buffer: 3.0.0
@@ -5269,10 +5269,6 @@ packages:
       npm: '>= 3.0.0'
     resolution:
       integrity: sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w==
-  /vue-range-component/1.0.3:
-    dev: false
-    resolution:
-      integrity: sha512-J/rE7KJa61XsLXREvSw0Ia+dSTaLoP5Ou7NfOy5pm/1FMgYn7E14iQj7baA8H4ZxoIuKuCfrhjWglPHtWUPGmg==
   /vue/2.6.10:
     dev: true
     resolution:
@@ -5423,6 +5419,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-AI4G2AlDIMNy28L47XagymyKxBk=
+  github.com/Anoesj/vue-range-slider/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9:
+    dev: false
+    name: vue-range-component
+    resolution:
+      tarball: 'https://codeload.github.com/Anoesj/vue-range-slider/tar.gz/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9'
+    version: 1.0.3
 specifiers:
   '@babel/cli': ^7.2.3
   '@babel/core': ^7.2.2
@@ -5447,5 +5449,5 @@ specifiers:
   spotify-web-api-js: ^1.2.0
   vue: ^2.5.22
   vue-multiselect: ^2.1.6
-  vue-range-component: ^1.0.3
+  vue-range-component: 'github:Anoesj/vue-range-slider'
   vuex: ^3.1.1

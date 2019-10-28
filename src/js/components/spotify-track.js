@@ -127,10 +127,10 @@ export const SpotifyTrack = {
 
     showDetails (audioFeature) {
       const value = this.getAudioFeatureValue(audioFeature),
-            message = this.getMessage(audioFeature, value);
+            meaning = this.getValueMeaning(audioFeature, value);
 
       alert(`This track scores ${this.getAudioFeatureRoundedValue(audioFeature)}% on ${audioFeature.id}, which means:\n` +
-            `${message}\n\n` +
+            `${meaning}\n\n` +
             `${audioFeature.name}:\n${audioFeature.description}`);
     },
 

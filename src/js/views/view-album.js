@@ -20,11 +20,12 @@ export const ViewAlbum = {
                     <span class="track-container-type">Album</span>
                     <h1 class="title">{{ trackContainerData.name }}</h1>
                     <p class="subtitle">By {{ $listFormatter.format(trackContainerData.artists.map(artist => artist.name)) }} <span class="dot">•</span> {{ trackContainerData.tracks.total }} tracks</p>
+
+                    <p v-if="tracksAmountExceedSpotifyGetTracksLimit" class="warning">This {{ trackContainerType }} contains {{ trackContainerData.tracks.total }} tracks, but the Spotify API limits us to getting data for {{ spotifyGetTracksLimit }} tracks per request. For now, this tool will only get the first {{ spotifyGetTracksLimit }} items.</p>
+
                     <audio-features-metrics :inputData="tracksAudioFeatures"/>
                   </section>
                 </div>
-
-                <p v-if="tracksAmountExceedSpotifyGetTracksLimit" class="warning">This {{ trackContainerType }} contains {{ trackContainerData.tracks.total }} tracks, but the Spotify API limits us to getting data for {{ spotifyGetTracksLimit }} tracks per request. For now, this tool will only get the first {{ spotifyGetTracksLimit }} items.</p>
 
                 <audio-features-overview :trackIDs="trackIDs.slice(0, spotifyGetTracksLimit)"/>
               </section>`,

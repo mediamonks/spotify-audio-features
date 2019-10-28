@@ -23,6 +23,8 @@ export const store = new Vuex.Store({
   strict: true, // TODO: turn this off during the bundling process, this can have a big performance cost!
 
   state: {
+    setupComplete: false,
+
     // App view
     currentView: 'view-start',
     currentViewData: {},
@@ -44,6 +46,7 @@ export const store = new Vuex.Store({
 
     // All data fetched from Spotify API
     fetchedContent: [],
+    fetchingContent: [],
 
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
@@ -64,6 +67,10 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
+    setSetupComplete (state, completeStatus) {
+      state.setupComplete = completeStatus;
+    },
+
     setView (state, { view, data }) {
       state.currentView = view;
       state.currentViewData = data;
@@ -96,7 +103,25 @@ export const store = new Vuex.Store({
     },
 
     addToFetchedContent(state, newContent) {
-      state.fetchedContent.push(...newContent);
+      for (const newContentItem of newContent) {
+        // Search state.fetchedContent for duplicate
+        const index = state.fetchedContent.findIndex((fetchedContentItem) => {
+          return fetchedContentItem.id === newContentItem.id && fetchedContentItem.type === newContentItem.type;
+        });
+
+        // If content with same ID and same type exists in state.fetchedContent, replace item.
+        // Previously, we didn't re-fetch albums and playlist, but now we do.
+        if (index >= 0) {
+          state.fetchedContent[index] = newContentItem;
+          if (config.debug === true) {
+            console.log(`Replaced data of ${newContentItem.type} with ID '${newContentItem.id}' with newer version`);
+          }
+        }
+
+        else {
+          state.fetchedContent.push(newContentItem);
+        }
+      }
     },
 
     setAvailableGenreSeeds (state, availableGenreSeeds) {
@@ -234,22 +259,27 @@ export const store = new Vuex.Store({
         }
       }
 
+      // Only runs if no errors occurred, which is exactly what we want
       commit('endSearch');
     },
 
     async getTracks ({ state, commit, dispatch }, trackIDs) {
       const tracksData = [];
 
+      if (trackIDs.includes(null)) {
+        console.error(`Array of trackIDs to fetch contains 'null' at least once, which probably means something went wrong prior to calling getTracks`);
+      }
+
+      // Don't fetch already fetched tracks again
+      const tracksToFetchIDs = trackIDs.filter((trackID) => {
+              return (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined');
+            });
+
+      if (tracksToFetchIDs.length === 0) {
+        return Promise.resolve();
+      }
+
       try {
-        // Don't fetch already fetched tracks again
-        const tracksToFetchIDs = trackIDs.filter((trackID) => {
-                return (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined');
-              });
-
-        if (tracksToFetchIDs.length === 0) {
-          return Promise.resolve();
-        }
-
         const { tracks } = await state.spotifyApi.getTracks(tracksToFetchIDs),
               { audio_features } = await state.spotifyApi.getAudioFeaturesForTracks(tracksToFetchIDs);
 
@@ -262,17 +292,22 @@ export const store = new Vuex.Store({
         }
 
         for (const trackID of tracksToFetchIDs) {
+          const trackInfo = tracks.find(track => track.id === trackID);
+
+          // If Spotify API returned null, the object wasn't found and we shouldn't save it in our store
+          if (trackInfo === null) continue;
+
           tracksData.push({
             id: trackID,
             type: 'track',
-            trackInfo: tracks.find(track => track.id === trackID),
+            trackInfo,
             audioFeatures: audio_features.find(track => track.id === trackID),
           });
         }
       }
 
       catch (err) {
-        return dispatch('handleError', err);
+        await dispatch('handleError', err);
       }
 
       commit('addToFetchedContent', tracksData);
@@ -280,37 +315,27 @@ export const store = new Vuex.Store({
 
     async getPlaylist ({ state, commit, dispatch }, playlistID) {
       try {
-        // NOTE: For now, we don't fetch playlists, that have already been fetched before, again.
-        if (state.fetchedContent.find(content => content.type === 'playlist' && content.id === playlistID)) {
-          return Promise.resolve();
-        }
-
         const playlist = await state.spotifyApi.getPlaylist(playlistID),
-              playlistTracks = playlist.tracks.items.map(item => item.track),
+              playlistTracks = playlist.tracks.items.filter(item => item.is_local !== true).map(item => item.track),
               trackIDs = playlistTracks.map(track => track.id);
 
         commit('addToFetchedContent', [playlist]);
 
         // Warn if results are limited by Spotify API request restrictions
-        if (playlist.tracks.total > state.spotifyGetTracksLimit) {
-          alert(`This playlist contains ${playlist.tracks.total} tracks, but the Spotify API limits us to getting data for ${state.spotifyGetTracksLimit} tracks per request. For now, this tool will only get the first ${state.spotifyGetTracksLimit} items`);
-        }
+        // if (playlist.tracks.total > state.spotifyGetTracksLimit) {
+        //   alert(`This playlist contains ${playlist.tracks.total} tracks, but the Spotify API limits us to getting data for ${state.spotifyGetTracksLimit} tracks per request. For now, this tool will only get the first ${state.spotifyGetTracksLimit} items`);
+        // }
 
         await dispatch('getTracks', trackIDs.slice(0, state.spotifyGetTracksLimit));
       }
 
       catch (err) {
-        dispatch('handleError', err);
+        await dispatch('handleError', err);
       }
     },
 
     async getAlbum ({ state, commit, dispatch }, albumID) {
       try {
-        // NOTE: For now, we don't fetch albums, that have already been fetched before, again.
-        if (state.fetchedContent.find(content => content.type === 'album' && content.id === albumID)) {
-          return Promise.resolve();
-        }
-
         const album = await state.spotifyApi.getAlbum(albumID),
               albumTracks = album.tracks.items,
               trackIDs = albumTracks.map(track => track.id);
@@ -326,7 +351,7 @@ export const store = new Vuex.Store({
       }
 
       catch (err) {
-        dispatch('handleError', err);
+        await dispatch('handleError', err);
       }
     },
 
@@ -337,7 +362,7 @@ export const store = new Vuex.Store({
       }
 
       catch (err) {
-        dispatch('handleError', err);
+        await dispatch('handleError', err);
       }
     },
 
@@ -369,17 +394,17 @@ export const store = new Vuex.Store({
       }
 
       catch (err) {
-        dispatch('handleError', err);
+        await dispatch('handleError', err);
       }
     },
 
-    handleError ({ dispatch }, err) {
+    async handleError ({ dispatch }, err) {
       if (err.status === 400) {
         if (config.debug === true) console.warn(`Wrong Spotify link formatting (too long or too short)`);
-        throw {
+        return Promise.reject({
           reason: `The Spotify link you entered doesn't seem to work, did you perhaps copy too little or too much text?`,
           originalError: err,
-        };
+        });
       }
 
       else if (err.status === 401) {
@@ -389,18 +414,23 @@ export const store = new Vuex.Store({
 
       else if (err.status === 404) {
         if (config.debug === true) console.warn(`Spotify link points to non-existent content`);
-        throw {
+        return Promise.reject({
           reason: `The Spotify link you entered doesn't seem to work`,
           originalError: err,
-        };
+        });
       }
 
       else {
+        if (err.reason && err.originalError) {
+          // HACK: Right now, in some situations, you'll get an error thrown by this function back inside this function, which is probably super wrong, but for now this is a quickfix.
+          return Promise.reject(err);
+        }
+
         if (config.debug === true) console.error(err);
       }
     },
 
-    setup ({ state, commit, dispatch }) {
+    async setup ({ state, commit, dispatch }) {
       // bool that indicates if this page is visited just after granting access on Spotify or if this is a 'normal' visit
       let postAuthSituation;
 
@@ -461,6 +491,7 @@ export const store = new Vuex.Store({
         }
 
         state.spotifyApi.setAccessToken(spotifyAccessToken);
+        commit('setSetupComplete', true);
 
         // Get available genres, but don't wait for it to finish.
         dispatch('getAvailableGenreSeeds');
@@ -486,7 +517,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    clearSpotifyAccessToken ({ state }) {
+    async clearSpotifyAccessToken ({ state }) {
       // If url was already filled in, preverse and prefill next time
       if (state.spotifyUrl) {
         window.location.search = `?search=${state.spotifyUrl}`;

@@ -8,19 +8,34 @@ export const AudioFeatureValue = {
   },
 
   methods: {
-    getMessage (audioFeature, value) {
-      let message;
-      if (value < audioFeature.minLimit) {
-        message = audioFeature.minText;
-      }
-      else if (value > audioFeature.maxLimit) {
-        message = audioFeature.maxText;
-      }
-      else {
-        message = audioFeature.midText;
+    getValueMeaning (audioFeature, value) {
+      const {
+        minLimit,
+        maxLimit,
+        minText,
+        maxText,
+        midText,
+      } = audioFeature;
+
+      // < min
+      if (value < minLimit) {
+        return minText;
       }
 
-      return message;
+      // > max
+      else if (value > maxLimit) {
+        return maxText;
+      }
+
+      // in between
+      else if (value >= minLimit && value <= maxLimit) {
+        return midText;
+      }
+
+      // Should never happen, but if the stats get rendered and a metric results in NaN for some reason, this will prevent some textual bugs.
+      else {
+        return null;
+      }
     },
 
     getPercentageStyles (audioFeatureValue) {

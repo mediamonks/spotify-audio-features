@@ -17,7 +17,7 @@ export const AudioFeatureMetric = {
                 <span
                   class="average-value"
                   :style="percentageStyles"
-                >{{ percentageDisplay }} ({{ percentageDescription }})</span>
+                >{{ percentageDisplay }}{{ percentageMeaning }}</span>
               </p>`,
 
   computed: {
@@ -63,8 +63,15 @@ export const AudioFeatureMetric = {
       return this.getPercentageStyles(this.percentage, this.audioFeatureData);
     },
 
-    percentageDescription () {
-      return this.getMessage(this.audioFeature, this.percentage)
+    percentageMeaning () {
+      const meaning = this.getValueMeaning(this.audioFeature, this.percentage);
+      if (meaning) {
+        return ` (${meaning})`;
+      }
+      else {
+        // return 'Oh no! Something went wrong... <a href="https://github.com/Anoesj/spotify-audio-features/issues" target="_blank">Let me know</a>';
+        return '';
+      }
     },
   },
 

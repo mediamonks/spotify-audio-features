@@ -82,37 +82,44 @@ new Vue({
               </div>`,
 
   created () {
+    // Since Vuex actions are technically async, we can't assume 'setup' is done on mounted. That's why we use a watch.
     this.$store.dispatch('setup');
-    // REVIEW: should we put a 'loaded' variable in $store.state and wrap the app content in <template v-if="$store.state.loaded === true"> ?
   },
 
   data () {
     return {
-      config,
-
       draggingOver: false,
     };
   },
 
-  mounted () {
-    // Instantly search prefilled track
-    this.$store.dispatch('doSearch');
-
-    // When going back/forward
-    window.addEventListener('popstate', (event) => {
-      this.$store.commit('setSpotifyUrlFromSearchParams');
-      this.$store.dispatch('doSearch');
-    });
-  },
-
   computed: {
     ...mapState([
+      'setupComplete',
       'searching',
       'errored',
       'errorMsg',
       'currentView',
       'currentViewData',
     ]),
+  },
+
+  watch: {
+    // Since Vuex action 'setup' is technically async, we can't assume it is done on mounted. That's why we use a watch.
+    setupComplete: {
+      immediate: true,
+      handler (newVal, oldVal) {
+        if (newVal === true) {
+          // Instantly search prefilled track
+          this.$store.dispatch('doSearch');
+
+          // This only triggers when navigating back/forward
+          window.addEventListener('popstate', (event) => {
+            this.$store.commit('setSpotifyUrlFromSearchParams');
+            this.$store.dispatch('doSearch');
+          });
+        }
+      },
+    },
   },
 
   methods: {

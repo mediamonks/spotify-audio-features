@@ -102,7 +102,12 @@ export const store = new Vuex.Store({
       state.searching = false;
     },
 
-    addToFetchedContent(state, newContent) {
+    // TODO: FINISH
+    addToFetchingContent (state, newFetchingContent) {
+      state.fetchingContent.push(...newFetchingContent);
+    },
+
+    addToFetchedContent (state, newContent) {
       for (const newContentItem of newContent) {
         // Search state.fetchedContent for duplicate
         const index = state.fetchedContent.findIndex((fetchedContentItem) => {
@@ -272,12 +277,16 @@ export const store = new Vuex.Store({
 
       // Don't fetch already fetched tracks again
       const tracksToFetchIDs = trackIDs.filter((trackID) => {
+              // TODO: also check state.fetchingContent
               return (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined');
             });
 
       if (tracksToFetchIDs.length === 0) {
         return Promise.resolve();
       }
+
+      // TODO: FINISH
+      commit('addToFetchingContent', tracksToFetchIDs.map(trackID => ({ type: 'track', id: trackID })));
 
       try {
         const { tracks } = await state.spotifyApi.getTracks(tracksToFetchIDs),

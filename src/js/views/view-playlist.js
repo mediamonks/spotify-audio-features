@@ -39,7 +39,7 @@ export const ViewPlaylist = {
 
   computed: {
     trackIDs () {
-      return this.trackContainerData.tracks.items.map(item => item.track.id);
+      return this.trackContainerData.tracks.items.filter(item => item.track.is_local !== true).map(item => item.track.id);
     },
 
     localTracksAmount () {

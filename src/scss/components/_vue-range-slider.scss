@@ -22,15 +22,24 @@
       justify-content: center;
       align-items: center;
 
+      .slider-dot-handle {
+        background-color: $white;
+        transition: background-color 0.1s ease;
+      }
+
       &.slider-dot-dragging {
         z-index: 10;
+
+        .slider-dot-handle {
+          background-color: $grey-lightest;
+        }
       }
 
       .slider-tooltip-wrap {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
 
         .slider-tooltip {
           color: $green-dark;

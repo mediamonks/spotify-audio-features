@@ -144,9 +144,12 @@ button {
   }
 
   &:active,
-  &:active:hover,
-  &:active:focus {
-    background-color: #1aa34a;
+  &.active {
+    &,
+    &:hover,
+    &:focus {
+      background-color: #1aa34a;
+    }
   }
 
   &[disabled] {

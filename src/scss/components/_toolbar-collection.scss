@@ -39,7 +39,7 @@
       content: "";
       position: absolute;
       bottom: 100%;
-      right: 20px;
+      right: 215px/2 - 10px; // Collection button width / 2 - 10px (border-width x 2 / 2)
       width: 0;
       height: 0;
       opacity: 1;

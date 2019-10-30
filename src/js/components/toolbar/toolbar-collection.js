@@ -1,9 +1,15 @@
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
+// TODO: dynamically add document event click listener. when collection foldout is open, click outside collection to close.
 export const ToolbarCollection = {
 
-  template:  `<div class="toolbar-collection">
-                <button class="small" @click="foldoutVisible = !foldoutVisible">Collection {{ collectionTotalCountText }}</button>
+  template:  `<div class="toolbar-collection" @keydown.esc="foldoutVisible = false">
+                <button
+                  class="small"
+                  :class="{ 'active': foldoutVisible }"
+                  @click="foldoutVisible = !foldoutVisible"
+                >Collection {{ collectionTotalCountText }}</button>
+
                 <div class="collection-contents" :class="{ 'visible': foldoutVisible }">
                   <div class="collection-contents-inner">
                     <section class="left">

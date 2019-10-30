@@ -1,11 +1,11 @@
 .toolbar {
   display: flex;
   flex: 0 0 auto;
-  width: 100%;
+  width: calc(100% + #{$app-padding-x * 2});
   position: sticky;
   top: 0;
   z-index: 300;
-  margin-top: 0;
-  padding: $toolbar-padding-y 0;
+  margin: 0 #{-1 * $app-padding-x};
+  padding: $toolbar-padding-y $app-padding-x;
   background-color: $black;
 }

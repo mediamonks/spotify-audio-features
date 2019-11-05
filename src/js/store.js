@@ -52,6 +52,7 @@ export const store = new Vuex.Store({
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
     collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
+    collectionOpen: false,
 
     // Search results
     searchResults: {},
@@ -106,7 +107,6 @@ export const store = new Vuex.Store({
     // TODO: FINISH
     // addToFetchingContent (state, newFetchingContent) {
     //   log('New fetching content:', newFetchingContent);
-
     //   state.fetchingContent.push(...newFetchingContent);
     // },
 
@@ -119,7 +119,7 @@ export const store = new Vuex.Store({
       for (const newContentItem of newContent) {
         // Search state.fetchedContent for duplicate
         const index = state.fetchedContent.findIndex((fetchedContentItem) => {
-          return fetchedContentItem.id === newContentItem.id && fetchedContentItem.type === newContentItem.type;
+          return (fetchedContentItem.id === newContentItem.id && fetchedContentItem.type === newContentItem.type);
         });
 
         // If content with same ID and same type exists in state.fetchedContent, replace item.
@@ -137,6 +137,14 @@ export const store = new Vuex.Store({
 
     setAvailableGenreSeeds (state, availableGenreSeeds) {
       state.spotifyAvailableGenreSeeds = availableGenreSeeds;
+    },
+
+    toggleCollectionOpen (state) {
+      state.collectionOpen = !state.collectionOpen;
+    },
+
+    setCollectionOpen (state, newOpenState) {
+      state.collectionOpen = newOpenState;
     },
 
     addToCollection (state, { type, id }) {
@@ -391,6 +399,7 @@ export const store = new Vuex.Store({
             seedTracks = getters.collectionTracks.map(track => track.id),
             seedGenres = getters.collectionGenres.map(genre => genre.id),
             recommendationsOptions = {
+              limit: 100,
               ...seedArtists.length && { seed_artists: seedArtists },
               ...seedTracks.length && { seed_tracks: seedTracks },
               ...seedGenres.length && { seed_genres: seedGenres },
@@ -411,6 +420,8 @@ export const store = new Vuex.Store({
           view: 'view-search',
           data: {},
         });
+
+        await dispatch('getTracks', recommendations.map(result => result.id));
       }
 
       catch (err) {

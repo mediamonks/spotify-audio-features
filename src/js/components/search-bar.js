@@ -4,7 +4,6 @@ export const SearchBar = {
                 <input
                   type="search"
                   rel="input"
-                  size="100"
                   placeholder="Enter or drag and drop Spotify link here"
                   v-model="spotifyUrl"
                   @keydown.enter="$store.dispatch('enterUrl')"

@@ -1,46 +1,18 @@
 $loading-spinner-duration: 1s;
 
 .loading-spinner {
+  --size: 100px;
+  --border-width: 3px;
   align-self: center;
   display: block;
   position: relative;
-  height: 100px;
-  width: 100px;
-  margin: 50px;
-
-  // Largest
-  border: 3px solid transparent;
+  height: var(--size);
+  width: var(--size);
+  margin: calc(var(--size) / 2);
+  border: var(--border-width) solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin7 $loading-spinner-duration cubic-bezier(.44,.15,.56,.86) infinite;
-
-  // // Middle
-  // &::before {
-  //   content: "";
-  //   position: absolute;
-  //   top: 14%;
-  //   right: 14%;
-  //   bottom: 14%;
-  //   left: 14%;
-  //   border: 2px solid transparent;
-  //   border-radius: 50%;
-  //   border-top-color: currentColor;
-  //   animation: spin7 $loading-spinner-duration*1 linear infinite $loading-spinner-duration/-0.1;
-  // }
-
-  // // Smallest
-  // &::after {
-  //   content: "";
-  //   position: absolute;
-  //   top: 28%;
-  //   right: 28%;
-  //   bottom: 28%;
-  //   left: 28%;
-  //   border: 2px solid transparent;
-  //   border-radius: 50%;
-  //   border-top-color: currentColor;
-  //   animation: spin7 $loading-spinner-duration*1.2 linear infinite reverse;
-  // }
 }
 
 @keyframes spin7 {

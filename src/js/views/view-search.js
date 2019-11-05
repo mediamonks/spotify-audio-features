@@ -2,29 +2,30 @@
 export const ViewSearch = {
 
   template:  `<section class="view-search">
-                <!-- <audio-features-overview :trackIDs="$store.state.searchResults.map(result => result.id)"/> -->
-                <table class="audio-features-overview">
-                  <!-- <thead>
-                    <tr class="audio-features-overview-header">
-                      <th scope="row" class="left"></th>
-                      <th
-                        scope="row"
-                        class="audio-feature-type"
-                        v-for="audioFeature of $store.state.audioFeatures"
-                      >
-                        <strong :title="audioFeature.description">{{ audioFeature.name }}</strong>
-                      </th>
-                    </tr>
-                  </thead> -->
-                  <tbody>
-                    <template v-for="searchResult of $store.state.searchResults">
-                      <div class="song">
-                        <h3 class="title">{{ searchResult.name }}</h3>
-                        <h5 class="artists">{{ $listFormatter.format(searchResult.artists.map(artist => artist.name)) }}</h5>
-                      </div>
-                    </template>
-                  </tbody>
-                </table>
+                <div class="track-container">
+                  <section class="left">
+                    <!-- <img class="cover" src="/favicon.png" style="filter: invert(100%);"/> -->
+                  </section>
+
+                  <section class="right">
+                    <h1 class="title">Search results</h1>
+                    <p class="subtitle" v-if="!trackIDs.length">Darn it, no results! Need <a :href="'/?search=' + griefPlaylistUrl" @click="$store.commit('updateSpotifyUrl', griefPlaylistUrl);">some songs</a> to process your grief?</p>
+                  </section>
+                </div>
+
+                <audio-features-overview v-if="trackIDs.length" :trackIDs="trackIDs"/>
               </section>`,
+
+  data () {
+    return {
+      griefPlaylistUrl: 'https://open.spotify.com/playlist/7wJs9bUc1AzRE8sO5AzVF4?si=GDah1EHHS8uzmVMWoYtA6Q',
+    };
+  },
+
+  computed: {
+    trackIDs () {
+      return this.$store.state.searchResults.map(result => result.id);
+    },
+  },
 
 };

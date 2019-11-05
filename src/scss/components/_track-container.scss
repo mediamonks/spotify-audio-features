@@ -24,13 +24,14 @@
     .track-container-type {
       display: block;
       font-size: $fs-mini;
-      margin-bottom: -0.5em;
+      margin-bottom: -1em;
       font-weight: 700;
       @extend %letter-spaced;
     }
 
     .title {
       margin-top: 0;
+      margin-bottom: 0.2em;
     }
 
     .subtitle {

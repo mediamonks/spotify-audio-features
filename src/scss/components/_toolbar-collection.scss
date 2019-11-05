@@ -16,7 +16,7 @@
     width: 1200px;
     max-width: calc(100vw - 2 * #{$app-padding-x});
     max-height: calc(100vh - #{$toolbar-height} - #{$gutter});
-    padding: $gutter-small 0;
+    padding: 0;
     z-index: 200;
     background-color: var(--foldout-color);
     border-radius: $border-radius-mini;
@@ -55,7 +55,21 @@
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
       gap: $gutter;
-      padding: 0 $gutter;
+      padding: $gutter $gutter 0;
+
+      // This makes sure you can scroll into the "padding bottom"
+      &::after {
+        content: "";
+        display: block;
+        grid-column: 1 / -1;
+        margin-top: #{-1 * $gutter};
+        height: $gutter;
+      }
+
+      // Stack vertically if screen gets too narrow
+      @media screen and (max-width: 1080px) {
+        grid-template-columns: 1fr;
+      }
     }
 
     h3 {
@@ -64,8 +78,8 @@
       }
     }
 
-    .left,
-    .right {
+    > .left,
+    > .right {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -87,12 +101,13 @@
       }
     }
 
-    .plus {
-      --size: 1em;
-      vertical-align: middle;
-      margin: 0 0.5ch;
-      top: -1px; // TODO: Not everywhere I think...
-    }
+    // FIXME: Only meant for body text...
+    // .plus {
+    //   --size: 1em;
+    //   vertical-align: middle;
+    //   margin: 0 0.5ch;
+    //   top: -1px; // TODO: Not everywhere I think...
+    // }
 
     .search-button-wrapper {
       margin-top: auto;
@@ -120,7 +135,7 @@
 
       .audio-feature-range {
         width: 100%;
-        grid-column: auto/span 1;
+        grid-column: auto / span 1;
       }
 
       .audio-feature-type {
@@ -129,4 +144,6 @@
       }
     }
   }
+
+  // TODO: Style loading spinner for loading genres
 }

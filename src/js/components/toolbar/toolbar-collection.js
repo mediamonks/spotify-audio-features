@@ -3,21 +3,21 @@ import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.j
 // TODO: dynamically add document event click listener. when collection foldout is open, click outside collection to close.
 export const ToolbarCollection = {
 
-  template:  `<div class="toolbar-collection" @keydown.esc="foldoutVisible = false">
+  template:  `<div class="toolbar-collection">
                 <button
                   class="small"
-                  :class="{ 'active': foldoutVisible }"
-                  @click="foldoutVisible = !foldoutVisible"
+                  :class="{ 'active': collectionOpen }"
+                  @click="$store.commit('toggleCollectionOpen')"
                 >Collection {{ collectionTotalCountText }}</button>
 
-                <div class="collection-contents" :class="{ 'visible': foldoutVisible }">
+                <div class="collection-contents" :class="{ 'visible': collectionOpen }">
                   <div class="collection-contents-inner">
                     <section class="left">
                       <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
                       <h3>Artists ({{ collectionArtists.length }})</h3>
                       <ul class="collection-artists">
                         <li v-if="collectionArtists.length === 0">
-                          <div>To add artists for a music search, click the <span class="plus"></span> signs</div>
+                          <!-- <div>To add artists for a music search, click the <span class="plus"></span> signs</div> -->
                           <div class="warning">Adding artists is not supported yet</div>
                         </li>
                         <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
@@ -28,7 +28,13 @@ export const ToolbarCollection = {
                         <li v-if="collectionTracks.length === 0">
                           <div>To add tracks for a music search, click the <span class="plus"></span> signs</div>
                         </li>
-                        <li v-for="item of collectionTracks">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
+                        <!-- <li v-for="item of collectionTracks">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li> -->
+                        <spotify-track
+                          v-for="item of collectionTracks"
+                          :key="item.id"
+                          :trackID="item.id"
+                          viewMode="teaser"
+                        />
                       </ul>
                     </section>
 
@@ -78,14 +84,22 @@ export const ToolbarCollection = {
 
   data () {
     return {
-      foldoutVisible: false,
       maxItems: 5,
       vrsDotSize: 28,
     };
   },
 
+  // Assuming users only add tracks that were already loaded in the application, we can simply fetch the tracks that
+  // are in the collection on the initial page load to get all the data we need to show the collection tracks...
+  mounted () {
+    if (this.collectionTracks.length) {
+      this.$store.dispatch('getTracks', this.collectionTracks.map(track => track.id));
+    }
+  },
+
   computed: {
     ...mapState([
+      'collectionOpen',
       'spotifyAvailableGenreSeeds',
     ]),
 
@@ -136,7 +150,9 @@ export const ToolbarCollection = {
     },
 
     async startSearch () {
+      // Not using await, that would feel unresponsive
       this.$store.dispatch('getRecommendations');
+      this.$store.commit('setCollectionOpen', false);
     },
   },
 

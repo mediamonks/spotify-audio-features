@@ -13,7 +13,6 @@ export const AudioFeaturesMetrics = {
                   :audioFeatureData="audioFeatureData"
                   :statType="statType"
                 />
-                <!-- <p class="clickable" @click="useMedian = !useMedian">Using {{ statType }}, click to switch to using {{ otherStatType }}</p> -->
               </div>`,
 
   data () {
@@ -25,10 +24,6 @@ export const AudioFeaturesMetrics = {
   computed: {
     statType () {
       return this.useMedian ? 'median' : 'average';
-    },
-
-    otherStatType () {
-      return this.useMedian ? 'average' : 'median';
     },
   },
 

@@ -1,4 +1,6 @@
 .spotify-track {
+  --cover-art-size: 50px;
+
   &:last-child {
     td:first-of-type {
       border-bottom-left-radius: $border-radius-small;
@@ -9,23 +11,66 @@
     }
   }
 
+  &.full {
+    .left {
+      position: sticky;
+      left: 0;
+      width: $left-width + $app-padding-x;
+      padding: $gutter/2 $gutter $gutter/2 $app-padding-x;
+      background-color: $black;
+
+      &.clickable {
+        .icon-play,
+        .icon-pause {
+          left: calc(#{$app-padding-x} / 2 - var(--size) / 2);
+        }
+      }
+    }
+  }
+
+  &.teaser {
+    & + .spotify-track.teaser {
+      margin-top: 4px;
+    }
+
+    .left {
+      $padding: 7px;
+      position: relative;
+      width: 100%;
+      background-color: $grey-darker;
+      padding: $padding;
+      padding-right: $gutter/3;
+      border-radius: 5px;
+
+      &.clickable {
+        // Play button
+        .icon-play,
+        .icon-pause {
+          left: calc(var(--cover-art-size) / 2 - var(--size) / 2 + #{$padding});
+        }
+
+        &:not(.playing-preview):hover {
+          .icon-play,
+          .icon-pause {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
   .left {
-    width: $left-width + $app-padding-x;
-    padding: $gutter/2 $gutter $gutter/2 $app-padding-x;
     display: flex;
-    position: sticky;
-    left: 0;
     align-items: center;
     justify-content: stretch;
     text-align: left;
-    background-color: $black;
     z-index: 150;
 
     .cover {
       flex: 0 0 auto;
       display: block;
-      width: 50px;
-      height: 50px;
+      width: var(--cover-art-size);
+      height: var(--cover-art-size);
       object-fit: contain;
     }
 
@@ -58,13 +103,12 @@
       // Play button
       .icon-play,
       .icon-pause {
-        $size: 1.15em;
+        --size: 1.15em;
         display: block;
         position: absolute;
-        left: calc(#{$app-padding-x} / 2 - #{$size} / 2);
-        top: calc(50% - #{$size} / 2);
-        width: $size;
-        height: $size;
+        top: calc(50% - var(--size) / 2);
+        width: var(--size);
+        height: var(--size);
       }
 
       .icon-play,
@@ -98,6 +142,7 @@
     }
   }
 
+  // TODO: replace with class selector
   td {
     background-color: $grey-middle;
     padding: 0 15px;
@@ -106,5 +151,13 @@
     &:hover {
       background-color: lighten($grey-middle, 1);
     }
+  }
+
+  // TODO: Style .placeholder too!
+  .loading-spinner {
+    --size: 25px;
+    --border-width: 2px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }

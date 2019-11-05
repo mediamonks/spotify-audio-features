@@ -110,9 +110,14 @@
       > * {
         flex: 0 0 auto;
       }
+
+      button + button {
+        margin-left: 10px;
+      }
     }
 
     .error {
+      flex: 0 1 auto;
       margin: 0 14px;
     }
 
@@ -136,6 +141,4 @@
       }
     }
   }
-
-  // TODO: Style loading spinner for loading genres
 }

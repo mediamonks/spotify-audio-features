@@ -6,6 +6,7 @@ if (debugPreference !== null) {
 }
 
 export const config = Object.freeze({
+  production: false, // TODO: set to true in bundling process
   debug: debugPreference !== null ? debugPreference : debugMode,
   appName: 'Spotify Audio Features experiment',
   appID: 'spotify_audio_features',

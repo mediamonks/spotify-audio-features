@@ -69,7 +69,7 @@ new Vue({
                 </section>
 
                 <section class="results-panel">
-                  <loading-spinner v-if="searching === true"/>
+                  <loading-spinner v-if="searching === true" type="large"/>
 
                   <p v-if="searching === false && errored === true" v-html="errorMsg"></p>
 

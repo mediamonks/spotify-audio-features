@@ -90,7 +90,7 @@ export const SpotifyTrack = {
                     v-bind="viewMode === 'full' ? { 'scope': 'col' } : {}"
                     class="left"
                   >
-                    <loading-spinner/>
+                    <loading-spinner type="small"/>
                   </component>
 
                   <td

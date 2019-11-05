@@ -10,6 +10,7 @@ import { isValidUrl } from './helpers/valid-url.js';
 
 Vue.use(Vuex);
 
+// TODO: Option to share collections requires being able to get a shared collection from the URL and use that, instead of localStorage.
 const savedCollection = localStorage.getItem(`${config.appID}_collection`),
       savedCollectionOpen = localStorage.getItem(`${config.appID}_collection_open`),
       savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`),
@@ -22,7 +23,7 @@ const savedCollection = localStorage.getItem(`${config.appID}_collection`),
 
 export const store = new Vuex.Store({
 
-  strict: true, // TODO: turn this off during the bundling process, this can have a big performance cost!
+  strict: config.production,
 
   state: {
     setupComplete: false,
@@ -66,6 +67,17 @@ export const store = new Vuex.Store({
     collectionArtists: state => state.collection.filter(item => item.type === 'artist'),
     collectionTracks: state => state.collection.filter(item => item.type === 'track'),
     collectionGenres: state => state.collection.filter(item => item.type === 'genre'),
+
+    shareLink: (state) => {
+      const { collection, collectionAudioFeatures } = state;
+
+      const serializedCollection = JSON.stringify({
+        collection,
+        collectionAudioFeatures,
+      });
+
+      return `${new URL(window.location).origin}/?collection=${encodeURIComponent(serializedCollection)}`;
+    },
   },
 
   mutations: {

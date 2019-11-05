@@ -1,18 +1,27 @@
 $loading-spinner-duration: 1s;
 
 .loading-spinner {
-  --spinner-size: 100px;
-  --spinner-border-width: 3px;
   align-self: center;
   display: block;
   position: relative;
   height: var(--spinner-size);
   width: var(--spinner-size);
-  margin: calc(var(--spinner-size) / 2);
   border: var(--spinner-border-width) solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin7 $loading-spinner-duration cubic-bezier(.44,.15,.56,.86) infinite;
+
+  &.large {
+    --spinner-size: 120px;
+    --spinner-border-width: 3px;
+    margin: 100px 0 0;
+  }
+
+  &.small {
+    --spinner-size: 25px;
+    --spinner-border-width: 2px;
+    margin: calc(var(--spinner-size) / 2) 0;
+  }
 }
 
 @keyframes spin7 {

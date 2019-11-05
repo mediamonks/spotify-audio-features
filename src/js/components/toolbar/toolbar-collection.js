@@ -1,6 +1,5 @@
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
-// TODO: dynamically add document event click listener. when collection foldout is open, click outside collection to close.
 export const ToolbarCollection = {
 
   template:  `<div class="toolbar-collection">
@@ -18,7 +17,7 @@ export const ToolbarCollection = {
                       <ul class="collection-artists">
                         <li v-if="collectionArtists.length === 0">
                           <!-- <div>To add artists for a music search, click the <span class="plus in-body-text"></span> signs</div> -->
-                          <div class="warning">Adding artists is not supported yet</div>
+                          <div class="warning">Sorry, adding artists is not supported yet!</div>
                         </li>
                         <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
                       </ul>
@@ -28,7 +27,7 @@ export const ToolbarCollection = {
                         <li v-if="collectionTracks.length === 0">
                           <div>To add tracks for a music search, click the <span class="plus in-body-text"></span> signs</div>
                         </li>
-                        <!-- <li v-for="item of collectionTracks">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li> -->
+
                         <spotify-track
                           v-for="item of collectionTracks"
                           :key="item.id"
@@ -49,7 +48,7 @@ export const ToolbarCollection = {
                           @input="updateCollectionGenres"
                         />
                       </template>
-                      <loading-spinner v-else/>
+                      <loading-spinner v-else type="small"/>
 
                       <h3>Refine by audio features</h3>
                       <div class="audio-feature-ranges-wrapper" :style="{ '--vrs-dot-size': vrsDotSize + 'px' }">
@@ -74,7 +73,8 @@ export const ToolbarCollection = {
                       </div>
 
                       <div class="search-button-wrapper">
-                        <button class="search small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>
+                        <button class="small secondary" @click="copyShareLink" :disabled="collectionMaxItemsExceeded">Share</button>
+                        <button class="small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>
                         <p class="error" v-if="collectionMaxItemsExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
                       </div>
                     </section>
@@ -150,9 +150,18 @@ export const ToolbarCollection = {
     },
 
     async startSearch () {
-      // Not using await, that would feel unresponsive
+      // Not using await here, that would feel unresponsive
       this.$store.dispatch('getRecommendations');
       this.$store.commit('setCollectionOpen', false);
+    },
+
+    async copyShareLink () {
+      try {
+        // FIXME: FINISH THIS
+        const { shareLink } = this.$store.getters;
+        await navigator.clipboard.writeText(shareLink);
+      }
+      catch {}
     },
   },
 

@@ -144,22 +144,46 @@ button {
     min-width: 160px;
   }
 
-  &:hover,
-  &:focus {
-    background-color: #1ed760;
-  }
-
-  &:active,
-  &.active {
-    &,
+  &:not(.secondary) {
     &:hover,
     &:focus {
-      background-color: #1aa34a;
+      background-color: #1ed760;
+    }
+
+    &:active,
+    &.active {
+      &,
+      &:hover,
+      &:focus {
+        background-color: #1aa34a;
+      }
+    }
+
+    &[disabled] {
+      background-color: $grey-lighter;
     }
   }
 
-  &[disabled] {
-    background-color: $grey-lighter;
+  &.secondary {
+    color: $grey-lightest;
+    box-shadow: 0 0 0 2px $grey-lightest inset;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+      background-color: $grey-lightest;
+      color: $black;
+    }
+
+    &:active,
+    &.active {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $grey-light;
+        box-shadow: 0 0 0 2px $grey-light inset;
+      }
+    }
   }
 }
 

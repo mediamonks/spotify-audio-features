@@ -12,7 +12,18 @@ export const ToolbarCollection = {
                 <div class="collection-contents" :class="{ 'visible': collectionOpen }">
                   <div class="collection-contents-inner">
                     <section class="left">
-                      <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
+                      <h3>Genres ({{ collectionGenres.length }})</h3>
+                      <template v-if="spotifyAvailableGenreSeeds.length">
+                        <vue-multiselect
+                          :options="spotifyAvailableGenreSeeds"
+                          :multiple="true"
+                          placeholder="Search or select genres"
+                          :value="collectionGenres.map(genre => genre.id)"
+                          @input="updateCollectionGenres"
+                        />
+                      </template>
+                      <loading-spinner v-else type="small"/>
+
                       <h3>Artists ({{ collectionArtists.length }})</h3>
                       <ul class="collection-artists">
                         <li v-if="collectionArtists.length === 0">
@@ -38,17 +49,7 @@ export const ToolbarCollection = {
                     </section>
 
                     <section class="right">
-                    <h3>Genres ({{ collectionGenres.length }})</h3>
-                      <template v-if="spotifyAvailableGenreSeeds.length">
-                        <vue-multiselect
-                          :options="spotifyAvailableGenreSeeds"
-                          :multiple="true"
-                          placeholder="Search or select genres"
-                          :value="collectionGenres.map(genre => genre.id)"
-                          @input="updateCollectionGenres"
-                        />
-                      </template>
-                      <loading-spinner v-else type="small"/>
+                      <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
 
                       <h3>Refine by audio features</h3>
                       <div class="audio-feature-ranges-wrapper" :style="{ '--vrs-dot-size': vrsDotSize + 'px' }">

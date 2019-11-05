@@ -169,6 +169,16 @@ export const store = new Vuex.Store({
       localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
     },
 
+    replaceCollection (state, { collection, collectionAudioFeatures }) {
+      Object.assign(state, {
+        collection,
+        collectionAudioFeatures,
+      });
+
+      localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
+      localStorage.setItem(`${config.appID}_collection_audio_features`, JSON.stringify(state.collectionAudioFeatures));
+    },
+
     updateCollectionAudioFeatureRange (state, { id, newRangeMin, newRangeMax }) {
       state.collectionAudioFeatures[id] = [newRangeMin, newRangeMax];
       localStorage.setItem(`${config.appID}_collection_audio_features`, JSON.stringify(state.collectionAudioFeatures));

@@ -4,7 +4,6 @@ import { mapState } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 import VueRangeSlider from '/node_modules/vue-range-component/dist/vue-range-slider.esm.js';
 
 // Core
-import { config } from './config.js';
 import { store } from './store.js';
 
 // Views

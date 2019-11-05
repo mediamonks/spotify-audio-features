@@ -26,7 +26,7 @@ export const SpotifyTrack = {
                     ref="player"
                     preload="none"
                     v-if="hasAudioPreview"
-                    :src="trackData.trackInfo.preview_url"
+                    :src="track.trackData.preview_url"
                     style="visibilty: hidden;"
                     @ended="playingAudioPreview = false"
                   ></audio>
@@ -45,8 +45,8 @@ export const SpotifyTrack = {
 
                   <img class="cover" :src="coverImage" v-if="coverImage"/>
                   <div class="song">
-                    <h3 class="title">{{ trackData.trackInfo.name }}</h3>
-                    <h5 class="artists">{{ $listFormatter.format(trackData.trackInfo.artists.map(artist => artist.name)) }}</h5>
+                    <h3 class="title">{{ track.trackData.name }}</h3>
+                    <h5 class="artists">{{ $listFormatter.format(track.trackData.artists.map(artist => artist.name)) }}</h5>
                   </div>
                   <span
                     class="plus clickable"
@@ -65,7 +65,7 @@ export const SpotifyTrack = {
               </tr>`,
 
   computed: {
-    trackData () {
+    track () {
       return this.$store.state.fetchedContent.find((content) => {
         return content.type === 'track' && content.id === this.trackID;
       });
@@ -73,7 +73,7 @@ export const SpotifyTrack = {
 
     coverImage () {
       try {
-        const albumArt = this.trackData.trackInfo.album.images[2].url;
+        const albumArt = this.track.trackData.album.images[2].url;
         return albumArt;
       }
 
@@ -83,7 +83,7 @@ export const SpotifyTrack = {
     },
 
     hasAudioPreview () {
-      return !!this.trackData.trackInfo.preview_url;
+      return !!this.track.trackData.preview_url;
     },
 
     isInCollection () {
@@ -117,7 +117,7 @@ export const SpotifyTrack = {
 
   methods: {
     getAudioFeatureValue (audioFeature) {
-      return this.trackData.audioFeatures[audioFeature.id];
+      return this.track.audioFeatures[audioFeature.id];
     },
 
     getAudioFeatureRoundedValue (audioFeature) {

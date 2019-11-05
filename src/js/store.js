@@ -2,6 +2,7 @@ import Vue from '/node_modules/vue/dist/vue.esm.browser.js';
 import Vuex from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
 import { config } from './config.js';
+import { log, warn, error } from './helpers/log.js';
 import { audioFeatures } from './helpers/audio-features.js';
 
 // Helpers
@@ -103,11 +104,18 @@ export const store = new Vuex.Store({
     },
 
     // TODO: FINISH
-    addToFetchingContent (state, newFetchingContent) {
-      state.fetchingContent.push(...newFetchingContent);
-    },
+    // addToFetchingContent (state, newFetchingContent) {
+    //   log('New fetching content:', newFetchingContent);
 
+    //   state.fetchingContent.push(...newFetchingContent);
+    // },
+
+    // Adds newly fetched content or replaces content that has already been fetched before
     addToFetchedContent (state, newContent) {
+      if (Array.isArray(newContent) === false) newContent = [newContent];
+
+      log('Saved fetched content:', newContent);
+
       for (const newContentItem of newContent) {
         // Search state.fetchedContent for duplicate
         const index = state.fetchedContent.findIndex((fetchedContentItem) => {
@@ -118,9 +126,7 @@ export const store = new Vuex.Store({
         // Previously, we didn't re-fetch albums and playlist, but now we do.
         if (index >= 0) {
           state.fetchedContent[index] = newContentItem;
-          if (config.debug === true) {
-            console.log(`Replaced data of ${newContentItem.type} with ID '${newContentItem.id}' with newer version`);
-          }
+          log(`Replaced data of ${newContentItem.type} with ID '${newContentItem.id}' with newer version`);
         }
 
         else {
@@ -258,9 +264,7 @@ export const store = new Vuex.Store({
         }
 
         else {
-          if (config.debug === true) {
-            console.error(err);
-          }
+          error(err);
         }
       }
 
@@ -269,31 +273,38 @@ export const store = new Vuex.Store({
     },
 
     async getTracks ({ state, commit, dispatch }, trackIDs) {
-      const tracksData = [];
+      const fetchedContent = [];
 
       if (trackIDs.includes(null)) {
-        console.error(`Array of trackIDs to fetch contains 'null' at least once, which probably means something went wrong prior to calling getTracks`);
+        error(`Array of trackIDs to fetch contains 'null' at least once, which probably means something went wrong prior to calling getTracks`);
       }
 
       // Don't fetch already fetched tracks again
-      const tracksToFetchIDs = trackIDs.filter((trackID) => {
-              // TODO: also check state.fetchingContent
-              return (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined');
-            });
+      const tracksToFetchIDs = trackIDs.filter(trackID => (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined'));
 
+      // TODO: Decide if we'll use "fetchingContent", then clean this up
+      // const tracksToFetchIDs = trackIDs.filter((trackID) => {
+      //   const isInFetchedContent = (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) !== 'undefined'),
+      //         isInFetchingContent = (typeof state.fetchingContent.find(content => content.type === 'track' && content.id === trackID) !== 'undefined');
+
+      //   return (isInFetchedContent === false && isInFetchingContent === false);
+      // });
+
+      // If everything is already fetched or fetching, skip the rest and just resolve
+      // REVIEW: Should we resolve or await all fetching promises? If we have to await, we have to store the fetchingContent promises somewhere too!
       if (tracksToFetchIDs.length === 0) {
         return Promise.resolve();
       }
 
       // TODO: FINISH
-      commit('addToFetchingContent', tracksToFetchIDs.map(trackID => ({ type: 'track', id: trackID })));
+      // commit('addToFetchingContent', tracksToFetchIDs.map(trackID => ({ type: 'track', id: trackID })));
 
       try {
-        const { tracks } = await state.spotifyApi.getTracks(tracksToFetchIDs),
+        const { tracks: tracksData } = await state.spotifyApi.getTracks(tracksToFetchIDs),
               { audio_features } = await state.spotifyApi.getAudioFeaturesForTracks(tracksToFetchIDs);
 
         // Spotify API returns null if an object wasn't found
-        if (tracks.every(track => track === null)) {
+        if (tracksData.every(trackData => trackData === null)) {
           throw {
             status: 400,
             reason: `All entered track IDs are invalid. We throw this error ourselves, because we always use the "get several tracks" endpoint, which only returns null if objects are not found`,
@@ -301,15 +312,15 @@ export const store = new Vuex.Store({
         }
 
         for (const trackID of tracksToFetchIDs) {
-          const trackInfo = tracks.find(track => track.id === trackID);
+          const trackData = tracksData.find(track => track.id === trackID);
 
           // If Spotify API returned null, the object wasn't found and we shouldn't save it in our store
-          if (trackInfo === null) continue;
+          if (trackData === null) continue;
 
-          tracksData.push({
+          fetchedContent.push({
             id: trackID,
             type: 'track',
-            trackInfo,
+            trackData,
             audioFeatures: audio_features.find(track => track.id === trackID),
           });
         }
@@ -319,7 +330,7 @@ export const store = new Vuex.Store({
         await dispatch('handleError', err);
       }
 
-      commit('addToFetchedContent', tracksData);
+      commit('addToFetchedContent', fetchedContent);
     },
 
     async getPlaylist ({ state, commit, dispatch }, playlistID) {
@@ -328,7 +339,7 @@ export const store = new Vuex.Store({
               playlistTracks = playlist.tracks.items.filter(item => item.is_local !== true).map(item => item.track),
               trackIDs = playlistTracks.map(track => track.id);
 
-        commit('addToFetchedContent', [playlist]);
+        commit('addToFetchedContent', playlist);
 
         // Warn if results are limited by Spotify API request restrictions
         // if (playlist.tracks.total > state.spotifyGetTracksLimit) {
@@ -349,7 +360,7 @@ export const store = new Vuex.Store({
               albumTracks = album.tracks.items,
               trackIDs = albumTracks.map(track => track.id);
 
-        commit('addToFetchedContent', [album]);
+        commit('addToFetchedContent', album);
 
         // Warn if results are limited by Spotify API request restrictions
         if (album.tracks.total > state.spotifyGetTracksLimit) {
@@ -409,7 +420,7 @@ export const store = new Vuex.Store({
 
     async handleError ({ dispatch }, err) {
       if (err.status === 400) {
-        if (config.debug === true) console.warn(`Wrong Spotify link formatting (too long or too short)`);
+        warn(`Wrong Spotify link formatting (too long or too short)`);
         return Promise.reject({
           reason: `The Spotify link you entered doesn't seem to work, did you perhaps copy too little or too much text?`,
           originalError: err,
@@ -417,12 +428,12 @@ export const store = new Vuex.Store({
       }
 
       else if (err.status === 401) {
-        if (config.debug === true) console.warn('Spotify access token missing or outdated');
+        warn('Spotify access token missing or outdated');
         dispatch('clearSpotifyAccessToken');
       }
 
       else if (err.status === 404) {
-        if (config.debug === true) console.warn(`Spotify link points to non-existent content`);
+        warn(`Spotify link points to non-existent content`);
         return Promise.reject({
           reason: `The Spotify link you entered doesn't seem to work`,
           originalError: err,
@@ -435,7 +446,7 @@ export const store = new Vuex.Store({
           return Promise.reject(err);
         }
 
-        if (config.debug === true) console.error(err);
+        error(err);
       }
     },
 

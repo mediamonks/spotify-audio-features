@@ -10,18 +10,17 @@
 
   .audio-feature-metric {
     display: contents;
-    line-height: 2.25;
+    line-height: 2.5;
 
     .audio-feature-type {
-      --space-between: 25px;
+      --space-between: 15px;
       display: flex;
       padding-right: calc(var(--space-between) * 2);
       justify-content: stretch;
       align-items: center;
 
-      // TODO: Finetune spacing
       &::after {
-        content: "      ";
+        content: "        "; // line length.. haha
         white-space: pre;
         display: inline-block;
         flex: 1 1 auto;

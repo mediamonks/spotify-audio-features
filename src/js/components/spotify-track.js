@@ -84,7 +84,21 @@ export const SpotifyTrack = {
                   </td>
                 </template>
 
-                <loading-spinner v-else/>
+                <template v-else>
+                  <component
+                    :is="viewMode === 'full' ? 'th' : 'div'"
+                    v-bind="viewMode === 'full' ? { 'scope': 'col' } : {}"
+                    class="left"
+                  >
+                    <loading-spinner/>
+                  </component>
+
+                  <td
+                    v-if="viewMode === 'full'"
+                    v-for="audioFeature in $store.state.audioFeatures"
+                    class="audio-feature-value"
+                  ></td>
+                </template>
               </component>`,
 
   computed: {

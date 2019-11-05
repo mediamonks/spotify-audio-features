@@ -17,7 +17,7 @@ export const ToolbarCollection = {
                       <h3>Artists ({{ collectionArtists.length }})</h3>
                       <ul class="collection-artists">
                         <li v-if="collectionArtists.length === 0">
-                          <!-- <div>To add artists for a music search, click the <span class="plus"></span> signs</div> -->
+                          <!-- <div>To add artists for a music search, click the <span class="plus in-body-text"></span> signs</div> -->
                           <div class="warning">Adding artists is not supported yet</div>
                         </li>
                         <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
@@ -26,7 +26,7 @@ export const ToolbarCollection = {
                       <h3>Tracks ({{ collectionTracks.length }})</h3>
                       <ul class="collection-tracks">
                         <li v-if="collectionTracks.length === 0">
-                          <div>To add tracks for a music search, click the <span class="plus"></span> signs</div>
+                          <div>To add tracks for a music search, click the <span class="plus in-body-text"></span> signs</div>
                         </li>
                         <!-- <li v-for="item of collectionTracks">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li> -->
                         <spotify-track

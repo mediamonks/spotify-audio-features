@@ -6,10 +6,8 @@ This tool gives you a quick overview of a subset (for now) of this data by letti
 (Better) dialogs.
 View calculated song segments, BPM, key, genre.
 View audio features per genre?
-The ability to drag & drop links.
 The ability to enter artist links.
 Asking the user what to do when the Spotify API returns limited data (e.g. only 100 results per time).
-Use median instead of mean (average)
 
 # Contribute
 - Feel free to fork and submit PRs

@@ -13,12 +13,13 @@
     line-height: 2.25;
 
     .audio-feature-type {
-      --space-between: 15px;
+      --space-between: 25px;
       display: flex;
       padding-right: calc(var(--space-between) * 2);
       justify-content: stretch;
       align-items: center;
 
+      // TODO: Finetune spacing
       &::after {
         content: "      ";
         white-space: pre;

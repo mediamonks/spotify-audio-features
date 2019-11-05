@@ -11,6 +11,7 @@ import { isValidUrl } from './helpers/valid-url.js';
 Vue.use(Vuex);
 
 const savedCollection = localStorage.getItem(`${config.appID}_collection`),
+      savedCollectionOpen = localStorage.getItem(`${config.appID}_collection_open`),
       savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`),
       collectionAudioFeaturesDefaults = audioFeatures.reduce((all, curr) => {
         return {
@@ -52,7 +53,7 @@ export const store = new Vuex.Store({
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
     collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
-    collectionOpen: false,
+    collectionOpen: savedCollectionOpen ? JSON.parse(savedCollectionOpen) : false,
 
     // Search results
     searchResults: {},
@@ -141,10 +142,12 @@ export const store = new Vuex.Store({
 
     toggleCollectionOpen (state) {
       state.collectionOpen = !state.collectionOpen;
+      localStorage.setItem(`${config.appID}_collection_open`, JSON.stringify(state.collectionOpen));
     },
 
     setCollectionOpen (state, newOpenState) {
       state.collectionOpen = newOpenState;
+      localStorage.setItem(`${config.appID}_collection_open`, JSON.stringify(state.collectionOpen));
     },
 
     addToCollection (state, { type, id }) {
@@ -371,9 +374,9 @@ export const store = new Vuex.Store({
         commit('addToFetchedContent', album);
 
         // Warn if results are limited by Spotify API request restrictions
-        if (album.tracks.total > state.spotifyGetTracksLimit) {
-          alert(`This album contains ${album.tracks.total} tracks, but the Spotify API limits us to getting data for ${state.spotifyGetTracksLimit} tracks per request. For now, this tool will only get the first ${state.spotifyGetTracksLimit} items`);
-        }
+        // if (album.tracks.total > state.spotifyGetTracksLimit) {
+        //   alert(`This album contains ${album.tracks.total} tracks, but the Spotify API limits us to getting data for ${state.spotifyGetTracksLimit} tracks per request. For now, this tool will only get the first ${state.spotifyGetTracksLimit} items`);
+        // }
 
         await dispatch('getTracks', trackIDs.slice(0, state.spotifyGetTracksLimit));
       }
@@ -399,7 +402,7 @@ export const store = new Vuex.Store({
             seedTracks = getters.collectionTracks.map(track => track.id),
             seedGenres = getters.collectionGenres.map(genre => genre.id),
             recommendationsOptions = {
-              limit: 100,
+              limit: state.spotifyGetTracksLimit,
               ...seedArtists.length && { seed_artists: seedArtists },
               ...seedTracks.length && { seed_tracks: seedTracks },
               ...seedGenres.length && { seed_genres: seedGenres },

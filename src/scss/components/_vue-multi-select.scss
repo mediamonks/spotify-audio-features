@@ -6,6 +6,7 @@ $vms-input-padding-y: 11px;
 
 .multiselect__placeholder {
   padding-top: 0;
+  color: $grey-light;
 }
 
 .multiselect__placeholder,
@@ -13,6 +14,10 @@ $vms-input-padding-y: 11px;
   padding: 0;
   margin: 0 0 $vms-input-padding-y;
   line-height: 24px; // just as high as tags
+}
+
+.multiselect__input {
+  color: $black;
 }
 
 .multiselect__select {

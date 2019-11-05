@@ -1,15 +1,15 @@
 $loading-spinner-duration: 1s;
 
 .loading-spinner {
-  --size: 100px;
-  --border-width: 3px;
+  --spinner-size: 100px;
+  --spinner-border-width: 3px;
   align-self: center;
   display: block;
   position: relative;
-  height: var(--size);
-  width: var(--size);
-  margin: calc(var(--size) / 2);
-  border: var(--border-width) solid transparent;
+  height: var(--spinner-size);
+  width: var(--spinner-size);
+  margin: calc(var(--spinner-size) / 2);
+  border: var(--spinner-border-width) solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin7 $loading-spinner-duration cubic-bezier(.44,.15,.56,.86) infinite;

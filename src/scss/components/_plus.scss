@@ -1,11 +1,11 @@
 .plus {
-  --thickness: 2px;
-  --size: #{$fs-normal};
-  --padding: 0px;
+  --plus-thickness: 2px;
+  --plus-size: #{$fs-normal};
+  --plus-padding: 0px;
   flex: 0 0 auto;
   display: inline-block;
-  width: calc(var(--size) + var(--padding));
-  height: calc(var(--size) + var(--padding));
+  width: calc(var(--plus-size) + var(--plus-padding));
+  height: calc(var(--plus-size) + var(--plus-padding));
   position: relative;
   transition: transform 0.3s ease;
 
@@ -19,20 +19,20 @@
 
   // Horizontal
   &::before {
-    width: calc(100% - var(--padding) * 2);
-    height: var(--thickness);
-    top: calc(50% - var(--thickness) / 2);
-    left: var(--padding);
-    right: var(--padding);
+    width: calc(100% - var(--plus-padding) * 2);
+    height: var(--plus-thickness);
+    top: calc(50% - var(--plus-thickness) / 2);
+    left: var(--plus-padding);
+    right: var(--plus-padding);
   }
 
   // Vertical
   &::after {
-    width: var(--thickness);
-    height: calc(100% - var(--padding) * 2);
-    left: calc(50% - var(--thickness) / 2);
-    top: var(--padding);
-    bottom: var(--padding);
+    width: var(--plus-thickness);
+    height: calc(100% - var(--plus-padding) * 2);
+    left: calc(50% - var(--plus-thickness) / 2);
+    top: var(--plus-padding);
+    bottom: var(--plus-padding);
   }
 
   &.clickable {
@@ -58,5 +58,12 @@
     &::after {
       background-color: $green;
     }
+  }
+
+  &.in-body-text {
+    --plus-size: 1em;
+    vertical-align: middle;
+    margin: 0 0.5ch;
+    top: -1px;
   }
 }

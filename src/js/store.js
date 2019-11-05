@@ -48,7 +48,6 @@ export const store = new Vuex.Store({
 
     // All data fetched from Spotify API
     fetchedContent: [],
-    fetchingContent: [],
 
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
@@ -104,12 +103,6 @@ export const store = new Vuex.Store({
       state.errored = true;
       state.searching = false;
     },
-
-    // TODO: FINISH
-    // addToFetchingContent (state, newFetchingContent) {
-    //   log('New fetching content:', newFetchingContent);
-    //   state.fetchingContent.push(...newFetchingContent);
-    // },
 
     // Adds newly fetched content or replaces content that has already been fetched before
     addToFetchedContent (state, newContent) {
@@ -293,22 +286,10 @@ export const store = new Vuex.Store({
       // Don't fetch already fetched tracks again
       const tracksToFetchIDs = trackIDs.filter(trackID => (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) === 'undefined'));
 
-      // TODO: Decide if we'll use "fetchingContent", then clean this up
-      // const tracksToFetchIDs = trackIDs.filter((trackID) => {
-      //   const isInFetchedContent = (typeof state.fetchedContent.find(content => content.type === 'track' && content.id === trackID) !== 'undefined'),
-      //         isInFetchingContent = (typeof state.fetchingContent.find(content => content.type === 'track' && content.id === trackID) !== 'undefined');
-
-      //   return (isInFetchedContent === false && isInFetchingContent === false);
-      // });
-
-      // If everything is already fetched or fetching, skip the rest and just resolve
-      // REVIEW: Should we resolve or await all fetching promises? If we have to await, we have to store the fetchingContent promises somewhere too!
+      // If everything is already fetched, skip the rest and just resolve
       if (tracksToFetchIDs.length === 0) {
         return Promise.resolve();
       }
-
-      // TODO: FINISH
-      // commit('addToFetchingContent', tracksToFetchIDs.map(trackID => ({ type: 'track', id: trackID })));
 
       try {
         const { tracks: tracksData } = await state.spotifyApi.getTracks(tracksToFetchIDs),

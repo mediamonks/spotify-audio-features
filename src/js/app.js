@@ -63,7 +63,7 @@ new Vue({
                 <search-bar/>
 
                 <section class="toolbar">
-                  <toolbar-test-links/>
+                  <toolbar-test-links v-if="$store.state.production === false"/>
                   <toolbar-collection/>
                 </section>
 

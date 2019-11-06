@@ -107,8 +107,8 @@
     }
 
     &.clickable {
-      transition: opacity 0.3s ease,
-                  background-color 0.3s ease;
+      transition: opacity $s-normal ease,
+                  background-color $s-normal ease;
 
       // Play button
       .icon-play,
@@ -124,7 +124,7 @@
       .icon-play,
       .icon-pause {
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity $s-normal ease;
       }
 
       &.playing-preview {

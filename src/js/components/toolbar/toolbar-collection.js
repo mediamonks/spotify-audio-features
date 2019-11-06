@@ -5,7 +5,8 @@ export const ToolbarCollection = {
   template:  `<div class="toolbar-collection">
                 <button
                   class="small"
-                  :class="{ 'active': collectionOpen }"
+                  :class="{ 'active': collectionOpen, 'animated': animateButton }"
+                  @animationend.self="animateButton = false"
                   @click="$store.commit('toggleCollectionOpen')"
                 >Collection {{ collectionTotalCountText }}</button>
 
@@ -87,6 +88,7 @@ export const ToolbarCollection = {
     return {
       maxItems: 5,
       vrsDotSize: 28,
+      animateButton: false,
     };
   },
 
@@ -117,6 +119,16 @@ export const ToolbarCollection = {
 
     collectionMaxItemsExceeded () {
       return this.collectionTotalCount > this.maxItems;
+    },
+  },
+
+  watch: {
+    collectionTotalCount (newCount, oldCount) {
+      this.animateButton = true;
+
+      // if (typeof oldCount !== 'undefined' && newCount > oldCount) {
+      //   this.animateButton = true;
+      // }
     },
   },
 

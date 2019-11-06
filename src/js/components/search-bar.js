@@ -6,21 +6,34 @@ export const SearchBar = {
                   rel="input"
                   placeholder="Enter or drag and drop Spotify link here"
                   v-model="spotifyUrl"
-                  @keydown.enter="$store.dispatch('enterUrl')"
+                  @[eventType]="test"
                 />
 
                 <button @click="$store.dispatch('enterUrl')">Open</button>
               </section>`,
 
-computed: {
-  spotifyUrl: {
-    get () {
-      return this.$store.state.spotifyUrl;
-    },
-    set (value) {
-      this.$store.commit('updateSpotifyUrl', value);
+  data () {
+    return {
+      eventType: ('onsearch' in window) ? 'search' : 'keydown.enter',
+    };
+  },
+
+  computed: {
+    spotifyUrl: {
+      get () {
+        return this.$store.state.spotifyUrl;
+      },
+      set (value) {
+        this.$store.commit('updateSpotifyUrl', value);
+      },
     },
   },
-},
+
+  methods: {
+    test (e) {
+      console.log('WGUDGWGFKVFW')
+      this.$store.dispatch('enterUrl');
+    },
+  },
 
 };

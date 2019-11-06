@@ -11,6 +11,7 @@ import { isValidUrl } from './helpers/valid-url.js';
 Vue.use(Vuex);
 
 // TODO: Option to share collections requires being able to get a shared collection from the URL and use that, instead of localStorage.
+// IDEA: Hitting the "Back" button on view-search does unexpected things for the end user. You would expect to go back the whatever you were looking at before you hit the Search button. That's why we should put the serialized collection in the URL and use that as a "route".
 const savedCollection = localStorage.getItem(`${config.appID}_collection`),
       savedCollectionOpen = localStorage.getItem(`${config.appID}_collection_open`),
       savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`),
@@ -21,11 +22,15 @@ const savedCollection = localStorage.getItem(`${config.appID}_collection`),
         };
       }, {});
 
+const viewParamID = 'view';
+
 export const store = new Vuex.Store({
 
   strict: config.production,
 
   state: {
+    production: config.production,
+
     setupComplete: false,
 
     // App view
@@ -95,7 +100,7 @@ export const store = new Vuex.Store({
     },
 
     setSpotifyUrlFromSearchParams (state) {
-      state.spotifyUrl = new URL(window.location).searchParams.get('search') || '';
+      state.spotifyUrl = new URL(window.location).searchParams.get(viewParamID) || '';
     },
 
     startSearch (state) {
@@ -195,7 +200,7 @@ export const store = new Vuex.Store({
 
   actions: {
     async enterUrl ({ state, commit, dispatch }, url = state.spotifyUrl) {
-      history.pushState(null, null, `/?search=${url}`);
+      history.pushState(null, null, `/?${viewParamID}=${url}`);
       commit('setSpotifyUrlFromSearchParams');
       await dispatch('doSearch');
     },
@@ -504,19 +509,19 @@ export const store = new Vuex.Store({
         const postAuthSpotifyUrlToPrefill = localStorage.getItem(`${config.appID}_post_access_grant_url_prefill`);
 
         if (postAuthSpotifyUrlToPrefill) {
-          history.replaceState(null, null, `/?search=${postAuthSpotifyUrlToPrefill}`);
+          history.replaceState(null, null, `/?${viewParamID}=${postAuthSpotifyUrlToPrefill}`);
         }
       }
 
       // Always clear this to prevent bugs, no matter what situation.
       localStorage.removeItem(`${config.appID}_post_access_grant_url_prefill`);
 
-      // Search params will contain param 'search' when:
+      // Search params will contain param ${viewParamID} when:
       // 1) User searched something then refreshed the page
       // 2) Opened direct link to a search
       // 3) User searched something but needed to re-authorize
       // 4) User just authorized and returned here by redirect link (which cannot contain dynamic parameters, so we save current search into localStorage)
-      const spotifyUrlToPrefill = currentPage.searchParams.get('search');
+      const spotifyUrlToPrefill = currentPage.searchParams.get(viewParamID);
 
       // Get freshly created or previously set access token from localStorage
       const spotifyAccessToken = localStorage.getItem(`${config.appID}_access_token`);
@@ -557,7 +562,7 @@ export const store = new Vuex.Store({
     async clearSpotifyAccessToken ({ state }) {
       // If url was already filled in, preverse and prefill next time
       if (state.spotifyUrl) {
-        window.location.search = `?search=${state.spotifyUrl}`;
+        window.location.search = `?${viewParamID}=${state.spotifyUrl}`;
       }
 
       localStorage.removeItem(`${config.appID}_access_token`);

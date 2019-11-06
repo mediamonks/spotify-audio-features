@@ -55,6 +55,7 @@ node_modules/
 src/css/
 src/css/*
 dist/
+.publish
 
 .~lock*
 .DS_Store

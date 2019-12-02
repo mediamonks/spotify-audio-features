@@ -18,6 +18,7 @@ import { TopbarSearch } from './components/topbar/topbar-search.js';
 import { TopbarCollection } from './components/topbar/topbar-collection.js';
 import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
+import { HelpSection } from './components/help-section.js';
 import { SpotifyTrack } from './components/spotify-track.js';
 
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
@@ -25,6 +26,12 @@ import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
 
 Vue.prototype.$listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
+
+const VueModal = window['vue-js-modal'].default;
+Vue.use(VueModal, {
+  // dialog: true,
+  dynamic: true,
+});
 
 Vue.use(VueRangeSlider);
 
@@ -37,13 +44,15 @@ Vue.component('view-playlist', ViewPlaylist);
 Vue.component('view-search', ViewSearch);
 
 Vue.component('topbar-search', TopbarSearch);
-Vue.component('test-links', TestLinks);
 Vue.component('topbar-collection', TopbarCollection);
+Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
+Vue.component('help-section', HelpSection);
+Vue.component('spotify-track', SpotifyTrack);
+
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);
 Vue.component('audio-features-overview', AudioFeaturesOverview);
-Vue.component('spotify-track', SpotifyTrack);
 
 new Vue({
 
@@ -78,6 +87,9 @@ new Vue({
                     v-bind="currentViewData"
                   />
                 </main>
+
+                <help-section/>
+                <modals-container/>
               </div>`,
 
   created () {

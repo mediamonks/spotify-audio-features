@@ -36,7 +36,7 @@
     z-index: 200;
     background-color: var(--foldout-color);
     border-radius: $border-radius-mini;
-    box-shadow: 0 0 30px rgba(black, 0.3);
+    box-shadow: 0 0 30px rgba(#000, 0.3);
     transition: opacity $s-normal ease,
                 visibility $s-normal ease;
 

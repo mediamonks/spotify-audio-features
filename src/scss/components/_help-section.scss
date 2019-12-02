@@ -1,0 +1,16 @@
+.help-section {
+  position: fixed;
+  right: $app-padding-x;
+  bottom: $app-padding-y;
+
+  > button {
+    svg {
+      width: 1.25em;
+      height: 1.25em;
+
+      * {
+        fill: currentColor;
+      }
+    }
+  }
+}

@@ -146,6 +146,16 @@ button {
     min-width: 160px;
   }
 
+  &.round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: $button-padding-y;
+  }
+
   &:not(.secondary) {
     &:hover,
     &:focus {
@@ -234,4 +244,9 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+hr {
+  border: 1px solid $grey-light;
+  margin: $gutter 0;
 }

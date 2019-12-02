@@ -1,7 +1,32 @@
+// TODO: loudness, tempo, mode (major/minor), time_signature, key (think about audio features that can't have an average, like key).
+
 export const audioFeatures = [
+  // {
+  //   id: 'tempo',
+  //   name: 'Tempo (BPM)',
+  //   type: 'float',
+  //   minText: 'Slow',
+  //   midText: 'Average speed',
+  //   maxText: 'Fast',
+  //   minLimit: 100,
+  //   maxLimit: 150,
+  //   description: 'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.',
+  // },
+  // {
+  //   id: 'loudness',
+  //   name: 'Loudness (dB)',
+  //   type: 'audio_level',
+  //   minText: 'Dynamic',
+  //   midText: 'Common loudness',
+  //   maxText: 'Loud',
+  //   minLimit: -16,
+  //   maxLimit: -6,
+  //   description: 'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.',
+  // },
   {
     id: 'valence',
     name: 'Valence',
+    type: 'percentage',
     minText: 'Sad/depressed/angry',
     midText: 'Neutral',
     maxText: 'Happy/cheerful/euphoric',
@@ -12,6 +37,7 @@ export const audioFeatures = [
   {
     id: 'energy',
     name: 'Energy',
+    type: 'percentage',
     minText: 'Slow/quiet/dynamic',
     midText: 'Around average',
     maxText: 'Fast/loud/noisy',
@@ -22,6 +48,7 @@ export const audioFeatures = [
   {
     id: 'danceability',
     name: 'Danceability',
+    type: 'percentage',
     minText: 'Not very danceable',
     midText: 'Somewhat danceable',
     maxText: 'Danceable',
@@ -32,6 +59,7 @@ export const audioFeatures = [
   {
     id: 'instrumentalness',
     name: 'Instrumentalness',
+    type: 'percentage',
     minText: 'Contains vocal content',
     midText: 'Might contain vocal content',
     maxText: 'No vocal content (except maybe “oohs” and “aahs”)',
@@ -42,6 +70,7 @@ export const audioFeatures = [
   {
     id: 'acousticness',
     name: 'Acousticness',
+    type: 'percentage',
     minText: 'Not acoustic',
     midText: 'Maybe acoustic',
     maxText: 'Acoustic',
@@ -52,6 +81,7 @@ export const audioFeatures = [
   {
     id: 'speechiness',
     name: 'Speechiness',
+    type: 'percentage',
     minText: 'Music or other non-speech-like content',
     midText: 'Contains both music and speech',
     maxText: 'Contains spoken word only',
@@ -62,6 +92,7 @@ export const audioFeatures = [
   {
     id: 'liveness',
     name: 'Liveness',
+    type: 'percentage',
     minText: 'Studio recording',
     midText: 'Might be a live recording',
     maxText: 'Live recording',

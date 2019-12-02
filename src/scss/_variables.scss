@@ -28,12 +28,22 @@ $border-radius-mini: 6px;
 $app-padding-x: 75px;
 $app-padding-y: 50px;
 
-$left-width: 300px;
+$left-width: 400px;
 $gutter: 50px;
 $gutter-small: 30px;
+$gutter-mini: 10px;
 
 $button-padding-y: 14px;
 $button-padding-x: 44px;
 
-$toolbar-padding-y: 15px;
-$toolbar-height: $toolbar-padding-y + $button-padding-y + $fs-small + $button-padding-y + $toolbar-padding-y;
+$topbar-padding-y: 15px;
+// $topbar-height: $topbar-padding-y + $button-padding-y + $fs-small + $button-padding-y + $topbar-padding-y; // logic for old layout
+$topbar-height: 93px; // TODO: HARDCODED FOR NOW, CALCULATE SOMEHOW OR SET CSS VAR WITH JS
+
+// SPEEDS
+$s-normal: 0.3s;
+$s-slow: 0.7s;
+
+@mixin glow {
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 10px #fff);
+}

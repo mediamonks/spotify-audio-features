@@ -27,8 +27,8 @@ global.browserSync = require('browser-sync').create();
 ////////////////////////////////////////////////////
 
 global.app = {
-  compiledAppName: 'bundle.js',
-  compiledAppFallbackName: 'bundle-fallback.js',
+  compiledAppName: 'spotify-audio-features.js',
+  compiledAppFallbackName: 'spotify-audio-features-fallback.js',
 };
 
 // Define paths
@@ -42,6 +42,8 @@ global.paths = {
   configJS:       path.resolve(cwd, './src/js/config.js'),
   scss:           path.resolve(cwd, './src/scss'),
   css:            path.resolve(cwd, './src/css'),
+
+  distVendorJS:   path.resolve(cwd, './dist/js/vendor'),
 };
 
 

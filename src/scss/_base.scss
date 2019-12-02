@@ -81,6 +81,8 @@ body {
   color: $white;
   font-size: $fs-normal;
   font-family: Circular, Helvetica, Arial, sans-serif;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
   line-height: 1.5;
   font-weight: 400;
   -moz-osx-font-smoothing: grayscale;
@@ -127,21 +129,33 @@ button {
   padding: $button-padding-y $button-padding-x;
   flex: 0 0 auto;
   background-color: $green;
+  border-radius: $border-radius;
   color: $white;
-  font-size: $fs-normal;
   font-weight: bold;
-  @extend %letter-spaced;
   line-height: 1;
+  @extend %letter-spaced;
   white-space: normal;
   cursor: pointer;
   transition-property: background-color, border-color, color, box-shadow, filter;
   transition-duration: .3s;
 
+  &:not(.small) {
+    font-size: $fs-normal;
+  }
+
   &.small {
     font-size: $fs-small;
-    line-height: 1;
-    border-radius: $border-radius;
     min-width: 160px;
+  }
+
+  &.round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: $button-padding-y;
   }
 
   &:not(.secondary) {
@@ -197,7 +211,7 @@ input[type="search"] {
   outline: none;
   font-size: $fs-medium;
   padding: 16px 32px;
-  font-weight: 600;
+  font-weight: 700;
   flex: 1 1 auto;
   width: auto;
   background-color: $white;
@@ -206,8 +220,8 @@ input[type="search"] {
   border-bottom-left-radius: $border-radius;
 
   + button {
-    border-top-right-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 
@@ -232,4 +246,19 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+hr {
+  border: 1px solid $grey-light;
+  margin: $gutter 0;
+}
+
+details {
+  summary {
+    cursor: pointer;
+
+    // h2 {
+    //   display: inline-block;
+    // }
+  }
 }

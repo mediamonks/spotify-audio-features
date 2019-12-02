@@ -36,11 +36,14 @@ export const TrackContainer = {
     },
 
     coverImage () {
-      if (this.trackContainerData.images.length === 1) {
-        return this.trackContainerData.images[0].url;
+      const imageContainer = (this.trackContainerType === 'track') ? this.trackContainerData.trackData.album.images : this.trackContainerData.images;
+
+      if (imageContainer.length === 1) {
+        return imageContainer[0].url;
       }
+
       else {
-        return this.trackContainerData.images.find(image => image.width > 100 && image.width < 600).url;
+        return imageContainer.find(image => image.width > 100 && image.width < 600).url;
       }
     },
   }

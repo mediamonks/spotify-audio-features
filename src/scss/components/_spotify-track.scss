@@ -18,6 +18,7 @@
       width: $left-width + $app-padding-x;
       padding: $gutter/2 $gutter $gutter/2 $app-padding-x;
       background-color: $black;
+      z-index: 150;
 
       &.clickable {
         .icon-play,
@@ -74,7 +75,6 @@
     align-items: center;
     justify-content: stretch;
     text-align: left;
-    z-index: 150;
 
     .cover {
       flex: 0 0 auto;
@@ -106,9 +106,16 @@
       --plus-padding: 4px;
     }
 
+    .copy-link-icon {
+      flex: 0 0 auto;
+      margin-left: $gutter-mini;
+      --copy-link-icon-size: #{$fs-normal + 4px};
+      --copy-link-icon-padding: 4px;
+    }
+
     &.clickable {
-      transition: opacity 0.3s ease,
-                  background-color 0.3s ease;
+      transition: opacity $s-normal ease,
+                  background-color $s-normal ease;
 
       // Play button
       .icon-play,
@@ -124,7 +131,7 @@
       .icon-play,
       .icon-pause {
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity $s-normal ease;
       }
 
       &.playing-preview {

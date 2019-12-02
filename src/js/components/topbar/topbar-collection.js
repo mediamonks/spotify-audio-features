@@ -1,11 +1,11 @@
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
-export const ToolbarCollection = {
+export const TopbarCollection = {
 
-  template:  `<div class="toolbar-collection">
+  template:  `<div class="topbar-collection">
                 <button
-                  class="small"
-                  :class="{ 'active': collectionOpen }"
+                  :class="{ 'active': collectionOpen, 'animated': animateButton }"
+                  @animationend.self="animateButton = false"
                   @click="$store.commit('toggleCollectionOpen')"
                 >Collection {{ collectionTotalCountText }}</button>
 
@@ -87,6 +87,7 @@ export const ToolbarCollection = {
     return {
       maxItems: 5,
       vrsDotSize: 28,
+      animateButton: false,
     };
   },
 
@@ -117,6 +118,16 @@ export const ToolbarCollection = {
 
     collectionMaxItemsExceeded () {
       return this.collectionTotalCount > this.maxItems;
+    },
+  },
+
+  watch: {
+    collectionTotalCount (newCount, oldCount) {
+      this.animateButton = true;
+
+      // if (typeof oldCount !== 'undefined' && newCount > oldCount) {
+      //   this.animateButton = true;
+      // }
     },
   },
 
@@ -158,7 +169,7 @@ export const ToolbarCollection = {
 
     async copyShareLink () {
       try {
-        // FIXME: FINISH THIS
+        // FIXME: FINISH THIS (TOAST?)
         const { shareLink } = this.$store.getters;
         await navigator.clipboard.writeText(shareLink);
       }

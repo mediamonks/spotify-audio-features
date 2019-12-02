@@ -1,7 +1,7 @@
 // TODO: Temporary markup, rewrite!
 export const ViewSearch = {
 
-  template:  `<section class="view-search">
+  template:  `<div class="view-search">
                 <div class="track-container">
                   <section class="left"></section>
 
@@ -12,7 +12,7 @@ export const ViewSearch = {
                 </div>
 
                 <audio-features-overview v-if="trackIDs.length" :trackIDs="trackIDs"/>
-              </section>`,
+              </div>`,
 
   computed: {
     trackIDs () {

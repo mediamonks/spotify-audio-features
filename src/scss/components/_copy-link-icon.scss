@@ -1,0 +1,35 @@
+.copy-link-icon {
+  --copy-link-icon-size: #{$fs-normal};
+  --copy-link-icon-padding: 0px;
+  flex: 0 0 auto;
+  display: inline-block;
+  width: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
+  height: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
+  position: relative;
+  transition: filter $s-normal ease;
+
+  &.clickable:hover {
+    @include glow;
+  }
+
+  &.in-body-text {
+    --copy-link-icon-size: 1em;
+    vertical-align: middle;
+    margin: 0 0.5ch;
+    top: -1px;
+  }
+
+  svg {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 2 * var(--copy-link-icon-padding));
+    height: calc(100% - 2 * var(--copy-link-icon-padding));
+    transform: translate(-50%, -50%);
+
+    * {
+      fill: currentColor;
+    }
+  }
+}

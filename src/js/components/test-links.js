@@ -1,6 +1,6 @@
-export const ToolbarTestLinks = {
+export const TestLinks = {
 
-  template:  `<div class="toolbar-test-links">
+  template:  `<div class="test-links">
                 <button class="small" @click="$store.dispatch('enterUrl', getRandom(tracks));">Test track</button>
                 <button class="small" @click="$store.dispatch('enterUrl', getRandom(playlists))">Test playlist</button>
                 <button class="small" @click="$store.dispatch('enterUrl', getRandom(albums))">Test album</button>

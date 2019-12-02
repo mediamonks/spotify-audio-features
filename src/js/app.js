@@ -14,10 +14,12 @@ import { ViewPlaylist } from './views/view-playlist.js';
 import { ViewSearch } from './views/view-search.js';
 
 // Components
-import { SearchBar } from './components/search-bar.js';
-import { ToolbarTestLinks } from './components/toolbar/toolbar-test-links.js';
-import { ToolbarCollection } from './components/toolbar/toolbar-collection.js';
+import { TopbarSearch } from './components/topbar/topbar-search.js';
+import { TopbarCollection } from './components/topbar/topbar-collection.js';
+import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
+import { CopyLinkIcon } from './components/copy-link-icon.js';
+import { HelpSection } from './components/help-section.js';
 import { SpotifyTrack } from './components/spotify-track.js';
 
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
@@ -25,6 +27,12 @@ import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
 
 Vue.prototype.$listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
+
+const VueModal = window['vue-js-modal'].default;
+Vue.use(VueModal, {
+  // dialog: true,
+  dynamic: true,
+});
 
 Vue.use(VueRangeSlider);
 
@@ -36,14 +44,17 @@ Vue.component('view-album', ViewAlbum);
 Vue.component('view-playlist', ViewPlaylist);
 Vue.component('view-search', ViewSearch);
 
-Vue.component('search-bar', SearchBar);
-Vue.component('toolbar-test-links', ToolbarTestLinks);
-Vue.component('toolbar-collection', ToolbarCollection);
+Vue.component('topbar-search', TopbarSearch);
+Vue.component('topbar-collection', TopbarCollection);
+Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
+Vue.component('copy-link-icon', CopyLinkIcon);
+Vue.component('help-section', HelpSection);
+Vue.component('spotify-track', SpotifyTrack);
+
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);
 Vue.component('audio-features-overview', AudioFeaturesOverview);
-Vue.component('spotify-track', SpotifyTrack);
 
 // FIXME: dragstart -> can't select/right click or something.
 
@@ -62,14 +73,14 @@ new Vue({
                   'drag-over': draggingOver,
                 }"
               >
-                <search-bar/>
+                <div class="topbar">
+                  <topbar-search/>
+                  <topbar-collection/>
+                </div>
 
-                <section class="toolbar">
-                  <toolbar-test-links/>
-                  <toolbar-collection/>
-                </section>
+                <test-links v-if="debug === true"/>
 
-                <section class="results-panel">
+                <main class="results">
                   <loading-spinner v-if="searching === true" type="large"/>
 
                   <p v-if="searching === false && errored === true" v-html="errorMsg"></p>
@@ -79,7 +90,10 @@ new Vue({
                     :is="currentView"
                     v-bind="currentViewData"
                   />
-                </section>
+                </main>
+
+                <help-section/>
+                <modals-container/>
               </div>`,
 
   created () {
@@ -95,6 +109,7 @@ new Vue({
 
   computed: {
     ...mapState([
+      'debug',
       'setupComplete',
       'searching',
       'errored',

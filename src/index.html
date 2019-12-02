@@ -8,17 +8,19 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 
     <meta name="robots" content="noindex, nofollow"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"></script>
+    <script crossorigin src="https://polyfill.app/api/polyfill?features=es,intl|locale=en"></script>
 
     <!-- nomodule tag polyfill for safari 10 -->
-    <!-- <script>(function() {var d = document;var c = d.createElement('script');if (!('noModule' in c) && 'onbeforeload' in c) {var s = false;d.addEventListener('beforeload', function(e) {if (e.target === c) {s = true;} else if (!e.target.hasAttribute('nomodule') || !s) {return;}e.preventDefault();}, true);c.type = 'module';c.src = '.';d.head.appendChild(c);c.remove();}}());</script> -->
+    <script>(function() {var d = document;var c = d.createElement('script');if (!('noModule' in c) && 'onbeforeload' in c) {var s = false;d.addEventListener('beforeload', function(e) {if (e.target === c) {s = true;} else if (!e.target.hasAttribute('nomodule') || !s) {return;}e.preventDefault();}, true);c.type = 'module';c.src = '.';d.head.appendChild(c);c.remove();}}());</script>
 
     <script src="/node_modules/spotify-web-api-js/src/spotify-web-api.js"></script>
+    <script src="/node_modules/vue-js-modal/dist/index.js"></script>
     <script src="/node_modules/vue-multiselect/dist/vue-multiselect.min.js"></script>
 
     <script type="module" src="/js/app.js"></script>
-    <script nomodule defer src="/js/app-fallback.js"></script>
+    <!-- <script nomodule defer src="/js/app-fallback.js"></script> -->
   </head>
 
   <body>

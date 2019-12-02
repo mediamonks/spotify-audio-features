@@ -10,7 +10,7 @@ export const ViewAlbum = {
     TrackContainer,
   ],
 
-  template:  `<section class="view-album">
+  template:  `<div class="view-album">
                 <div class="track-container">
                   <section class="left">
                     <img class="cover" :src="coverImage" v-if="coverImage"/>
@@ -28,7 +28,7 @@ export const ViewAlbum = {
                 </div>
 
                 <audio-features-overview :trackIDs="trackIDs.slice(0, spotifyGetTracksLimit)"/>
-              </section>`,
+              </div>`,
 
   data () {
     return {

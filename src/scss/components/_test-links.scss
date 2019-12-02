@@ -1,7 +1,7 @@
-.toolbar-test-links {
+.test-links {
   flex: 0 0 auto;
+  width: 100%;
   display: flex;
-  margin-right: auto;
 
   button:not(:first-of-type) {
     margin-left: 10px;

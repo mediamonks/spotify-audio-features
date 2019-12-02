@@ -7,11 +7,13 @@
       top: $topbar-height;
       z-index: 100;
       $padding-x: 20px;
-      padding: 30px $padding-x;
+      padding: 30px $padding-x 30px calc(#{$padding-x} + 2ch);
       text-align: center;
       background-color: $grey-dark;
       border-bottom: 1px solid lighten($grey-dark, 10%);
       min-width: 15ch;
+      cursor: pointer;
+      user-select: none;
 
       &:nth-of-type(2) {
         border-top-left-radius: $border-radius-small;
@@ -19,6 +21,12 @@
 
       &:last-of-type {
         border-top-right-radius: $border-radius-small;
+      }
+
+      .sort-order {
+        display: inline-block;
+        width: 1ch;
+        margin-left: 1ch;
       }
     }
   }

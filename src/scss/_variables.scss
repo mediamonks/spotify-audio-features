@@ -28,7 +28,7 @@ $border-radius-mini: 6px;
 $app-padding-x: 75px;
 $app-padding-y: 50px;
 
-$left-width: 300px;
+$left-width: 400px;
 $gutter: 50px;
 $gutter-small: 30px;
 $gutter-mini: 10px;
@@ -43,3 +43,7 @@ $topbar-height: 93px; // TODO: HARDCODED FOR NOW, CALCULATE SOMEHOW OR SET CSS V
 // SPEEDS
 $s-normal: 0.3s;
 $s-slow: 0.7s;
+
+@mixin glow {
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 10px #fff);
+}

@@ -56,6 +56,10 @@ export const store = new Vuex.Store({
     // All data fetched from Spotify API
     fetchedContent: [],
 
+    // Audio features overviews
+    audioFeaturesOverviewSortKey: null,
+    audioFeaturesOverviewSortOrder: 'desc', // 'desc' or 'asc'
+
     // Search by audio feature collection
     collection: savedCollection ? JSON.parse(savedCollection) : [],
     collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
@@ -145,6 +149,12 @@ export const store = new Vuex.Store({
           state.fetchedContent.push(newContentItem);
         }
       }
+    },
+
+    setAudioFeaturesOverviewSorting (state, { sortKey, sortOrder }) {
+      state.audioFeaturesOverviewSortKey = sortKey;
+      state.audioFeaturesOverviewSortOrder = sortOrder;
+      console.log(sortKey, sortOrder);
     },
 
     setAvailableGenreSeeds (state, availableGenreSeeds) {

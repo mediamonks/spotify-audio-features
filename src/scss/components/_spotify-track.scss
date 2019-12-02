@@ -106,6 +106,13 @@
       --plus-padding: 4px;
     }
 
+    .copy-link-icon {
+      flex: 0 0 auto;
+      margin-left: $gutter-mini;
+      --copy-link-icon-size: #{$fs-normal + 4px};
+      --copy-link-icon-padding: 4px;
+    }
+
     &.clickable {
       transition: opacity $s-normal ease,
                   background-color $s-normal ease;

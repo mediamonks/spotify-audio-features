@@ -1,5 +1,5 @@
 .v--modal-overlay {
-  background-color: rgba($black, 0.2);
+  background-color: rgba($black, 0.4) !important;
 
   .v--modal-background-click {
     cursor: pointer;
@@ -7,7 +7,7 @@
 
   .v--modal {
     padding: $gutter*1.5 $gutter;
-    width: 1000px !important;
+    width: 800px !important;
     max-width: calc(100vw - 2 * 75px) !important;
     left: 50% !important;
     transform: translateX(-50%);

@@ -72,6 +72,7 @@ export const SpotifyTrack = {
                       :class="{ 'added': isInCollection }"
                       @click.stop="toggleInCollection"
                     ></span>
+                    <copy-link-icon :link="track.trackData.external_urls.spotify"/>
                   </component>
 
                   <td

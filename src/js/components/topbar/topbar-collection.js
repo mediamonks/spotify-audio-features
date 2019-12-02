@@ -169,7 +169,7 @@ export const TopbarCollection = {
 
     async copyShareLink () {
       try {
-        // FIXME: FINISH THIS
+        // FIXME: FINISH THIS (TOAST?)
         const { shareLink } = this.$store.getters;
         await navigator.clipboard.writeText(shareLink);
       }

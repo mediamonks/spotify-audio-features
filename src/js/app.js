@@ -45,6 +45,8 @@ Vue.component('audio-feature-metric', AudioFeatureMetric);
 Vue.component('audio-features-overview', AudioFeaturesOverview);
 Vue.component('spotify-track', SpotifyTrack);
 
+// FIXME: dragstart -> can't select/right click or something.
+
 new Vue({
 
   el: '#app',

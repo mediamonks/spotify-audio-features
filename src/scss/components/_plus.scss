@@ -7,7 +7,8 @@
   width: calc(var(--plus-size) + var(--plus-padding));
   height: calc(var(--plus-size) + var(--plus-padding));
   position: relative;
-  transition: transform $s-normal ease;
+  transition: transform $s-normal ease,
+              filter $s-normal ease;
 
   &::before,
   &::after {
@@ -38,16 +39,11 @@
   &.clickable {
     &::before,
     &::after {
-      box-shadow: 0 0 8px transparent;
-      transition: filter $s-normal ease,
-                  background-color $s-normal ease;
+      transition: background-color $s-normal ease;
     }
 
     &:hover {
-      &::before,
-      &::after {
-        @include glow;
-      }
+      @include glow;
     }
   }
 

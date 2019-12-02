@@ -11,7 +11,7 @@
   "main": "src/js/app.js",
   "scripts": {
     "serve": "gulp serve",
-    "build": "gulp compile",
+    "compile": "gulp compile",
     "deploy": "gulp deploy"
   },
   "repository": {

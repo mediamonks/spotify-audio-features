@@ -10,7 +10,7 @@ export const ViewTrack = {
     TrackContainer,
   ],
 
-  template:  `<section class="view-track">
+  template:  `<div class="view-track">
                 <div class="track-container">
                   <section class="left">
                     <img class="cover" :src="coverImage" v-if="coverImage"/>
@@ -26,7 +26,7 @@ export const ViewTrack = {
                 </div>
 
                 <audio-features-overview :trackIDs="[id]"/>
-              </section>`,
+              </div>`,
 
   data () {
     return {

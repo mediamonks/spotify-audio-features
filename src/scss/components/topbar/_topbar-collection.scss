@@ -12,28 +12,26 @@
   }
 }
 
-.toolbar-collection {
+.topbar-collection {
   --foldout-color: #{$grey-middle};
   flex: 0 0 auto;
   display: flex;
-  margin-left: auto;
   position: relative;
 
   button.animated {
     animation: pop $s-slow ease-out;
   }
 
-  // REVIEW: Review sizing of popout. When stuck, max-height is good, when not stuck, it's too high.
   .collection-contents {
     position: absolute;
-    top: calc(100% + #{$toolbar-padding-y});
+    top: calc(100% + #{$topbar-padding-y});
     right: 0;
     display: flex;
     justify-content: stretch;
     align-items: stretch;
     width: 1200px;
     max-width: calc(100vw - 2 * #{$app-padding-x});
-    max-height: calc(100vh - #{$toolbar-height} - #{$gutter});
+    max-height: calc(100vh - #{$topbar-height} - #{$gutter});
     padding: 0;
     z-index: 200;
     background-color: var(--foldout-color);
@@ -57,7 +55,7 @@
       content: "";
       position: absolute;
       bottom: 100%;
-      right: 215px/2 - 10px; // Collection button width / 2 - 10px (border-width x 2 / 2)
+      right: 230px/2 - 10px; // Collection button width / 2 - 10px (border-width x 2 / 2)
       width: 0;
       height: 0;
       opacity: 1;

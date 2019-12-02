@@ -30,6 +30,7 @@ export const store = new Vuex.Store({
 
   state: {
     production: config.production,
+    debug: config.debug,
 
     setupComplete: false,
 

@@ -1,10 +1,9 @@
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
-export const ToolbarCollection = {
+export const TopbarCollection = {
 
-  template:  `<div class="toolbar-collection">
+  template:  `<div class="topbar-collection">
                 <button
-                  class="small"
                   :class="{ 'active': collectionOpen, 'animated': animateButton }"
                   @animationend.self="animateButton = false"
                   @click="$store.commit('toggleCollectionOpen')"

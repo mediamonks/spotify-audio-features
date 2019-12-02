@@ -1,6 +1,6 @@
 #app {
   position: relative;
-  padding: $app-padding-y $app-padding-x 0;
+  padding: $app-padding-y/2 $app-padding-x 0;
   z-index: 999;
 
   &.drag-over {
@@ -25,15 +25,24 @@
   }
 }
 
-.search-panel {
+.topbar {
   flex: 0 0 auto;
-  width: 100%;
+  width: calc(100% + #{$app-padding-x * 2});
+  margin: 0 #{-1 * $app-padding-x};
+  padding: $app-padding-y/2 $app-padding-x $topbar-padding-y;
   display: flex;
-  justify-content: stretch;
-  align-items: stretch;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background-color: $black;
+
+  .topbar-collection {
+    margin-left: $gutter-mini;
+  }
 }
 
-.results-panel {
+.results {
   flex: 0 0 auto;
   width: 100%;
   display: flex;
@@ -52,7 +61,7 @@
   }
 
   .warning {
-    margin: 3em 0;
+    margin: 3em 0 2.5em;
 
     + .warning {
       margin-top: -2em;

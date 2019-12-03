@@ -19,14 +19,6 @@ const collectionDefaults = [],
       collectionAudioFeaturesDefaults = audioFeatures.reduce((all, curr) => {
         all[curr.id] = [0, 100];
         return all;
-        // return {
-        //   ,
-        //   [curr.id]: [0, 100],
-        // };
-        // return {
-        //   ...all,
-        //   [curr.id]: [0, 100],
-        // };
       }, {}),
       getCollectionDefaults = () => cloneArray(collectionDefaults),
       getCollectionAudioFeaturesDefaults = () => cloneObject(collectionAudioFeaturesDefaults);

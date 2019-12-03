@@ -75,6 +75,7 @@
     align-items: center;
     justify-content: stretch;
     text-align: left;
+    user-select: auto; // makes sure people can copy track name + artists more easily
 
     .cover {
       flex: 0 0 auto;

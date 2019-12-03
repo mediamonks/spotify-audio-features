@@ -55,8 +55,6 @@ Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);
 Vue.component('audio-features-overview', AudioFeaturesOverview);
 
-// FIXME: dragstart -> can't select/right click or something.
-
 new Vue({
 
   el: '#app',

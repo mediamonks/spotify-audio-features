@@ -3,7 +3,7 @@ dependencies:
   spotify-web-api-js: 1.2.0
   vue-js-modal: 1.3.31_vue@2.6.10
   vue-multiselect: 2.1.6
-  vue-range-component: github.com/Anoesj/vue-range-slider/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9
+  vue-range-component: github.com/Anoesj/vue-range-slider/728fd85745d2a244e7d6d72dd5237ad159b40a06
   vuex: 3.1.2
 devDependencies:
   '@babel/cli': 7.7.4_@babel+core@7.7.4
@@ -726,7 +726,7 @@ packages:
       '@babel/plugin-transform-unicode-regex': 7.7.4_@babel+core@7.7.4
       '@babel/types': 7.7.4
       browserslist: 4.8.0
-      core-js-compat: 3.4.5
+      core-js-compat: 3.4.7
       invariant: 2.2.4
       js-levenshtein: 1.1.6
       semver: 5.7.1
@@ -1348,7 +1348,7 @@ packages:
   /browserslist/4.8.0:
     dependencies:
       caniuse-lite: 1.0.30001013
-      electron-to-chromium: 1.3.321
+      electron-to-chromium: 1.3.322
       node-releases: 1.1.41
     dev: true
     hasBin: true
@@ -1659,13 +1659,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7cjuUME+p+S3HZlbllgsn2CDwS+5eCCX16qBgNC4jgSTf49qR1VKy/Zhl400m0IQXl/bPGEVqncgUUMjrr4s8A==
-  /core-js-compat/3.4.5:
+  /core-js-compat/3.4.7:
     dependencies:
       browserslist: 4.8.0
       semver: 6.3.0
     dev: true
     resolution:
-      integrity: sha512-rYVvzvKJDKoefdAC+q6VP63vp5hMmeVONCi9pVUbU1qRrtVrmAk/nPhnRg+i+XFd775m1hpG2Yd5RY3X45ccuw==
+      integrity: sha512-57+mgz/P/xsGdjwQYkwtBZR3LuISaxD1dEwVDtbk8xJMqAmwqaxLOvnNT7kdJ7jYE/NjNptyzXi+IQFMi/2fCw==
   /core-util-is/1.0.2:
     resolution:
       integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
@@ -1910,10 +1910,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.321:
+  /electron-to-chromium/1.3.322:
     dev: true
     resolution:
-      integrity: sha512-jJy/BZK2s2eAjMPXVMSaCmo7/pSY2aKkfQ+LoAb5Wk39qAhyP9r8KU74c4qTgr9cD/lPUhJgReZxxqU0n5puog==
+      integrity: sha512-Tc8JQEfGQ1MzfSzI/bTlSr7btJv/FFO7Yh6tanqVmIWOuNCu6/D1MilIEgLtmWqIrsv+o4IjpLAhgMBr/ncNAA==
   /encodeurl/1.0.2:
     dev: true
     engines:
@@ -4751,7 +4751,7 @@ packages:
       rollup: 1.27.8
       rollup-pluginutils: 2.8.2
       serialize-javascript: 1.9.1
-      terser: 4.4.1
+      terser: 4.4.2
     dev: true
     peerDependencies:
       rollup: '>=0.66.0 <2'
@@ -5322,7 +5322,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-FCEhQ/4rE1zYv9rYXJw/msRqsnmlje5jHP6huWeBZ704jUTy02c5AZyWujpMR1ax6mVw9NyJMfuK2CMDWVIfgA==
-  /terser/4.4.1:
+  /terser/4.4.2:
     dependencies:
       commander: 2.20.3
       source-map: 0.6.1
@@ -5332,7 +5332,7 @@ packages:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-e05giplw+8sIYh50qXYHZmr0b76O5dOSm9JwSDebGFLri4ItYzxsnumiAK+yuI56R+H7uIjT9KbVEKNkrprzHw==
+      integrity: sha512-Uufrsvhj9O1ikwgITGsZ5EZS6qPokUOkCegS7fYOdGTv+OA90vndUbU6PEjr5ePqHfNUbGyMO7xyIZv2MhsALQ==
   /textextensions/2.6.0:
     dev: true
     engines:
@@ -5965,38 +5965,37 @@ packages:
     dev: true
     resolution:
       integrity: sha1-AI4G2AlDIMNy28L47XagymyKxBk=
-  github.com/Anoesj/vue-range-slider/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9:
+  github.com/Anoesj/vue-range-slider/728fd85745d2a244e7d6d72dd5237ad159b40a06:
     dev: false
     name: vue-range-component
     resolution:
-      registry: 'https://registry.npmjs.org/'
-      tarball: 'https://codeload.github.com/Anoesj/vue-range-slider/tar.gz/ea8e34c6b9ea0df4f2e8f75c5becf37fd9ed3ef9'
+      tarball: 'https://codeload.github.com/Anoesj/vue-range-slider/tar.gz/728fd85745d2a244e7d6d72dd5237ad159b40a06'
     version: 1.0.3
 specifiers:
-  '@babel/cli': ^7.2.3
-  '@babel/core': ^7.2.2
-  '@babel/preset-env': ^7.3.1
-  browser-sync: ^2.26.3
+  '@babel/cli': ^7.7.4
+  '@babel/core': ^7.7.4
+  '@babel/preset-env': ^7.7.4
+  browser-sync: ^2.26.7
   chalk: ^2.4.2
-  del: ^4.1.0
-  gulp: ^4.0.0
+  del: ^4.1.1
+  gulp: ^4.0.2
   gulp-autoprefixer: ^7.0.1
-  gulp-clean-css: ^4.0.0
+  gulp-clean-css: ^4.2.0
   gulp-gh-pages: ^0.5.4
   gulp-replace: ^1.0.0
   gulp-sass: ^4.0.2
-  gulp-sass-glob: ^1.0.9
+  gulp-sass-glob: ^1.1.0
   gulp-sourcemaps: ^2.6.5
   path: ^0.12.7
   require-dir: ^1.2.0
-  rollup: ^1.1.2
-  rollup-plugin-babel: ^4.3.2
+  rollup: ^1.27.8
+  rollup-plugin-babel: ^4.3.3
   rollup-plugin-terser: ^5.1.2
-  rollup-plugin-uglify: ^6.0.2
+  rollup-plugin-uglify: ^6.0.3
   rollup-stream: ^1.24.1
   spotify-web-api-js: ^1.2.0
-  vue: ^2.5.22
+  vue: ^2.6.10
   vue-js-modal: ^1.3.31
   vue-multiselect: ^2.1.6
   vue-range-component: 'github:Anoesj/vue-range-slider'
-  vuex: ^3.1.1
+  vuex: ^3.1.2

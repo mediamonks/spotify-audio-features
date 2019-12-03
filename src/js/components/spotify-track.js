@@ -1,6 +1,8 @@
 import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
 import { ModalAudioFeatureValue } from './modals/modal-audio-feature-value.js';
 
+import { log } from '../helpers/log.js';
+
 // FIXME: When track component is displayed multiple times, all <audio> tags will play simultaneously, causing clipping audio and bleeding ears. Solution: don't use audio tag, but a Web Audio API solution, or with Howler or something.
 
 export const SpotifyTrack = {
@@ -41,6 +43,7 @@ export const SpotifyTrack = {
                       'playing-preview': playingAudioPreview,
                     }"
                     @click="togglePlayIfHasAudioPreview"
+                    @mousedown="turnOnRecordSelectionChanges"
                   >
                     <audio
                       ref="player"
@@ -102,6 +105,12 @@ export const SpotifyTrack = {
                   ></td>
                 </template>
               </component>`,
+
+  data () {
+    return {
+      selectionChangesSinceMousedown: 0,
+    };
+  },
 
   computed: {
     isFetched () {
@@ -186,6 +195,17 @@ export const SpotifyTrack = {
     },
 
     togglePlayIfHasAudioPreview () {
+      const recordedSelectionChanges = this.selectionChangesSinceMousedown;
+
+      // Reset stuff
+      this.selectionChangesSinceMousedown = 0;
+      document.removeEventListener('selectionchange', this.recordSelectionChange);
+
+      if (recordedSelectionChanges > 1) {
+        log('More than 1 selection change recorded, not toggling play/pause on the audio');
+        return;
+      }
+
       if (this.hasAudioPreview === true) {
         this.playingAudioPreview = !this.playingAudioPreview;
       }
@@ -205,6 +225,16 @@ export const SpotifyTrack = {
           id: this.trackID,
         });
       }
+    },
+
+    // Enables keeping track of how many 'selectionchange' events have happened since mousedown'ing on the element that would toggle play/pause on the audio.
+    turnOnRecordSelectionChanges (e) {
+      document.addEventListener('selectionchange', this.recordSelectionChange);
+    },
+
+    recordSelectionChange (e) {
+      this.selectionChangesSinceMousedown += 1;
+      log('Recorded selection changes:', this.selectionChangesSinceMousedown);
     },
   },
 

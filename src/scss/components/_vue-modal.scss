@@ -1,6 +1,10 @@
 .v--modal-overlay {
   background-color: rgba($black, 0.6) !important;
 
+  @supports (backdrop-filter: blur(2px)) {
+    backdrop-filter: blur(2px);
+  }
+
   .v--modal-background-click {
     cursor: pointer;
   }
@@ -60,9 +64,18 @@
   }
 }
 
-.v--modal-block-scroll {
-  #app > *:not(#modals-container) {
-    filter: blur(2px);
-
+@supports not (backdrop-filter: blur(2px)) {
+  .v--modal-block-scroll {
+    #app > *:not(#modals-container) {
+      // NOTE: Don't transition this filter, will cause performance issues!
+      filter: blur(2px);
+    }
   }
+}
+
+// Used by the modal backdrop (overlay)
+.overlay-fade-enter-active, .overlay-fade-leave-active,
+// Used by the modal itself
+.v-enter-active, .v-leave-active {
+  transition: opacity $s-normal ease !important;
 }

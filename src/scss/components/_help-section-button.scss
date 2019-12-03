@@ -2,6 +2,7 @@
   position: fixed;
   right: $app-padding-x;
   bottom: $app-padding-y;
+  z-index: 150;
 
   > button {
     svg {

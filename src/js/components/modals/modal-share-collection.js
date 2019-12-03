@@ -21,10 +21,6 @@ export const ModalShareCollection = {
                   <button
                     @click="copyShareLink"
                     class="small"
-                    :class="{
-                      'animated': animateNow,
-                    }"
-                    @animationend.self="animateNow = false"
                   >
                     <copy-link-icon
                       ref="copyLinkIcon"
@@ -45,7 +41,6 @@ export const ModalShareCollection = {
 
     return {
       buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],
-      animateNow: false,
     };
   },
 
@@ -56,7 +51,7 @@ export const ModalShareCollection = {
     },
 
     copied () {
-      this.animateNow = true;
+      this.$emit('close');
     },
   },
 

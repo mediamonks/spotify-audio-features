@@ -4,6 +4,7 @@ import Vuex from '/node_modules/vuex/dist/vuex.esm.browser.js';
 import { config } from './config.js';
 import { log, warn, error } from './helpers/log.js';
 import { audioFeatures } from './helpers/audio-features.js';
+import { cloneObject, cloneArray } from './helpers/clone.js';
 
 // Helpers
 import { isValidUrl } from './helpers/valid-url.js';
@@ -12,15 +13,28 @@ Vue.use(Vuex);
 
 // TODO: Option to share collections requires being able to get a shared collection from the URL and use that, instead of localStorage.
 // IDEA: Hitting the "Back" button on view-search does unexpected things for the end user. You would expect to go back the whatever you were looking at before you hit the Search button. That's why we should put the serialized collection in the URL and use that as a "route".
+
+// Defaults
+const collectionDefaults = [],
+      collectionAudioFeaturesDefaults = audioFeatures.reduce((all, curr) => {
+        all[curr.id] = [0, 100];
+        return all;
+        // return {
+        //   ,
+        //   [curr.id]: [0, 100],
+        // };
+        // return {
+        //   ...all,
+        //   [curr.id]: [0, 100],
+        // };
+      }, {}),
+      getCollectionDefaults = () => cloneArray(collectionDefaults),
+      getCollectionAudioFeaturesDefaults = () => cloneObject(collectionAudioFeaturesDefaults);
+
+// Saved things
 const savedCollection = localStorage.getItem(`${config.appID}_collection`),
       savedCollectionOpen = localStorage.getItem(`${config.appID}_collection_open`),
-      savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`),
-      collectionAudioFeaturesDefaults = audioFeatures.reduce((all, curr) => {
-        return {
-          ...all,
-          [curr.id]: [0, 100],
-        };
-      }, {});
+      savedCollectionAudioFeatures = localStorage.getItem(`${config.appID}_collection_audio_features`);
 
 const viewParamID = 'view';
 
@@ -61,8 +75,8 @@ export const store = new Vuex.Store({
     audioFeaturesOverviewSortOrder: 'desc', // 'desc' or 'asc'
 
     // Search by audio feature collection
-    collection: savedCollection ? JSON.parse(savedCollection) : [],
-    collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(collectionAudioFeaturesDefaults, JSON.parse(savedCollectionAudioFeatures)) : collectionAudioFeaturesDefaults,
+    collection: savedCollection ? JSON.parse(savedCollection) : getCollectionDefaults(),
+    collectionAudioFeatures: savedCollectionAudioFeatures ? Object.assign(getCollectionAudioFeaturesDefaults(), JSON.parse(savedCollectionAudioFeatures)) : getCollectionAudioFeaturesDefaults(),
     collectionOpen: savedCollectionOpen ? JSON.parse(savedCollectionOpen) : false,
 
     // Search results
@@ -189,6 +203,14 @@ export const store = new Vuex.Store({
         collection,
         collectionAudioFeatures,
       });
+
+      localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
+      localStorage.setItem(`${config.appID}_collection_audio_features`, JSON.stringify(state.collectionAudioFeatures));
+    },
+
+    clearCollection (state) {
+      state.collection = getCollectionDefaults();
+      state.collectionAudioFeatures = getCollectionAudioFeaturesDefaults();
 
       localStorage.setItem(`${config.appID}_collection`, JSON.stringify(state.collection));
       localStorage.setItem(`${config.appID}_collection_audio_features`, JSON.stringify(state.collectionAudioFeatures));

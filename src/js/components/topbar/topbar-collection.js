@@ -77,9 +77,10 @@ export const TopbarCollection = {
                       </div>
 
                       <div class="search-button-wrapper">
-                        <button class="small secondary" @click="openShareModal" :disabled="collectionMaxItemsExceeded">Share</button>
+                        <button class="small secondary" @click="$store.commit('clearCollection')">Clear</button>
+                        <button class="small secondary" @click="openShareModal">Share</button>
                         <button class="small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>
-                        <p class="error" v-if="collectionMaxItemsExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
+                        <p class="error warning" v-if="collectionMaxItemsExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
                       </div>
                     </section>
                   </div>

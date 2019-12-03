@@ -1,5 +1,5 @@
 .v--modal-overlay {
-  background-color: rgba($black, 0.4) !important;
+  background-color: rgba($black, 0.6) !important;
 
   .v--modal-background-click {
     cursor: pointer;
@@ -7,17 +7,16 @@
 
   .v--modal {
     padding: $gutter*1.5 $gutter;
-    width: 800px !important;
     max-width: calc(100vw - 2 * 75px) !important;
     left: 50% !important;
     transform: translateX(-50%);
     background-color: $grey-middle;
     border-radius: $border-radius-mini;
+    font-weight: $fw-normal;
     font-size: $fs-medium;
     line-height: 1.8;
-    font-weight: 300;
     cursor: auto;
-    box-shadow: 0 0 30px rgba(#000, 0.3);
+    @include box-shadow;
 
     h3 {
       margin-bottom: 0;
@@ -31,6 +30,26 @@
       }
     }
 
+    h2 {
+      margin-bottom: 0.5em;
+
+      + * {
+        margin-top: 0 !important;
+      }
+    }
+
+    details {
+      margin: $gutter-mini 0;
+
+      summary {
+        color: $green;
+      }
+
+      > *:last-child {
+        margin-bottom: $gutter;
+      }
+    }
+
     .modal-buttons {
       display: flex;
       width: 100%;
@@ -38,5 +57,12 @@
       align-items: center;
       margin-top: $gutter;
     }
+  }
+}
+
+.v--modal-block-scroll {
+  #app > *:not(#modals-container) {
+    filter: blur(2px);
+
   }
 }

@@ -1,0 +1,14 @@
+.modal-share-collection {
+  .copy-share-link {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-wrap: wrap;
+
+    button {
+      padding-left: $gutter-small;
+      padding-right: $gutter-small;
+    }
+  }
+}

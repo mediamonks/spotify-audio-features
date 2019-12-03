@@ -1,22 +1,22 @@
 .copy-link-icon {
   --copy-link-icon-size: #{$fs-normal};
   --copy-link-icon-padding: 0px;
-  flex: 0 0 auto;
+  flex: 0 0 auto; // REVIEW: why here? should be on element containing this
   display: inline-block;
-  width: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
+  min-width: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
   height: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
   position: relative;
-  transition: filter $s-normal ease;
-
-  &.clickable:hover {
-    @include glow;
-  }
 
   &.in-body-text {
     --copy-link-icon-size: 1em;
     vertical-align: middle;
     margin: 0 0.5ch;
     top: -1px;
+  }
+
+  &.animated {
+    animation: pop $s-slow ease-out,
+               green-text $s-slow ease-out;
   }
 
   svg {
@@ -27,9 +27,23 @@
     width: calc(100% - 2 * var(--copy-link-icon-padding));
     height: calc(100% - 2 * var(--copy-link-icon-padding));
     transform: translate(-50%, -50%);
+    transition: filter $s-normal ease;
 
     * {
       fill: currentColor;
+    }
+  }
+
+  &.clickable:hover svg {
+    @include glow;
+  }
+
+  button & {
+    --copy-link-icon-size: 1em;
+    vertical-align: top; // makes sure icon doesn't push itself down and make button higher
+
+    &:first-child {
+      margin-right: 1ch;
     }
   }
 }

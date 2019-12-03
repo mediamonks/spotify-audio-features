@@ -19,7 +19,7 @@ import { TopbarCollection } from './components/topbar/topbar-collection.js';
 import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
 import { CopyLinkIcon } from './components/copy-link-icon.js';
-import { HelpSection } from './components/help-section.js';
+import { HelpSectionButton } from './components/help-section-button.js';
 import { SpotifyTrack } from './components/spotify-track.js';
 
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
@@ -30,7 +30,6 @@ Vue.prototype.$listFormatter = new Intl.ListFormat('en', { style: 'short', type:
 
 const VueModal = window['vue-js-modal'].default;
 Vue.use(VueModal, {
-  // dialog: true,
   dynamic: true,
 });
 
@@ -49,7 +48,7 @@ Vue.component('topbar-collection', TopbarCollection);
 Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
 Vue.component('copy-link-icon', CopyLinkIcon);
-Vue.component('help-section', HelpSection);
+Vue.component('help-section-button', HelpSectionButton);
 Vue.component('spotify-track', SpotifyTrack);
 
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
@@ -92,7 +91,7 @@ new Vue({
                   />
                 </main>
 
-                <help-section/>
+                <help-section-button/>
                 <modals-container/>
               </div>`,
 

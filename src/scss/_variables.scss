@@ -19,6 +19,12 @@ $fs-large: 24px;
 $fs-larger: 36px;
 $fs-largest: 54px;
 
+$fw-light: 300;
+$fw-normal: 400;
+$fw-semibold: 500;
+$fw-bold: 700;
+$fw-black: 900;
+
 // BORDER-RADII
 $border-radius: 500px;
 $border-radius-small: 23px;
@@ -46,4 +52,8 @@ $s-slow: 0.7s;
 
 @mixin glow {
   filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 10px #fff);
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 30px rgba(#000, 0.3);
 }

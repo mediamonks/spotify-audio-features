@@ -18,7 +18,7 @@
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       color: $white;
-      font-weight: 700;
+      font-weight: $fw-bold;
       font-size: $fs-large;
       z-index: 1000;
     }
@@ -50,7 +50,7 @@
   justify-content: stretch;
   align-items: stretch;
   margin: 0;
-  padding: $gutter 0;
+  padding: $gutter 0 $gutter*3; // large padding-bottom so help section button can never get in the way of the page content
 
   > *:first-child {
     margin-top: 0;

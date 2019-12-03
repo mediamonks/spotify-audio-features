@@ -1,3 +1,4 @@
+import { ModalShareCollection } from '../modals/modal-share-collection.js';
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
 
 export const TopbarCollection = {
@@ -12,6 +13,8 @@ export const TopbarCollection = {
                 <div class="collection-contents" :class="{ 'visible': collectionOpen }">
                   <div class="collection-contents-inner">
                     <section class="left">
+                      <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
+
                       <h3>Genres ({{ collectionGenres.length }})</h3>
                       <template v-if="spotifyAvailableGenreSeeds.length">
                         <vue-multiselect
@@ -49,7 +52,7 @@ export const TopbarCollection = {
                     </section>
 
                     <section class="right">
-                      <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
+                      <p>You can filter the search results by selecting in which range the audio features of the results can be.</p>
 
                       <h3>Refine by audio features</h3>
                       <div class="audio-feature-ranges-wrapper" :style="{ '--vrs-dot-size': vrsDotSize + 'px' }">
@@ -74,7 +77,7 @@ export const TopbarCollection = {
                       </div>
 
                       <div class="search-button-wrapper">
-                        <button class="small secondary" @click="copyShareLink" :disabled="collectionMaxItemsExceeded">Share</button>
+                        <button class="small secondary" @click="openShareModal" :disabled="collectionMaxItemsExceeded">Share</button>
                         <button class="small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>
                         <p class="error" v-if="collectionMaxItemsExceeded">{{ collectionTotalCount }} items selected, maximum is {{ maxItems }}.</p>
                       </div>
@@ -125,6 +128,7 @@ export const TopbarCollection = {
     collectionTotalCount (newCount, oldCount) {
       this.animateButton = true;
 
+      // NOTE: Code below only triggers the animation when items get added, not when they are removed.
       // if (typeof oldCount !== 'undefined' && newCount > oldCount) {
       //   this.animateButton = true;
       // }
@@ -167,13 +171,15 @@ export const TopbarCollection = {
       this.$store.commit('setCollectionOpen', false);
     },
 
-    async copyShareLink () {
-      try {
-        // FIXME: FINISH THIS (TOAST?)
-        const { shareLink } = this.$store.getters;
-        await navigator.clipboard.writeText(shareLink);
-      }
-      catch {}
+    openShareModal () {
+      const { shareLink } = this.$store.getters;
+
+      this.$modal.show(ModalShareCollection, { shareLink }, {
+        name: 'share-collection',
+        scrollable: true,
+        width: 600,
+        height: 'auto',
+      });
     },
   },
 

@@ -25,7 +25,7 @@
       display: block;
       font-size: $fs-mini;
       margin-bottom: -1em;
-      font-weight: 700;
+      font-weight: $fw-bold;
       @extend %letter-spaced;
     }
 

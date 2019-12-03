@@ -154,7 +154,6 @@ export const store = new Vuex.Store({
     setAudioFeaturesOverviewSorting (state, { sortKey, sortOrder }) {
       state.audioFeaturesOverviewSortKey = sortKey;
       state.audioFeaturesOverviewSortOrder = sortOrder;
-      console.log(sortKey, sortOrder);
     },
 
     setAvailableGenreSeeds (state, availableGenreSeeds) {

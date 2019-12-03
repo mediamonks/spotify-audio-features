@@ -9,7 +9,7 @@ $loading-spinner-duration: 1s;
   border: var(--spinner-border-width) solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
-  animation: spin7 $loading-spinner-duration cubic-bezier(.44,.15,.56,.86) infinite;
+  animation: spin $loading-spinner-duration cubic-bezier(.44,.15,.56,.86) infinite;
 
   &.large {
     --spinner-size: 120px;
@@ -21,14 +21,5 @@ $loading-spinner-duration: 1s;
     --spinner-size: 25px;
     --spinner-border-width: 2px;
     margin: calc(var(--spinner-size) / 2) 0;
-  }
-}
-
-@keyframes spin7 {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }

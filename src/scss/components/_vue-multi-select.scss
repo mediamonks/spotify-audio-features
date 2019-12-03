@@ -43,7 +43,7 @@ $vms-input-padding-y: 11px;
   padding: 6px 30px 7px 14px;
   border-radius: $border-radius;
   background: $green;
-  font-weight: 700;
+  font-weight: $fw-bold;
   font-size: $fs-mini;
   @extend %letter-spaced;
   overflow: hidden;
@@ -74,7 +74,7 @@ $vms-input-padding-y: 11px;
 .multiselect__option {
   padding: 8px $vms-input-padding-x;
   min-height: auto;
-  font-weight: 700;
+  font-weight: $fw-bold;
   font-size: $fs-mini;
   text-transform: uppercase;
   @extend %letter-spaced;

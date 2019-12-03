@@ -1,61 +1,31 @@
 @font-face {
   font-family: Circular;
   src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: Circular-hbr;
-  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-light-hbr.woff') format('woff');
-  font-weight: 300;
+  font-weight: $fw-light;
   font-style: normal;
 }
 @font-face {
   font-family: Circular;
   src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: Circular-hbr;
-  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-book-hbr.woff') format('woff');
-  font-weight: 400;
+  font-weight: $fw-normal;
   font-style: normal;
 }
 @font-face {
   font-family: Circular;
   src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: Circular-hbr;
-  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-medium-hbr.woff') format('woff');
-  font-weight: 500;
+  font-weight: $fw-semibold;
   font-style: normal;
 }
 @font-face {
   font-family: Circular;
   src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: Circular-hbr;
-  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-bold-hbr.woff') format('woff');
-  font-weight: 700;
+  font-weight: $fw-bold;
   font-style: normal;
 }
 @font-face {
   font-family: Circular;
   src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
-}
-@font-face {
-  font-family: Circular-hbr;
-  src: url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black-hbr.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.12.1/fonts/circular-black-hbr.woff') format('woff');
-  font-weight: 900;
+  font-weight: $fw-black;
   font-style: normal;
 }
 
@@ -84,7 +54,7 @@ body {
   text-underline-offset: 0.3em;
   text-decoration-thickness: 1px;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: $fw-normal;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -96,7 +66,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 900;
+  font-weight: $fw-black;
 
   &:first-child {
     margin-top: 0;
@@ -114,7 +84,12 @@ h1 {
 
 h2 {
   font-size: $fs-larger;
-  margin-bottom: 0;
+  margin-bottom: 0.2em;
+  line-height: 1.4;
+}
+
+strong {
+  font-weight: $fw-black;
 }
 
 %letter-spaced {
@@ -127,11 +102,11 @@ button {
   border: none;
   outline: none;
   padding: $button-padding-y $button-padding-x;
-  flex: 0 0 auto;
+  flex: 0 0 auto; // REVIEW: why here? should be on element containing this
   background-color: $green;
   border-radius: $border-radius;
   color: $white;
-  font-weight: bold;
+  font-weight: $fw-bold;
   line-height: 1;
   @extend %letter-spaced;
   white-space: normal;
@@ -199,25 +174,36 @@ button {
       }
     }
   }
+
+  &.animated {
+    animation: pop $s-slow ease-out;
+  }
 }
 
 a {
   color: inherit;
 }
 
-input[type="search"] {
+input[type="search"],
+input[type="url"] {
   appearance: none;
   border: none;
   outline: none;
   font-size: $fs-medium;
   padding: 16px 32px;
-  font-weight: 700;
+  font-weight: $fw-bold;
   flex: 1 1 auto;
   width: auto;
   background-color: $white;
   color: $grey-middle;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
+
+  &.small {
+    font-size: $fs-normal;
+    font-weight: $fw-semibold;
+    padding: 12px 26px;
+  }
 
   + button {
     border-top-left-radius: 0;
@@ -235,6 +221,25 @@ tr, th, td {
 
 small {
   font-size: $fs-small;
+}
+
+blockquote {
+  quotes: "\201C""\201D""\2018""\2019";
+  margin: 2em 0;
+  padding: 0;
+
+  &::before {
+    content: open-quote;
+    margin-right: $gutter-mini;
+    color: $green;
+    font-size: 3.5em;
+    line-height: 0.1em;
+    vertical-align: -0.4em;
+  }
+
+  p {
+    display: inline;
+  }
 }
 
 .clickable {
@@ -256,9 +261,35 @@ hr {
 details {
   summary {
     cursor: pointer;
-
-    // h2 {
-    //   display: inline-block;
-    // }
   }
+}
+
+@keyframes pop {
+  0% {
+    transform: none;
+  }
+
+  10% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes green-text {
+  from {
+    color: $green;
+  }
+  to {}
 }

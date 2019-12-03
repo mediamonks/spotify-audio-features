@@ -1,26 +1,8 @@
-@keyframes pop {
-  0% {
-    transform: none;
-  }
-
-  10% {
-    transform: scale(1.3);
-  }
-
-  100% {
-    transform: none;
-  }
-}
-
 .topbar-collection {
   --foldout-color: #{$grey-middle};
   flex: 0 0 auto;
   display: flex;
   position: relative;
-
-  button.animated {
-    animation: pop $s-slow ease-out;
-  }
 
   .collection-contents {
     position: absolute;
@@ -36,7 +18,7 @@
     z-index: 200;
     background-color: var(--foldout-color);
     border-radius: $border-radius-mini;
-    box-shadow: 0 0 30px rgba(#000, 0.3);
+    @include box-shadow;
     transition: opacity $s-normal ease,
                 visibility $s-normal ease;
 

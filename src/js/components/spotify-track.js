@@ -1,4 +1,5 @@
 import { AudioFeatureValue } from '../mixins/audio-feature-value.js';
+import { ModalAudioFeatureValue } from './modals/modal-audio-feature-value.js';
 
 // FIXME: When track component is displayed multiple times, all <audio> tags will play simultaneously, causing clipping audio and bleeding ears. Solution: don't use audio tag, but a Web Audio API solution, or with Howler or something.
 
@@ -81,7 +82,7 @@ export const SpotifyTrack = {
                     class="audio-feature-value clickable"
                     @click="showDetails(audioFeature)"
                   >
-                    <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureRoundedValue(audioFeature) }}%</span>
+                    <span :style="getPercentageStyles(getAudioFeatureValue(audioFeature))">{{ getAudioFeatureReadableValue(audioFeature) }}</span>
                   </td>
                 </template>
 
@@ -162,18 +163,26 @@ export const SpotifyTrack = {
       return this.track.audioFeatures[audioFeature.id];
     },
 
-    getAudioFeatureRoundedValue (audioFeature) {
-      // return (Math.round(this.getAudioFeatureValue(audioFeature) * 1000) / 10);
-      return Math.round(this.getAudioFeatureValue(audioFeature) * 100);
+    getAudioFeatureReadableValue (audioFeature) {
+      // TODO: Assumes a percentage value. Rewrite when implementing other audio features like loudness, tempo, etc.
+      return `${Math.round(this.getAudioFeatureValue(audioFeature) * 100)}%`;
     },
 
     showDetails (audioFeature) {
-      const value = this.getAudioFeatureValue(audioFeature),
-            meaning = this.getValueMeaning(audioFeature, value);
+      const valueExact = this.getAudioFeatureValue(audioFeature),
+            valueReadble = this.getAudioFeatureReadableValue(audioFeature),
+            meaning = this.getValueMeaning(audioFeature, valueExact);
 
-      alert(`This track scores ${this.getAudioFeatureRoundedValue(audioFeature)}% on ${audioFeature.id}, which means:\n` +
-            `${meaning}\n\n` +
-            `${audioFeature.name}:\n${audioFeature.description}`);
+      this.$modal.show(ModalAudioFeatureValue, {
+        audioFeature,
+        value: valueReadble,
+        meaning,
+      }, {
+        name: 'audio-feature-value',
+        scrollable: true,
+        width: 600,
+        height: 'auto',
+      });
     },
 
     togglePlayIfHasAudioPreview () {

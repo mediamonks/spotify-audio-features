@@ -508,7 +508,7 @@ export const store = new Vuex.Store({
       // bool that indicates if this page is visited just after granting access on Spotify or if this is a 'normal' visit
       let postAuthSituation;
 
-      const currentPage = new URL(window.location);
+      let currentPage = new URL(window.location);
 
       // Get the hash of the url
       const hash = currentPage.hash
@@ -542,6 +542,7 @@ export const store = new Vuex.Store({
 
         if (postAuthSpotifyUrlToPrefill) {
           history.replaceState(null, null, `/?${viewParamID}=${postAuthSpotifyUrlToPrefill}`);
+          currentPage = new URL(window.location); // or wrong URL will be used in code below
         }
       }
 

@@ -1,14 +1,15 @@
-export const CopyLinkIcon = {
+export const IconCopyLink = {
 
   props: {
     'link': {},
     'animated': {
+      type: Boolean,
       default: true,
     },
   },
 
   template:  `<span
-                class="copy-link-icon"
+                class="icon-copy-link"
                 :class="{
                   'clickable': !!link,
                   'animated': animated && animateNow,

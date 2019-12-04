@@ -93,6 +93,6 @@ $vms-input-padding-y: 11px;
   background: $green;
 }
 
-.multiselect__spinner:after,.multiselect__spinner:before {
+.multiselect__spinner:after,.multiselect__spinner::before {
   border-top-color: $green;
 }

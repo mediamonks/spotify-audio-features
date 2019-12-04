@@ -1,14 +1,14 @@
-.copy-link-icon {
-  --copy-link-icon-size: #{$fs-normal};
-  --copy-link-icon-padding: 0px;
+.icon-copy-link {
+  --icon-copy-link-size: #{$fs-normal};
+  --icon-copy-link-padding: 0px;
   flex: 0 0 auto; // REVIEW: why here? should be on element containing this
   display: inline-block;
-  min-width: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
-  height: calc(var(--copy-link-icon-size) + var(--copy-link-icon-padding));
+  min-width: calc(var(--icon-copy-link-size) + var(--icon-copy-link-padding));
+  height: calc(var(--icon-copy-link-size) + var(--icon-copy-link-padding));
   position: relative;
 
   &.in-body-text {
-    --copy-link-icon-size: 1em;
+    --icon-copy-link-size: 1em;
     vertical-align: middle;
     margin: 0 0.5ch;
     top: -1px;
@@ -24,8 +24,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(100% - 2 * var(--copy-link-icon-padding));
-    height: calc(100% - 2 * var(--copy-link-icon-padding));
+    width: calc(100% - 2 * var(--icon-copy-link-padding));
+    height: calc(100% - 2 * var(--icon-copy-link-padding));
     transform: translate(-50%, -50%);
     transition: filter $s-normal ease;
 
@@ -39,7 +39,7 @@
   }
 
   button & {
-    --copy-link-icon-size: 1em;
+    --icon-copy-link-size: 1em;
     vertical-align: top; // makes sure icon doesn't push itself down and make button higher
 
     &:first-child {

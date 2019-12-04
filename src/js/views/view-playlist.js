@@ -19,7 +19,7 @@ export const ViewPlaylist = {
                   <section class="right">
                     <span class="track-container-type">Playlist</span>
                     <h1 class="title">{{ trackContainerData.name }}</h1>
-                    <p class="subtitle">Created by {{ trackContainerData.owner.display_name }} <span class="dot">•</span> {{ trackContainerData.tracks.total }} tracks</p>
+                    <p class="subtitle">Created by {{ trackContainerData.owner.display_name }} <icon-dot/> {{ trackContainerData.tracks.total }} tracks</p>
 
                     <p v-if="localTracksAmount > 0" class="warning">This {{ trackContainerType }} contains {{ localTracksAmount }} local {{ localTracksAmount === 1 ? 'track' : 'tracks' }}, which will be omitted from the stats and overview below.</p>
                     <p v-if="tracksAmountExceedSpotifyGetTracksLimit" class="warning">This {{ trackContainerType }} contains {{ trackContainerData.tracks.total }} tracks, but the Spotify API limits us to getting data for {{ spotifyGetTracksLimit }} tracks per request. For now, this tool will only get the first {{ spotifyGetTracksLimit }} items.</p>

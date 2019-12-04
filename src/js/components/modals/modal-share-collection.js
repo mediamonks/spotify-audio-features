@@ -6,7 +6,7 @@ export const ModalShareCollection = {
     'shareLink',
   ],
 
-  template:  `<div class="modal-share-collection">
+  template:  `<div>
                 <h3>Share collection</h3>
                 <p>Share or save your search by copying the link below, that opens this tool with a pre-filled <strong>Collection</strong>.</p>
 
@@ -22,11 +22,11 @@ export const ModalShareCollection = {
                     @click="copyShareLink"
                     class="small"
                   >
-                    <copy-link-icon
+                    <icon-copy-link
                       ref="copyLinkIcon"
                       :link="shareLink"
                       :animated="false"
-                      @copied="copied"
+                      @copied="$emit('close')"
                     />Copy share link</span>
                   </button>
                 </div>
@@ -35,7 +35,7 @@ export const ModalShareCollection = {
                   <button class="secondary" @click="$emit('close')">{{ buttonText }}</button>
                 </div>
 
-                <close-icon @close="$emit('close')"/>
+                <icon-close @close="$emit('close')"/>
               </div>`,
 
   data () {
@@ -50,10 +50,6 @@ export const ModalShareCollection = {
     copyShareLink () {
       // Not super koscher, but whatever
       this.$refs.copyLinkIcon.copyLink();
-    },
-
-    copied () {
-      this.$emit('close');
     },
   },
 

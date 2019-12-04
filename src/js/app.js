@@ -18,10 +18,15 @@ import { TopbarSearch } from './components/topbar/topbar-search.js';
 import { TopbarCollection } from './components/topbar/topbar-collection.js';
 import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
-import { CopyLinkIcon } from './components/copy-link-icon.js';
-import { CloseIcon } from './components/close-icon.js';
 import { HelpSectionButton } from './components/help-section-button.js';
 import { SpotifyTrack } from './components/spotify-track.js';
+
+import { IconCopyLink } from './components/icons/icon-copy-link.js';
+import { IconClose } from './components/icons/icon-close.js';
+import { IconPlay } from './components/icons/icon-play.js';
+import { IconPause } from './components/icons/icon-pause.js';
+import { IconDot } from './components/icons/icon-dot.js';
+import { IconPlus } from './components/icons/icon-plus.js';
 
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
@@ -48,10 +53,15 @@ Vue.component('topbar-search', TopbarSearch);
 Vue.component('topbar-collection', TopbarCollection);
 Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
-Vue.component('copy-link-icon', CopyLinkIcon);
-Vue.component('close-icon', CloseIcon);
 Vue.component('help-section-button', HelpSectionButton);
 Vue.component('spotify-track', SpotifyTrack);
+
+Vue.component('icon-copy-link', IconCopyLink);
+Vue.component('icon-close', IconClose);
+Vue.component('icon-play', IconPlay);
+Vue.component('icon-pause', IconPause);
+Vue.component('icon-dot', IconDot);
+Vue.component('icon-plus', IconPlus);
 
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);

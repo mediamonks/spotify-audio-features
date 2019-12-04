@@ -1,0 +1,7 @@
+.icon-close {
+  @extend %icon-plus;
+  @extend %icon-plus-added;
+  position: absolute;
+  top: $gutter-mini * 2;
+  right: $gutter-mini * 2;
+}

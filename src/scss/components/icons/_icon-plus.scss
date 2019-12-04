@@ -1,0 +1,74 @@
+%icon-plus {
+  --icon-plus-thickness: 2px;
+  --icon-plus-size: #{$fs-normal};
+  --icon-plus-padding: 0px;
+  flex: 0 0 auto;
+  display: inline-block;
+  width: calc(var(--icon-plus-size) + var(--icon-plus-padding));
+  height: calc(var(--icon-plus-size) + var(--icon-plus-padding));
+  transform-origin: center center;
+  transition: transform $s-normal ease,
+              filter $s-normal ease;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    background-color: currentColor;
+  }
+
+  // Horizontal
+  &::before {
+    width: calc(100% - var(--icon-plus-padding) * 2);
+    height: var(--icon-plus-thickness);
+    top: calc(50% - var(--icon-plus-thickness) / 2);
+    left: var(--icon-plus-padding);
+    right: var(--icon-plus-padding);
+  }
+
+  // Vertical
+  &::after {
+    width: var(--icon-plus-thickness);
+    height: calc(100% - var(--icon-plus-padding) * 2);
+    left: calc(50% - var(--icon-plus-thickness) / 2);
+    top: var(--icon-plus-padding);
+    bottom: var(--icon-plus-padding);
+  }
+
+  &.clickable {
+    &::before,
+    &::after {
+      transition: background-color $s-normal ease;
+    }
+
+    &:hover {
+      @include glow;
+    }
+  }
+}
+
+%icon-plus-added {
+  transform: rotate(45deg) scale(1.1);
+
+  &::before,
+  &::after {
+    background-color: $green;
+  }
+}
+
+.icon-plus {
+  @extend %icon-plus;
+  position: relative;
+
+  &.added {
+    @extend %icon-plus-added;
+  }
+
+  &.in-body-text {
+    --icon-plus-size: 1em;
+    vertical-align: middle;
+    margin: 0 0.5ch;
+    top: -1px;
+  }
+}

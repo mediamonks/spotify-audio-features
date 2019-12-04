@@ -1,0 +1,14 @@
+%dot {
+  content: " • ";
+  white-space: pre;
+}
+
+%dot-no-space {
+  content: "•";
+}
+
+.icon-dot {
+  &::before {
+    @extend %dot;
+  }
+}

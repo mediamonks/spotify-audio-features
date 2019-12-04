@@ -54,6 +54,27 @@
       }
     }
 
+    ul {
+      li {
+        position: relative;
+        padding-left: $gutter-mini * 2;
+
+        &::before {
+          @extend %dot-no-space;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 1em;
+          transform: scale(0.75);
+          transform-origin: center center;
+        }
+
+        + li {
+          margin-top: 1em;
+        }
+      }
+    }
+
     .modal-buttons {
       display: flex;
       width: 100%;

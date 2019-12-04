@@ -1,0 +1,16 @@
+// Play button
+.icon-play,
+.icon-pause {
+  --icon-playpause-size: 1.15em;
+  position: relative;
+  display: inline-block;
+  width: var(--icon-playpause-size);
+  height: var(--icon-playpause-size);
+
+  &.in-body-text {
+    --icon-playpause-size: 1em;
+    vertical-align: middle;
+    margin: 0 0.5ch;
+    top: -1px;
+  }
+}

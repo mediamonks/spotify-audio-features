@@ -101,17 +101,17 @@
       }
     }
 
-    .plus {
+    .icon-plus {
       flex: 0 0 auto;
-      --plus-size: #{$fs-normal + 4px};
-      --plus-padding: 4px;
+      --icon-plus-size: #{$fs-normal + 4px};
+      --icon-plus-padding: 4px;
     }
 
-    .copy-link-icon {
+    .icon-copy-link {
       flex: 0 0 auto;
       margin-left: $gutter-mini;
-      --copy-link-icon-size: #{$fs-normal + 4px};
-      --copy-link-icon-padding: 4px;
+      --icon-copy-link-size: #{$fs-normal + 4px};
+      --icon-copy-link-padding: 4px;
     }
 
     &.clickable {
@@ -121,16 +121,9 @@
       // Play button
       .icon-play,
       .icon-pause {
-        --icon-playpause-size: 1.15em;
         display: block;
         position: absolute;
         top: calc(50% - var(--icon-playpause-size) / 2);
-        width: var(--icon-playpause-size);
-        height: var(--icon-playpause-size);
-      }
-
-      .icon-play,
-      .icon-pause {
         opacity: 0;
         transition: opacity $s-normal ease;
       }
@@ -143,7 +136,7 @@
           opacity: 1;
         }
 
-        .plus.added {
+        .icon-plus.added {
           &::before,
           &::after {
             background-color: $white;

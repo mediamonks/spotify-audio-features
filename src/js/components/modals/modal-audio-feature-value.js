@@ -6,7 +6,7 @@ export const ModalAudioFeatureValue = {
     'meaning',
   ],
 
-  template:  `<div class="modal-audio-feature-value">
+  template:  `<div>
                 <p>This track has a value of <strong>{{ value }}</strong> on <strong>{{ audioFeature.name }}</strong>, which means:</p>
                 <blockquote><p>{{ meaning }}.</p></blockquote>
 
@@ -19,7 +19,7 @@ export const ModalAudioFeatureValue = {
                   <button @click="$emit('close')">{{ buttonText }}</button>
                 </div>
 
-                <close-icon @close="$emit('close')"/>
+                <icon-close @close="$emit('close')"/>
               </div>`,
 
   data () {

@@ -11,7 +11,7 @@ export const TopbarCollection = {
                 >Collection {{ collectionTotalCountText }}</button>
 
                 <div class="collection-contents" :class="{ 'visible': collectionOpen }">
-                  <close-icon title="Close collection" @close="$store.commit('toggleCollectionOpen')"/>
+                  <icon-close title="Close collection" @close="$store.commit('toggleCollectionOpen')"/>
 
                   <div class="collection-contents-inner">
                     <section class="left">
@@ -32,16 +32,16 @@ export const TopbarCollection = {
                       <h3>Artists ({{ collectionArtists.length }})</h3>
                       <ul class="collection-artists">
                         <li v-if="collectionArtists.length === 0">
-                          <!-- <div>To add artists for a music search, click the <span class="plus in-body-text"></span> signs</div> -->
+                          <!-- <div>To add artists for a music search, click the <icon-plus :clickable="false" class="in-body-text"/> signs</div> -->
                           <div class="warning">Sorry, adding artists is not supported yet!</div>
                         </li>
-                        <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" title="Remove from collection" @click="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
+                        <li v-for="item of collectionArtists">{{ item.id }} <icon-plus :added="true" class="in-body-text" title="Remove from collection" @clicked="$store.commit('removeFromCollection', { id: item.id, type: item.type })"/></li>
                       </ul>
 
                       <h3>Tracks ({{ collectionTracks.length }})</h3>
                       <ul class="collection-tracks">
                         <li v-if="collectionTracks.length === 0">
-                          <div>To add tracks for a music search, click the <span class="plus in-body-text"></span> signs</div>
+                          <div>To add tracks for a music search, click the <icon-plus :clickable="false" class="in-body-text"/> signs</div>
                         </li>
 
                         <spotify-track

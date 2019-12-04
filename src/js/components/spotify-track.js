@@ -165,15 +165,6 @@ export const SpotifyTrack = {
         this.$refs.player.currentTime = 0;
       }
     },
-
-    // isFetched () {
-    //   // Set audio volume
-    //   const targetLoudness = -20;
-    //   if (justLoadedTrack.audioFeatures.loudness > targetLoudness) {
-    //     this.$refs.player.volume = 0.1;
-    //   }
-    //   console.log(this.hasAudioPreview)
-    // }
   },
 
   methods: {

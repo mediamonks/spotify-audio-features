@@ -19,6 +19,7 @@ import { TopbarCollection } from './components/topbar/topbar-collection.js';
 import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
 import { CopyLinkIcon } from './components/copy-link-icon.js';
+import { CloseIcon } from './components/close-icon.js';
 import { HelpSectionButton } from './components/help-section-button.js';
 import { SpotifyTrack } from './components/spotify-track.js';
 
@@ -48,6 +49,7 @@ Vue.component('topbar-collection', TopbarCollection);
 Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
 Vue.component('copy-link-icon', CopyLinkIcon);
+Vue.component('close-icon', CloseIcon);
 Vue.component('help-section-button', HelpSectionButton);
 Vue.component('spotify-track', SpotifyTrack);
 

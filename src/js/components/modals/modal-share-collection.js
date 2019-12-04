@@ -34,10 +34,12 @@ export const ModalShareCollection = {
                 <div class="modal-buttons">
                   <button class="secondary" @click="$emit('close')">{{ buttonText }}</button>
                 </div>
+
+                <close-icon @close="$emit('close')"/>
               </div>`,
 
   data () {
-    const buttonTexts =  ['Never mind', 'No thanks'];
+    const buttonTexts =  ['Never mind', 'No thanks', 'I changed my mind'];
 
     return {
       buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],

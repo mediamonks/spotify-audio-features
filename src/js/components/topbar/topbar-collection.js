@@ -11,6 +11,8 @@ export const TopbarCollection = {
                 >Collection {{ collectionTotalCountText }}</button>
 
                 <div class="collection-contents" :class="{ 'visible': collectionOpen }">
+                  <close-icon title="Close collection" @close="$store.commit('toggleCollectionOpen')"/>
+
                   <div class="collection-contents-inner">
                     <section class="left">
                       <p>Spotify lets you find recommendations based on artists, tracks and genres you like. You can choose any combination of input, but with a maximum of 5 items.</p>
@@ -33,7 +35,7 @@ export const TopbarCollection = {
                           <!-- <div>To add artists for a music search, click the <span class="plus in-body-text"></span> signs</div> -->
                           <div class="warning">Sorry, adding artists is not supported yet!</div>
                         </li>
-                        <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" href="#" title="Remove from collection" @click.prevent="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
+                        <li v-for="item of collectionArtists">{{ item.id }} <span class="plus clickable added" title="Remove from collection" @click="$store.commit('removeFromCollection', { id: item.id, type: item.type })"></span></li>
                       </ul>
 
                       <h3>Tracks ({{ collectionTracks.length }})</h3>
@@ -76,7 +78,7 @@ export const TopbarCollection = {
                         </div>
                       </div>
 
-                      <div class="search-button-wrapper">
+                      <div class="buttons-wrapper">
                         <button class="small secondary" @click="$store.commit('clearCollection')">Clear</button>
                         <button class="small secondary" @click="openShareModal">Share</button>
                         <button class="small" @click="startSearch" :disabled="collectionMaxItemsExceeded">Search</button>

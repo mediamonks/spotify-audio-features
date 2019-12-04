@@ -63,3 +63,13 @@
     top: -1px;
   }
 }
+
+.close-icon {
+  @extend .plus;
+  @extend .plus.added;
+  @extend .plus.clickable;
+  @extend .clickable;
+  position: absolute;
+  top: $gutter-mini * 2;
+  right: $gutter-mini * 2;
+}

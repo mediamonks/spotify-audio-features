@@ -1,4 +1,5 @@
 // TODO: Make sure you can (share a) link to a specific collection (including audio features). Then this homepage can become much cooler.
+// REVIEW: Instead of @click.prevent, just use the url? Or is that more prone to errors?
 export const ViewStart = {
 
   template:  `<div class="view-start">

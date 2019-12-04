@@ -10,7 +10,7 @@
   }
 
   .v--modal {
-    padding: $gutter*1.5 $gutter;
+    padding: $gutter*1.35 $gutter $gutter;
     max-width: calc(100vw - 2 * 75px) !important;
     left: 50% !important;
     transform: translateX(-50%);

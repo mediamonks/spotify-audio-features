@@ -42,10 +42,12 @@ export const ModalHelpSection = {
                 <div class="modal-buttons">
                   <button @click="$emit('close')">{{ buttonText }}</button>
                 </div>
+
+                <close-icon @close="$emit('close')"/>
               </div>`,
 
   data () {
-    const buttonTexts =  ['Ah I see', 'Ok thanks!', 'Gotcha.', 'Riiight, cool'];
+    const buttonTexts =  ['Ah I see', 'Ok thanks!', 'Gotcha.', 'Riiight, cool', 'Now I get it', 'Thanksss', 'Muchas gracias', 'Merci beaucoup'];
 
     return {
       buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],

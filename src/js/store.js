@@ -360,12 +360,35 @@ export const store = new Vuex.Store({
           // If Spotify API returned null, the object wasn't found and we shouldn't save it in our store
           if (trackData === null) continue;
 
-          fetchedContent.push({
+          const audioFeatures = audio_features.find(track => track.id === trackID);
+
+          const trackEntry = {
             id: trackID,
             type: 'track',
             trackData,
-            audioFeatures: audio_features.find(track => track.id === trackID),
-          });
+            audioFeatures,
+          };
+
+          // If track has audio preview
+          if (!!trackData.preview_url) {
+            // Prepare audio preview normalization
+            // We'll use a common streaming target loudness, assuming the value we get is actually loudness, not RMS or something else..
+            const targetLoudness = -14,
+                  trackLoudness = audioFeatures.loudness;
+
+            trackEntry.audioPreviewGain = 1;
+            if (trackLoudness > targetLoudness) {
+              // Simple conversion between gain in ratio and gain in dB:
+              // dB = 20 * log10(ratio)
+              // ratio = 10^(dB/20)
+              // To set gain from a value in dB you simply have to apply the conversion to ratio.
+              // dBgain = 20;
+              // gainNode.gain.value = 10^(dBgain/20);
+              trackEntry.audioPreviewGain = Math.pow(10, (targetLoudness - trackLoudness) / 20);
+            }
+          }
+
+          fetchedContent.push(trackEntry);
         }
       }
 

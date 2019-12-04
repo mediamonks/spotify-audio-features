@@ -108,9 +108,19 @@ export const SpotifyTrack = {
     },
 
     track () {
-      return this.$store.state.fetchedContent.find((content) => {
+      const track = this.$store.state.fetchedContent.find((content) => {
         return content.type === 'track' && content.id === this.trackID;
       });
+
+      // Normalize audio preview playback volume
+      if (track && ('audioPreviewGain' in track)) {
+        // Template needs to render first, then we can set the volume
+        this.$nextTick(() => {
+          this.$refs.player.volume = track.audioPreviewGain;
+        });
+      }
+
+      return track;
     },
 
     coverImage () {
@@ -155,6 +165,15 @@ export const SpotifyTrack = {
         this.$refs.player.currentTime = 0;
       }
     },
+
+    // isFetched () {
+    //   // Set audio volume
+    //   const targetLoudness = -20;
+    //   if (justLoadedTrack.audioFeatures.loudness > targetLoudness) {
+    //     this.$refs.player.volume = 0.1;
+    //   }
+    //   console.log(this.hasAudioPreview)
+    // }
   },
 
   methods: {

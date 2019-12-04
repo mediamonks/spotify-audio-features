@@ -1,5 +1,6 @@
-import { ModalShareCollection } from '../modals/modal-share-collection.js';
 import { mapState, mapGetters } from '/node_modules/vuex/dist/vuex.esm.browser.js';
+import { ModalShareCollection } from '../modals/modal-share-collection.js';
+import { ModalAudioFeatureTypeExplanation } from '../modals/modal-audio-feature-type-explanation.js';
 
 export const TopbarCollection = {
 
@@ -59,7 +60,7 @@ export const TopbarCollection = {
                       <h3>Refine by audio features</h3>
                       <div class="audio-feature-ranges-wrapper" :style="{ '--vrs-dot-size': vrsDotSize + 'px' }">
                         <div v-for="audioFeature of $store.state.audioFeatures" class="audio-feature-range">
-                          <p class="audio-feature-type">{{ audioFeature.name }}</p>
+                          <p class="audio-feature-type clickable" title="Show explanation" @click="showAudioFeatureTypeExplanation(audioFeature)">{{ audioFeature.name }}</p>
                           <vue-range-slider
                             :key="audioFeature.id"
                             :step="1"
@@ -172,6 +173,15 @@ export const TopbarCollection = {
       // Not using await here, that would feel unresponsive
       this.$store.dispatch('getRecommendations');
       this.$store.commit('setCollectionOpen', false);
+    },
+
+    showAudioFeatureTypeExplanation (audioFeature) {
+      this.$modal.show(ModalAudioFeatureTypeExplanation, { audioFeature }, {
+        name: 'audio-feature-type-explanation',
+        scrollable: true,
+        width: 600,
+        height: 'auto',
+      });
     },
 
     openShareModal () {

@@ -1,3 +1,5 @@
+import { buttonTextsUnderstanding, getRandomButtonText } from '../../helpers/button-texts.js';
+
 export const ModalHelpSection = {
 
   name: 'ModalHelpSection',
@@ -12,17 +14,18 @@ export const ModalHelpSection = {
                 <details>
                   <summary>The different kinds of Audio Features explained</summary>
                   <h2>The different kinds of Audio Features explained</h2>
-                  <template v-for="audioFeature of $store.state.audioFeatures">
-                    <h3>{{ audioFeature.name }}</h3>
-                    <p>{{ audioFeature.description }}</p>
-                  </template>
+                  <audio-features-type-explanation
+                    v-for="audioFeature of $store.state.audioFeatures"
+                    :key="audioFeature.id"
+                    :audioFeature="audioFeature"
+                  />
                 </details>
 
                 <details>
                   <summary>Workflow tips</summary>
                   <h2>Workflow tips</h2>
                   <ul>
-                    <li>Not satisfied with search results? Smash that search button again! If Spotify finds enough hits, it will return a random selection every time.</li>
+                    <li>Not satisfied with search results? Smash that search button again! When Spotify finds enough recommendations, it will return a random selection every time.</li>
                     <li>Save your search by clicking the <strong>Share</strong> button in the <strong>Collection</strong> panel. This opens a modal where you can copy a link that opens this tool with a pre-filled Collection. Note this will save the search itself, not the actual results (see point above).</li>
                     <li>Sort by audio feature by clicking the table headers. Click again to flip the sort order and click once more to revert to the original sort order.</li>
                     <li>Use the <icon-copy-link class="in-body-text"/> icons to copy links to Spotify content. You can paste these links into the Spotify application search bar to open them.</li>
@@ -51,10 +54,8 @@ export const ModalHelpSection = {
               </div>`,
 
   data () {
-    const buttonTexts =  ['Ah I see', 'Ok thanks!', 'Gotcha.', 'Riiight, cool', 'Now I get it', 'Thanksss', 'Muchas gracias', 'Merci beaucoup'];
-
     return {
-      buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],
+      buttonText: getRandomButtonText(buttonTextsUnderstanding),
     };
   },
 

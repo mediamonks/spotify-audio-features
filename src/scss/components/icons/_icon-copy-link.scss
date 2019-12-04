@@ -1,7 +1,6 @@
 .icon-copy-link {
   --icon-copy-link-size: #{$fs-normal};
   --icon-copy-link-padding: 0px;
-  flex: 0 0 auto; // REVIEW: why here? should be on element containing this
   display: inline-block;
   min-width: calc(var(--icon-copy-link-size) + var(--icon-copy-link-padding));
   height: calc(var(--icon-copy-link-size) + var(--icon-copy-link-padding));

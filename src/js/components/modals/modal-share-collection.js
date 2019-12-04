@@ -1,3 +1,5 @@
+import { getRandomButtonText, buttonTextsCancel } from '../../helpers/button-texts.js';
+
 export const ModalShareCollection = {
 
   name: 'ModalShareCollection',
@@ -39,10 +41,8 @@ export const ModalShareCollection = {
               </div>`,
 
   data () {
-    const buttonTexts =  ['Never mind', 'No thanks', 'I changed my mind'];
-
     return {
-      buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],
+      buttonText: getRandomButtonText(buttonTextsCancel),
     };
   },
 

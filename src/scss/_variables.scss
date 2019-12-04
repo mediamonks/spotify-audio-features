@@ -43,8 +43,7 @@ $button-padding-y: 14px;
 $button-padding-x: 44px;
 
 $topbar-padding-y: 15px;
-// $topbar-height: $topbar-padding-y + $button-padding-y + $fs-small + $button-padding-y + $topbar-padding-y; // logic for old layout
-$topbar-height: 93px; // TODO: HARDCODED FOR NOW, CALCULATE SOMEHOW OR SET CSS VAR WITH JS
+$topbar-height: 93px; // TODO: HARDCODED FOR NOW, SET CSS VAR WITH JS INSTEAD
 
 // SPEEDS
 $s-normal: 0.3s;

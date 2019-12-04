@@ -180,8 +180,16 @@ button {
   }
 }
 
-a {
+a, .link {
   color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: text-decoration-color $s-normal ease-out;
+
+  &:hover,
+  &:focus {
+    text-decoration-color: $green;
+  }
 }
 
 input[type="search"],
@@ -224,7 +232,7 @@ small {
 }
 
 blockquote {
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: "\201C""\201D";
   margin: 2em 0;
   padding: 0;
 

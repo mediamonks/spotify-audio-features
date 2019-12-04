@@ -7,6 +7,7 @@ export const audioFeatures = [
   // {
   //   id: 'tempo',
   //   name: 'Tempo (BPM)',
+  //   originalName: 'Tempo (BPM)',
   //   type: 'float',
   //   minText: 'Slow',
   //   midText: 'Average speed',
@@ -18,6 +19,7 @@ export const audioFeatures = [
   // {
   //   id: 'loudness',
   //   name: 'Loudness (dB)',
+  //   originalName: 'Loudness (dB)',
   //   type: 'audio_level',
   //   minText: 'Dynamic',
   //   midText: 'Common loudness',
@@ -28,7 +30,8 @@ export const audioFeatures = [
   // },
   {
     id: 'valence',
-    name: 'Valence',
+    name: 'Positiveness',
+    originalName: 'Valence',
     type: 'percentage',
     minText: 'Sad/depressed/angry',
     midText: 'Neutral',
@@ -40,6 +43,7 @@ export const audioFeatures = [
   {
     id: 'energy',
     name: 'Energy',
+    originalName: 'Energy',
     type: 'percentage',
     minText: 'Slow/quiet/dynamic',
     midText: 'Around average',
@@ -51,6 +55,7 @@ export const audioFeatures = [
   {
     id: 'danceability',
     name: 'Danceability',
+    originalName: 'Danceability',
     type: 'percentage',
     minText: 'Not very danceable',
     midText: 'Somewhat danceable',
@@ -62,6 +67,7 @@ export const audioFeatures = [
   {
     id: 'instrumentalness',
     name: 'Instrumentalness',
+    originalName: 'Instrumentalness',
     type: 'percentage',
     minText: 'Contains vocal content',
     midText: 'Might contain vocal content',
@@ -73,6 +79,7 @@ export const audioFeatures = [
   {
     id: 'acousticness',
     name: 'Acousticness',
+    originalName: 'Acousticness',
     type: 'percentage',
     minText: 'Not acoustic',
     midText: 'Maybe acoustic',
@@ -84,6 +91,7 @@ export const audioFeatures = [
   {
     id: 'speechiness',
     name: 'Speechiness',
+    originalName: 'Speechiness',
     type: 'percentage',
     minText: 'Music or other non-speech-like content',
     midText: 'Contains both music and speech',
@@ -95,6 +103,7 @@ export const audioFeatures = [
   {
     id: 'liveness',
     name: 'Liveness',
+    originalName: 'Liveness',
     type: 'percentage',
     minText: 'Studio recording',
     midText: 'Might be a live recording',

@@ -31,6 +31,7 @@ import { IconPlus } from './components/icons/icon-plus.js';
 import { AudioFeaturesOverview } from './components/audio-features-overview.js';
 import { AudioFeaturesMetrics } from './components/audio-features-metrics.js';
 import { AudioFeatureMetric } from './components/audio-feature-metric.js';
+import { AudioFeatureTypeExplanation } from './components/audio-feature-type-explanation.js';
 
 Vue.prototype.$listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
 
@@ -66,6 +67,7 @@ Vue.component('icon-plus', IconPlus);
 Vue.component('audio-features-metrics', AudioFeaturesMetrics);
 Vue.component('audio-feature-metric', AudioFeatureMetric);
 Vue.component('audio-features-overview', AudioFeaturesOverview);
+Vue.component('audio-features-type-explanation', AudioFeatureTypeExplanation);
 
 new Vue({
 

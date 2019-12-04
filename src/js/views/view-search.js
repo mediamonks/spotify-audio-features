@@ -1,4 +1,3 @@
-// TODO: Temporary markup, rewrite!
 export const ViewSearch = {
 
   template:  `<div class="view-search">
@@ -7,7 +6,7 @@ export const ViewSearch = {
 
                   <section class="right">
                     <h1 class="title">Search results</h1>
-                    <p class="subtitle" v-if="!trackIDs.length">Darn it, no results! Need <a href="#" @click.prevent="$store.dispatch('enterUrl', 'https://open.spotify.com/playlist/7wJs9bUc1AzRE8sO5AzVF4?si=GDah1EHHS8uzmVMWoYtA6Q');">some songs</a> to process your grief?</p>
+                    <p class="subtitle" v-if="!trackIDs.length">Darn it, no results! <span class="link" @click="$store.dispatch('enterUrl', 'https://open.spotify.com/playlist/7wJs9bUc1AzRE8sO5AzVF4?si=GDah1EHHS8uzmVMWoYtA6Q');">This</span> could help to process your disappointment.</p>
                   </section>
                 </div>
 

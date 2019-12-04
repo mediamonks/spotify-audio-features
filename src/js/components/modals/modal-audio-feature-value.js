@@ -1,3 +1,5 @@
+import { buttonTextsSurprised, getRandomButtonText } from '../../helpers/button-texts.js';
+
 export const ModalAudioFeatureValue = {
 
   props: [
@@ -10,9 +12,11 @@ export const ModalAudioFeatureValue = {
                 <p>This track has a value of <strong>{{ value }}</strong> on <strong>{{ audioFeature.name }}</strong>, which means:</p>
                 <blockquote><p>{{ meaning }}.</p></blockquote>
 
+                <hr/>
+
                 <details>
                   <summary>What is “{{ audioFeature.name }}”?</summary>
-                  <p>{{ audioFeature.description }}</p>
+                  <audio-features-type-explanation :audioFeature="audioFeature"/>
                 </details>
 
                 <div class="modal-buttons">
@@ -23,10 +27,8 @@ export const ModalAudioFeatureValue = {
               </div>`,
 
   data () {
-    const buttonTexts =  ['Oh sick', 'Cool', 'Nice', 'Awesome', 'Great, thanks', 'Amazing'];
-
     return {
-      buttonText: buttonTexts[Math.floor(Math.random() * buttonTexts.length)],
+      buttonText: getRandomButtonText(buttonTextsSurprised),
     };
   },
 

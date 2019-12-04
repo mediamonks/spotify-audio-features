@@ -29,7 +29,7 @@ export const ModalShareCollection = {
                       :link="shareLink"
                       :animated="false"
                       @copied="$emit('close')"
-                    />Copy share link</span>
+                    />Copy</span>
                   </button>
                 </div>
 

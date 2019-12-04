@@ -7,8 +7,9 @@
     flex-wrap: wrap;
 
     button {
-      padding-left: $gutter-small;
+      padding-left: $gutter-small - 5px;
       padding-right: $gutter-small;
+      min-width: auto;
     }
   }
 }

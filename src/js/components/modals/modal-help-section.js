@@ -36,7 +36,7 @@ export const ModalHelpSection = {
                 <details>
                   <summary>Requesting a feature</summary>
                   <h2>Requesting a feature</h2>
-                  <p>To submit feature requests, please submit an issue on <a href="https://github.com/Anoesj/spotify-audio-features/issues">this tool's GitHub repository</a></p>
+                  <p>To submit feature requests, please submit an issue on <a href="https://github.com/mediamonks/spotify-audio-features/issues">this tool's GitHub repository</a></p>
                 </details>
 
                 <hr/>

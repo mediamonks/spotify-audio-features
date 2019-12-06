@@ -20,6 +20,7 @@ import { TestLinks } from './components/test-links.js';
 import { LoadingSpinner } from './components/loading-spinner.js';
 import { HelpSectionButton } from './components/help-section-button.js';
 import { SpotifyTrack } from './components/spotify-track.js';
+import { MMLogo } from './components/mm-logo.js';
 
 import { IconCopyLink } from './components/icons/icon-copy-link.js';
 import { IconClose } from './components/icons/icon-close.js';
@@ -56,6 +57,7 @@ Vue.component('test-links', TestLinks);
 Vue.component('loading-spinner', LoadingSpinner);
 Vue.component('help-section-button', HelpSectionButton);
 Vue.component('spotify-track', SpotifyTrack);
+Vue.component('mm-logo', MMLogo);
 
 Vue.component('icon-copy-link', IconCopyLink);
 Vue.component('icon-close', IconClose);
@@ -84,10 +86,10 @@ new Vue({
                   'drag-over': draggingOver,
                 }"
               >
-                <div class="topbar">
+                <header class="topbar">
                   <topbar-search/>
                   <topbar-collection/>
-                </div>
+                </header>
 
                 <test-links v-if="debug === true"/>
 
@@ -102,6 +104,10 @@ new Vue({
                     v-bind="currentViewData"
                   />
                 </main>
+
+                <footer class="branding">
+                  <mm-logo/>
+                </footer>
 
                 <help-section-button/>
                 <modals-container/>

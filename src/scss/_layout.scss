@@ -73,3 +73,16 @@
   margin-top: auto;
   margin-bottom: 40px;
 }
+
+// TODO: FINISH
+.branding {
+  height: $gutter;
+
+  svg {
+    height: 100%;
+
+    * {
+      fill: $grey-middle;
+    }
+  }
+}

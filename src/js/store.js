@@ -519,6 +519,7 @@ export const store = new Vuex.Store({
       }
     },
 
+    // TODO: INSTALL VUE-ROUTER AND REWRITE THIS WITH VUE-ROUTER IN MIND
     async setup ({ state, commit, dispatch }) {
       // bool that indicates if this page is visited just after granting access on Spotify or if this is a 'normal' visit
       let postAuthSituation;
